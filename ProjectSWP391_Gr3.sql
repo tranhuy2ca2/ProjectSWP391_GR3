@@ -1,4 +1,6 @@
-﻿USE [SWP391_G3_Project]
+create database SWP391_G3_Project
+
+USE [SWP391_G3_Project]
 GO
 /****** Object:  Table [dbo].[AuctionLogs]    Script Date: 9/16/2024 4:08:07 PM ******/
 SET ANSI_NULLS ON
@@ -128,14 +130,14 @@ SET QUOTED_IDENTIFIER ON
 GO
 CREATE TABLE [dbo].[Users](
 	[UserID] [int] IDENTITY(1,1) NOT NULL,
-	[UserName] [nvarchar](100) NOT NULL,
-	[Password] [nvarchar](255) NOT NULL,
-	[FullName] [nvarchar](100) NOT NULL,
+	[userName] [nvarchar](100) NOT NULL,
+	[password] [nvarchar](255) NOT NULL,
+	[fullName] [nvarchar](100) NOT NULL,
 	[Email] [nvarchar](100) NOT NULL,
-	[Phone] [nvarchar](15) NOT NULL,
-	[Role] [nvarchar](20) NOT NULL,
-	[Address] [nvarchar](255) NULL,
-	[CreatedAt] [datetime] NULL,
+	[phone] [nvarchar](15) NOT NULL,
+	[role] [nvarchar](20) NOT NULL,
+	[address] [nvarchar](255) NULL,
+	[createdAt] [datetime] NULL,
 	GoogleStatus [nvarchar](255) NULL,
     passwordStatus [nvarchar](255) NULL,
     banStatus [nvarchar](255) NULL,
@@ -206,6 +208,6 @@ GO
 ALTER TABLE [dbo].[Payments]  WITH CHECK ADD CHECK  (([Status]='Failed' OR [Status]='Completed' OR [Status]='Pending'))
 GO
 INSERT INTO [SWP391_G3_Project].[dbo].[Users] 
-([UserName], [Password], [FullName], [Email], [Phone], [Role], [Address], [CreatedAt])
+([userName], [password], [fullName], [Email], [phone], [role], [address], [createdAt])
 VALUES 
 ('admin', '123', 'sekai', 'kutosiu@gmail.com', '0123456789', '1', 'Ha Noi', '2024-09-27');
