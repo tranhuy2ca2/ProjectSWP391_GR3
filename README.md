@@ -1,2 +1,1 @@
-# ProjectSWP391_GR3
-Project Land Auction
+Project SWP391 - Land Auction - Gr3
