@@ -58,7 +58,7 @@
                             </c:if>
                             <c:if test="${sessionScope.user!=null}">
                                 <li><a href="logout">Log out</a></li>
-                                <li class="active"><a href="#">Hello ${user.fullName}</a></li>
+                                <li class="active"><a href="profile?uID=${sessionScope.user.userID}">Hello ${user.fullName}</a></li>
                             </c:if>    
                             <li class="has-children">
                                 <a href="properties.html">Properties</a>

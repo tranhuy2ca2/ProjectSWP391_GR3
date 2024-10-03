@@ -13,6 +13,7 @@ public class Customer {
     private String role;
     private String address;
     private Date createdAt;
+    private String rolename;
 
     public Customer() {
     }
@@ -27,6 +28,19 @@ public class Customer {
         this.role = role;
         this.address = address;
         this.createdAt = createdAt;
+    }
+
+    public Customer(int userID, String userName, String password, String fullName, String email, String phone, String role, String address, Date createdAt, String rolename) {
+        this.userID = userID;
+        this.userName = userName;
+        this.password = password;
+        this.fullName = fullName;
+        this.email = email;
+        this.phone = phone;
+        this.role = role;
+        this.address = address;
+        this.createdAt = createdAt;
+        this.rolename = rolename;
     }
 
     public int getUserID() {
@@ -101,10 +115,16 @@ public class Customer {
         this.createdAt = createdAt;
     }
 
-    @Override
-    public String toString() {
-        return "Customer{" + "userID=" + userID + ", userName=" + userName + ", password=" + password + ", fullName=" + fullName + ", "
-                + "email=" + email + ", phone=" + phone + ", role=" + role + ", address=" + address + ", createdAt=" + createdAt + '}';
+    public String getRolename() {
+        return rolename;
     }
 
+    public void setRolename(String rolename) {
+        this.rolename = rolename;
+    }
+
+    @Override
+    public String toString() {
+        return "Customer{" + "userID=" + userID + ", userName=" + userName + ", password=" + password + ", fullName=" + fullName + ", email=" + email + ", phone=" + phone + ", role=" + role + ", address=" + address + ", createdAt=" + createdAt + ", rolename=" + rolename + '}';
+    }
 }
