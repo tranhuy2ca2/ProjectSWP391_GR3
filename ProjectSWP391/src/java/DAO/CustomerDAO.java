@@ -31,8 +31,12 @@ public class CustomerDAO {
             ps.setString(2, password);
             rs = ps.executeQuery();
             while (rs.next()) {
+<<<<<<< HEAD
                 cus = new Customer(
                         rs.getInt(1),
+=======
+                cus = new Customer(rs.getInt(1),
+>>>>>>> 20dfa6ac9f07448acbfe98973d4d95dbb24347d8
                         rs.getString(2),
                         rs.getString(3),
                         rs.getString(4),
@@ -51,6 +55,7 @@ public class CustomerDAO {
         user = null;
     }
     
+<<<<<<< HEAD
     public Customer getUserDetailByUserID(int id) {
         String query = """
                        select*from [Users] u join UserRoles ur
@@ -103,6 +108,8 @@ public class CustomerDAO {
         return true;
     }
     
+=======
+>>>>>>> 20dfa6ac9f07448acbfe98973d4d95dbb24347d8
     public static void main(String[] args) {
         CustomerDAO dao = new CustomerDAO();
         if(dao.login("admin","123") != null){

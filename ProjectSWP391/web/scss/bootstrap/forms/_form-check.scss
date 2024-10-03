@@ -1,3 +1,10 @@
+<<<<<<< HEAD
+=======
+//
+// Check/radio
+//
+
+>>>>>>> 20dfa6ac9f07448acbfe98973d4d95dbb24347d8
 .form-check {
   display: block;
   min-height: $form-check-min-height;
@@ -49,7 +56,11 @@
 
     &[type="checkbox"] {
       @if $enable-gradients {
+<<<<<<< HEAD
 /*        background-image: escape-svg($form-check-input-checked-bg-image), var(--#{$variable-prefix}gradient);*/
+=======
+        background-image: escape-svg($form-check-input-checked-bg-image), var(--#{$variable-prefix}gradient);
+>>>>>>> 20dfa6ac9f07448acbfe98973d4d95dbb24347d8
       } @else {
         background-image: escape-svg($form-check-input-checked-bg-image);
       }
@@ -57,7 +68,11 @@
 
     &[type="radio"] {
       @if $enable-gradients {
+<<<<<<< HEAD
 /*        background-image: escape-svg($form-check-radio-checked-bg-image), var(--#{$variable-prefix}gradient);*/
+=======
+        background-image: escape-svg($form-check-radio-checked-bg-image), var(--#{$variable-prefix}gradient);
+>>>>>>> 20dfa6ac9f07448acbfe98973d4d95dbb24347d8
       } @else {
         background-image: escape-svg($form-check-radio-checked-bg-image);
       }
@@ -69,7 +84,11 @@
     border-color: $form-check-input-indeterminate-border-color;
 
     @if $enable-gradients {
+<<<<<<< HEAD
 /*      background-image: escape-svg($form-check-input-indeterminate-bg-image), var(--#{$variable-prefix}gradient);*/
+=======
+      background-image: escape-svg($form-check-input-indeterminate-bg-image), var(--#{$variable-prefix}gradient);
+>>>>>>> 20dfa6ac9f07448acbfe98973d4d95dbb24347d8
     } @else {
       background-image: escape-svg($form-check-input-indeterminate-bg-image);
     }
@@ -119,7 +138,11 @@
       background-position: $form-switch-checked-bg-position;
 
       @if $enable-gradients {
+<<<<<<< HEAD
 /*        background-image: escape-svg($form-switch-checked-bg-image), var(--#{$variable-prefix}gradient);*/
+=======
+        background-image: escape-svg($form-switch-checked-bg-image), var(--#{$variable-prefix}gradient);
+>>>>>>> 20dfa6ac9f07448acbfe98973d4d95dbb24347d8
       } @else {
         background-image: escape-svg($form-switch-checked-bg-image);
       }

@@ -26,8 +26,12 @@ $include-column-box-sizing: true !default;
 @import "utilities";
 // Only use the utilities we need
 // stylelint-disable-next-line scss/dollar-variable-default
+<<<<<<< HEAD
 $utilities: 
 /*map-get-multiple(
+=======
+$utilities: map-get-multiple(
+>>>>>>> 20dfa6ac9f07448acbfe98973d4d95dbb24347d8
   $utilities,
   (
     "display",
@@ -62,7 +66,14 @@ $utilities:
     "padding-end",
     "padding-bottom",
     "padding-start",
+<<<<<<< HEAD
   )*/
 /*);*/
 
 /*@import "utilities/api";*/
+=======
+  )
+);
+
+@import "utilities/api";
+>>>>>>> 20dfa6ac9f07448acbfe98973d4d95dbb24347d8
