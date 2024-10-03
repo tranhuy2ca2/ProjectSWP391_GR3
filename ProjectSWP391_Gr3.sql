@@ -138,9 +138,7 @@ CREATE TABLE [dbo].[Users](
 	[role] [nvarchar](20) NOT NULL,
 	[address] [nvarchar](255) NULL,
 	[createdAt] [datetime] NULL,
-	GoogleStatus [nvarchar](255) NULL,
-    passwordStatus [nvarchar](255) NULL,
-    banStatus [nvarchar](255) NULL,
+	
 PRIMARY KEY CLUSTERED 
 (
 	[UserID] ASC
@@ -210,4 +208,4 @@ GO
 INSERT INTO [SWP391_G3_Project].[dbo].[Users] 
 ([userName], [password], [fullName], [Email], [phone], [role], [address], [createdAt])
 VALUES 
-('admin', '123', 'sekai', 'kutosiu@gmail.com', '0123456789', '1', 'Ha Noi', '2024-09-27');
+('admin', '123', 'sekai', 'kaka@gmail.com', '0123456789', '1', 'Ha Noi', '2024-09-27');
