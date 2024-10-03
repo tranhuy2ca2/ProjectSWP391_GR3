@@ -31,7 +31,12 @@ public class CustomerDAO {
             ps.setString(2, password);
             rs = ps.executeQuery();
             while (rs.next()) {
+<<<<<<< HEAD
+                cus = new Customer(
+                        rs.getInt(1),
+=======
                 cus = new Customer(rs.getInt(1),
+>>>>>>> 20dfa6ac9f07448acbfe98973d4d95dbb24347d8
                         rs.getString(2),
                         rs.getString(3),
                         rs.getString(4),
@@ -50,6 +55,61 @@ public class CustomerDAO {
         user = null;
     }
     
+<<<<<<< HEAD
+    public Customer getUserDetailByUserID(int id) {
+        String query = """
+                       select*from [Users] u join UserRoles ur
+                       on u.userID = ur.UserID
+                       join Roles r on ur.RoleID = r.RoleID
+                       where u.userID = ?""";
+        try {
+            ps = con.prepareStatement(query);
+            ps.setInt(1, id);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                return new Customer(
+                        rs.getInt(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getString(4),
+                        rs.getString(5),
+                        rs.getString(6),
+                        rs.getString(7),
+                        rs.getString(8),
+                        rs.getDate(9),
+                        rs.getString(13)
+                );
+            }
+        } catch (Exception e) {
+
+        }
+        return null;
+    }
+    
+    public boolean UpdateUser(int uID,String fullName, String email, String phone, String address) {
+        String query = """
+                       update [Users]
+                       set [fullName] = ?,
+                       [email] = ?
+                       ,[phone] = ?
+                       ,[address] = ?
+                       where userID = ?""";
+
+        try {
+            ps = con.prepareStatement(query);
+            ps.setString(1, fullName);
+            ps.setString(2, email);
+            ps.setString(3, phone);
+            ps.setString(4, address);
+            ps.setInt(5, uID);
+            ps.executeUpdate();
+        } catch (Exception e) {
+        }
+        return true;
+    }
+    
+=======
+>>>>>>> 20dfa6ac9f07448acbfe98973d4d95dbb24347d8
     public static void main(String[] args) {
         CustomerDAO dao = new CustomerDAO();
         if(dao.login("admin","123") != null){

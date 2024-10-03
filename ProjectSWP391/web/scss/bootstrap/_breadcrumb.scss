@@ -18,7 +18,11 @@
       float: left; // Suppress inline spacings and underlining of the separator
       padding-right: $breadcrumb-item-padding-x;
       color: $breadcrumb-divider-color;
+<<<<<<< HEAD
+      /*content: var(--#{$variable-prefix}breadcrumb-divider, escape-svg($breadcrumb-divider)) #{" rtl:"} var(--#{$variable-prefix}breadcrumb-divider, escape-svg($breadcrumb-divider-flipped)) #{""};*/
+=======
       content: var(--#{$variable-prefix}breadcrumb-divider, escape-svg($breadcrumb-divider)) #{"/* rtl:"} var(--#{$variable-prefix}breadcrumb-divider, escape-svg($breadcrumb-divider-flipped)) #{"*/"};
+>>>>>>> 20dfa6ac9f07448acbfe98973d4d95dbb24347d8
     }
   }
 
