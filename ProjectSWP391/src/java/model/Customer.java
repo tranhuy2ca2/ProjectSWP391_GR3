@@ -30,6 +30,7 @@ public class Customer {
         this.createdAt = createdAt;
     }
 
+
     public Customer(int userID, String userName, String password, String fullName, String email, String phone, String role, String address, Date createdAt, String rolename) {
         this.userID = userID;
         this.userName = userName;
@@ -42,6 +43,7 @@ public class Customer {
         this.createdAt = createdAt;
         this.rolename = rolename;
     }
+
 
     public int getUserID() {
         return userID;
@@ -128,5 +130,4 @@ public class Customer {
         return "Customer{" + "userID=" + userID + ", userName=" + userName + ", password=" + password + ", fullName=" + fullName + ", "
                 + "email=" + email + ", phone=" + phone + ", role=" + role + ", address=" + address + ", createdAt=" + createdAt + '}';
     }
-
 }

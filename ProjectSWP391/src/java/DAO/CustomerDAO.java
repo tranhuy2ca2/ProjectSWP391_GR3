@@ -147,7 +147,7 @@ public class CustomerDAO {
         }
         return true;
     }
-    
+
     public static void main(String[] args) {
         CustomerDAO dao = new CustomerDAO();
         if(dao.login("admin","123") != null){
