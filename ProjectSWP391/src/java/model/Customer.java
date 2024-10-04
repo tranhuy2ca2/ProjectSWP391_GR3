@@ -13,10 +13,7 @@ public class Customer {
     private String role;
     private String address;
     private Date createdAt;
-<<<<<<< HEAD
     private String rolename;
-=======
->>>>>>> 20dfa6ac9f07448acbfe98973d4d95dbb24347d8
 
     public Customer() {
     }
@@ -33,7 +30,7 @@ public class Customer {
         this.createdAt = createdAt;
     }
 
-<<<<<<< HEAD
+
     public Customer(int userID, String userName, String password, String fullName, String email, String phone, String role, String address, Date createdAt, String rolename) {
         this.userID = userID;
         this.userName = userName;
@@ -47,8 +44,7 @@ public class Customer {
         this.rolename = rolename;
     }
 
-=======
->>>>>>> 20dfa6ac9f07448acbfe98973d4d95dbb24347d8
+
     public int getUserID() {
         return userID;
     }
@@ -121,7 +117,6 @@ public class Customer {
         this.createdAt = createdAt;
     }
 
-<<<<<<< HEAD
     public String getRolename() {
         return rolename;
     }
@@ -132,14 +127,7 @@ public class Customer {
 
     @Override
     public String toString() {
-        return "Customer{" + "userID=" + userID + ", userName=" + userName + ", password=" + password + ", fullName=" + fullName + ", email=" + email + ", phone=" + phone + ", role=" + role + ", address=" + address + ", createdAt=" + createdAt + ", rolename=" + rolename + '}';
-    }
-=======
-    @Override
-    public String toString() {
         return "Customer{" + "userID=" + userID + ", userName=" + userName + ", password=" + password + ", fullName=" + fullName + ", "
                 + "email=" + email + ", phone=" + phone + ", role=" + role + ", address=" + address + ", createdAt=" + createdAt + '}';
     }
-
->>>>>>> 20dfa6ac9f07448acbfe98973d4d95dbb24347d8
 }

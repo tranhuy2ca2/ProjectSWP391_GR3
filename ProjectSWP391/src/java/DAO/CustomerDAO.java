@@ -31,12 +31,7 @@ public class CustomerDAO {
             ps.setString(2, password);
             rs = ps.executeQuery();
             while (rs.next()) {
-<<<<<<< HEAD
-                cus = new Customer(
-                        rs.getInt(1),
-=======
                 cus = new Customer(rs.getInt(1),
->>>>>>> 20dfa6ac9f07448acbfe98973d4d95dbb24347d8
                         rs.getString(2),
                         rs.getString(3),
                         rs.getString(4),
@@ -54,8 +49,7 @@ public class CustomerDAO {
     public void logout() {
         user = null;
     }
-    
-<<<<<<< HEAD
+
     public Customer getUserDetailByUserID(int id) {
         String query = """
                        select*from [Users] u join UserRoles ur
@@ -65,6 +59,36 @@ public class CustomerDAO {
         try {
             ps = con.prepareStatement(query);
             ps.setInt(1, id);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                return new Customer(
+                        rs.getInt(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getString(4),
+                        rs.getString(5),
+                        rs.getString(6),
+                        rs.getString(7),
+                        rs.getString(8),
+                        rs.getDate(9),
+                        rs.getString(13)
+                );
+            }
+        } catch (Exception e) {
+
+        }
+        return null;
+    }
+    
+    public Customer getUserDetailByEmail(String email) {
+        String query = """
+                       select*from [Users] u join UserRoles ur
+                       on u.userID = ur.UserID
+                       join Roles r on ur.RoleID = r.RoleID
+                       where u.email = ?""";
+        try {
+            ps = con.prepareStatement(query);
+            ps.setString(1, email);
             rs = ps.executeQuery();
             while (rs.next()) {
                 return new Customer(
@@ -108,8 +132,22 @@ public class CustomerDAO {
         return true;
     }
     
-=======
->>>>>>> 20dfa6ac9f07448acbfe98973d4d95dbb24347d8
+    public boolean UpdatePassword(int uID,String password) {
+        String query = """
+                       update [Users]
+                       set [password] = ?
+                       where userID = ?""";
+
+        try {
+            ps = con.prepareStatement(query);
+            ps.setString(1, password);
+            ps.setInt(2, uID);
+            ps.executeUpdate();
+        } catch (Exception e) {
+        }
+        return true;
+    }
+
     public static void main(String[] args) {
         CustomerDAO dao = new CustomerDAO();
         if(dao.login("admin","123") != null){

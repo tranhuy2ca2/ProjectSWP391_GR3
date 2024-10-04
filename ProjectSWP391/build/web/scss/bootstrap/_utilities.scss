@@ -442,7 +442,11 @@ $utilities: map-merge(
     "font-family": (
       property: font-family,
       class: font,
+<<<<<<< HEAD
+      /*values: (monospace: var(--#{$variable-prefix}font-monospace))*/
+=======
       values: (monospace: var(--#{$variable-prefix}font-monospace))
+>>>>>>> 20dfa6ac9f07448acbfe98973d4d95dbb24347d8
     ),
     "font-size": (
       rfs: true,
@@ -567,7 +571,11 @@ $utilities: map-merge(
     "gradient": (
       property: background-image,
       class: bg,
+<<<<<<< HEAD
+      /*values: (gradient: var(--#{$variable-prefix}gradient))*/
+=======
       values: (gradient: var(--#{$variable-prefix}gradient))
+>>>>>>> 20dfa6ac9f07448acbfe98973d4d95dbb24347d8
     ),
     // scss-docs-start utils-interaction
     "user-select": (

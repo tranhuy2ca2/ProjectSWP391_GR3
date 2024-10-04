@@ -5,7 +5,11 @@
   background-color: $color;
 
   @if $enable-gradients {
+<<<<<<< HEAD
+/*    background-image: var(--#{$variable-prefix}gradient);*/
+=======
     background-image: var(--#{$variable-prefix}gradient);
+>>>>>>> 20dfa6ac9f07448acbfe98973d4d95dbb24347d8
   }
 }
 // scss-docs-end gradient-bg-mixin
