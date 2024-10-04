@@ -208,4 +208,4 @@ GO
 INSERT INTO [SWP391_G3_Project].[dbo].[Users] 
 ([userName], [password], [fullName], [Email], [phone], [role], [address], [createdAt])
 VALUES 
-('admin', '123', 'sekai', 'kaka@gmail.com', '0123456789', '1', 'Ha Noi', '2024-09-27');
+('admin', '123', 'sekai', 'kaka@gmail.com', '0123456789', 1, 'Ha Noi', '2024-09-27');
