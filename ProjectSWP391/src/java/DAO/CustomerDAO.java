@@ -80,6 +80,36 @@ public class CustomerDAO {
         return null;
     }
     
+    public Customer getUserDetailByEmail(String email) {
+        String query = """
+                       select*from [Users] u join UserRoles ur
+                       on u.userID = ur.UserID
+                       join Roles r on ur.RoleID = r.RoleID
+                       where u.email = ?""";
+        try {
+            ps = con.prepareStatement(query);
+            ps.setString(1, email);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                return new Customer(
+                        rs.getInt(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getString(4),
+                        rs.getString(5),
+                        rs.getString(6),
+                        rs.getString(7),
+                        rs.getString(8),
+                        rs.getDate(9),
+                        rs.getString(13)
+                );
+            }
+        } catch (Exception e) {
+
+        }
+        return null;
+    }
+    
     public boolean UpdateUser(int uID,String fullName, String email, String phone, String address) {
         String query = """
                        update [Users]
@@ -96,6 +126,22 @@ public class CustomerDAO {
             ps.setString(3, phone);
             ps.setString(4, address);
             ps.setInt(5, uID);
+            ps.executeUpdate();
+        } catch (Exception e) {
+        }
+        return true;
+    }
+    
+    public boolean UpdatePassword(int uID,String password) {
+        String query = """
+                       update [Users]
+                       set [password] = ?
+                       where userID = ?""";
+
+        try {
+            ps = con.prepareStatement(query);
+            ps.setString(1, password);
+            ps.setInt(2, uID);
             ps.executeUpdate();
         } catch (Exception e) {
         }
