@@ -42,6 +42,18 @@
                             <h2 class="text-center mb-4">Đăng nhập vào đấu giá</h2>
                             ${mess}
                             <p class="text-danger text-center" style="color: red">${mess}</p>
+                            <% 
+                                String signupSuccess = (String) session.getAttribute("signupSuccess");
+                                if (signupSuccess != null) {
+                            %>
+                            <div class="alert alert-success text-center">
+                                <%= signupSuccess %>
+                            </div>
+                            <%
+                                    // Remove the attribute after displaying the message
+                                    session.removeAttribute("signupSuccess");
+                                }
+                            %>
 
                             <!-- Sign-in Form -->
                             <form action="login" method="post">
