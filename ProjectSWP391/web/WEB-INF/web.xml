@@ -12,7 +12,6 @@
         <servlet-name>Logout</servlet-name>
         <servlet-class>Controller.Logout</servlet-class>
     </servlet>
-<<<<<<< HEAD
     <servlet>
         <servlet-name>Profile</servlet-name>
         <servlet-class>Controller.Profile</servlet-class>
@@ -21,8 +20,6 @@
         <servlet-name>UpdateProfile</servlet-name>
         <servlet-class>Controller.UpdateProfile</servlet-class>
     </servlet>
-=======
->>>>>>> 20dfa6ac9f07448acbfe98973d4d95dbb24347d8
     <servlet-mapping>
         <servlet-name>HomePage</servlet-name>
         <url-pattern>/homepage</url-pattern>
@@ -35,7 +32,6 @@
         <servlet-name>Logout</servlet-name>
         <url-pattern>/logout</url-pattern>
     </servlet-mapping>
-<<<<<<< HEAD
     <servlet-mapping>
         <servlet-name>Profile</servlet-name>
         <url-pattern>/profile</url-pattern>
@@ -44,6 +40,4 @@
         <servlet-name>UpdateProfile</servlet-name>
         <url-pattern>/updateprofile</url-pattern>
     </servlet-mapping>
-=======
->>>>>>> 20dfa6ac9f07448acbfe98973d4d95dbb24347d8
 </web-app>

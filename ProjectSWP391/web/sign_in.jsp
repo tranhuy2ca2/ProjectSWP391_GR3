@@ -34,22 +34,12 @@
                     <div class="card-body">
                         <!-- Logo and link to home -->
                         <div class="text-center mb-4">
-<<<<<<< HEAD
                             <img src="images/logo.png" alt="Logo" class="mb-3" style="width: 100px;">
-=======
-                                <img src="${pageContext.request.contextPath}/images/logo-daugia.png" alt="Logo" class="mb-3" style="width: 100px;">
->>>>>>> 20dfa6ac9f07448acbfe98973d4d95dbb24347d8
                         </div>
 
                         <!-- Sign In Title -->
                         <h2 class="text-center mb-4">Đăng nhập vào đấu giá</h2>
-<<<<<<< HEAD
                         <p class="text-danger text-center" style="color: red">${mess}</p>
-=======
-                        ${mess}
-                        <!-- Error Message -->
-                        <p class="text-danger text-center">${err}</p>
->>>>>>> 20dfa6ac9f07448acbfe98973d4d95dbb24347d8
 
                         <!-- Sign-in Form -->
                         <form action="login" method="post">
