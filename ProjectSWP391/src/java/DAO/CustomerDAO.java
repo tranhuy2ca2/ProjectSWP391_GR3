@@ -128,7 +128,45 @@ public class CustomerDAO {
         }
         return true;
     }
-    
+    public boolean signup(Customer customer) {
+String sql = "INSERT INTO [Users] ([userName], [password], [fullName], [Email], [phone], [role], [address], [createdAt]) "
+           + "VALUES (?, ?, ?, ?, ?, ?, ?, GETDATE())";
+try {
+    ps = con.prepareStatement(sql);
+    ps.setString(1, customer.getUserName());
+    ps.setString(2, customer.getPassword());
+    ps.setString(3, customer.getFullName());
+    ps.setString(4, customer.getEmail());
+    ps.setString(5, customer.getPhone());
+    ps.setString(6, customer.getRole());
+    ps.setString(7, customer.getAddress());
+
+    ps.executeUpdate();
+    return true;
+} catch (Exception e) {
+    e.printStackTrace();
+    System.out.println("Lỗi trong quá trình đăng ký: " + e.getMessage());
+}
+return false;
+
+}
+
+
+
+
+public boolean checkCustomerExist(String email) {
+    String sql = "SELECT * FROM [Users] WHERE [Email] = ?";
+    try {
+        ps = con.prepareStatement(sql);
+        ps.setString(1, email);
+        rs = ps.executeQuery();
+        return rs.next(); // returns true if a user exists with this email
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+    return false;
+}
+
     public boolean UpdatePassword(int uID,String password) {
         String query = """
                        update [Users]
