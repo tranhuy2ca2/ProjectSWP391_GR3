@@ -82,9 +82,7 @@ public class CustomerDAO {
     
     public Customer getUserDetailByEmail(String email) {
         String query = """
-                       select*from [Users] u join UserRoles ur
-                       on u.userID = ur.UserID
-                       join Roles r on ur.RoleID = r.RoleID
+                       select*from [Users] u 
                        where u.email = ?""";
         try {
             ps = con.prepareStatement(query);
@@ -100,8 +98,7 @@ public class CustomerDAO {
                         rs.getString(6),
                         rs.getString(7),
                         rs.getString(8),
-                        rs.getDate(9),
-                        rs.getString(13)
+                        rs.getDate(9)
                 );
             }
         } catch (Exception e) {

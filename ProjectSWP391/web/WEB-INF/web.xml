@@ -25,8 +25,13 @@
         <servlet-class>Controller.ResetPassword</servlet-class>
     </servlet>
     <servlet>
+<<<<<<< HEAD
+        <servlet-name>SearchController</servlet-name>
+        <servlet-class>Controller.SearchController</servlet-class>
+=======
         <servlet-name>Signup</servlet-name>
         <servlet-class>Controller.Signup</servlet-class>
+>>>>>>> f8763fcee9f55b6b8cb30214357acfdc52289fdf
     </servlet>
     <servlet-mapping>
         <servlet-name>HomePage</servlet-name>
@@ -53,7 +58,12 @@
         <url-pattern>/resetpassword</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+<<<<<<< HEAD
+        <servlet-name>SearchController</servlet-name>
+        <url-pattern>/search</url-pattern>
+=======
         <servlet-name>Signup</servlet-name>
         <url-pattern>/Signup</url-pattern>
+>>>>>>> f8763fcee9f55b6b8cb30214357acfdc52289fdf
     </servlet-mapping>
 </web-app>
