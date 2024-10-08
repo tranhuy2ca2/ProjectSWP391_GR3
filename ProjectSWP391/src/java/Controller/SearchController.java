@@ -5,21 +5,18 @@
 
 package Controller;
 
-import DAO.CustomerDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import model.Customer;
-import ultis.EmailService;
 
 /**
  *
  * @author Admin
  */
-public class ResetPassword extends HttpServlet {
+public class SearchController extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -32,7 +29,8 @@ public class ResetPassword extends HttpServlet {
     throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            request.getRequestDispatcher("ResetPassword.jsp").forward(request, response);
+            String search = request.getParameter("search");
+            
         }
     } 
 
@@ -60,19 +58,7 @@ public class ResetPassword extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        String email = request.getParameter("email");
-        CustomerDAO dao = new CustomerDAO();
-        Customer customer = dao.getUserDetailByEmail(email);
-        if(customer == null){
-            request.setAttribute("error", "Email không tồn tại");
-            doGet(request, response);
-        }
-        else {
-            String newpass = EmailService.getAlphaNumericString();
-            EmailService.sendEmail(email, "Đặt lại mật khẩu", "Mật khẩu mới là : " + newpass);
-            dao.UpdatePassword(customer.getUserID(), newpass);
-            response.sendRedirect("login");
-        }
+        processRequest(request, response);
     }
 
     /** 
