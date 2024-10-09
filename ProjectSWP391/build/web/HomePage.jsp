@@ -869,9 +869,7 @@
             </div>
         </div>
 
-<<<<<<< HEAD
         <jsp:include page="Footer.jsp"></jsp:include>
-=======
         <div class="site-footer">
             <div class="container">
                 <div class="row">
@@ -976,7 +974,6 @@
             </div>
             <!-- /.container -->
         </div>
->>>>>>> 20dfa6ac9f07448acbfe98973d4d95dbb24347d8
         <!-- /.site-footer -->
 
         <!-- Preloader -->

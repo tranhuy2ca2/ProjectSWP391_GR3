@@ -71,25 +71,34 @@ public class Login extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        //processRequest(request, response);
-        CustomerDAO cusdao = new CustomerDAO();
-        String username = request.getParameter("username");
-        String password = request.getParameter("password");
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
+        throws ServletException, IOException {
+    CustomerDAO cusdao = new CustomerDAO();
+    String username = request.getParameter("username");
+    String password = request.getParameter("password");
 
-        Customer u = cusdao.login(username, password);
-        if (u != null) {
-            HttpSession ses = request.getSession();
-            ses.setAttribute("user", u);
-            response.sendRedirect("homepage");
-        }
-        if (u == null) {
-            request.setAttribute("mess", "Sai tên đăng nhập hoặc mật khẩu");
-            request.getRequestDispatcher("sign_in.jsp").forward(request, response);
-        }
+    Customer u = cusdao.login(username, password);
 
+    if (u != null) {
+        HttpSession ses = request.getSession();
+        ses.setAttribute("user", u);
+        
+        // Check the user's role and redirect accordingly
+        String role = u.getRole(); // Assuming role is stored as a String in the Customer object
+        
+        if ("1".equals(role)) {
+            // Role 1 - Admin, redirect to admin homepage
+            response.sendRedirect("HomePageAdmin.jsp");
+        } else if ("2".equals(role)) {
+            // Role 2 - Customer, redirect to customer homepage
+            response.sendRedirect("HomePage.jsp");
+        }
+    } else {
+        // If login fails, show an error message
+        request.setAttribute("mess", "Sai tên đăng nhập hoặc mật khẩu");
+        request.getRequestDispatcher("sign_in.jsp").forward(request, response);
     }
+}
 
     /**
      * Returns a short description of the servlet.

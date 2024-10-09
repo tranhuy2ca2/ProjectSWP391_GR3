@@ -33,7 +33,7 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <jsp:include page="Header.jsp"></jsp:include>
+        <jsp:include page="HeaderAdmin.jsp"></jsp:include>
 
         <div class="hero">
             <div class="hero-slide">
