@@ -3,11 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/FER-block5/SWP391/main/ProjectSWP391_GR3-main/ProjectSWP391/src/java/Controller/Signup.java</file>
             <file>file:/D:/FER-block5/SWP391/main/ProjectSWP391_GR3-main/ProjectSWP391/web/list_user.jsp</file>
-            <file>file:/D:/FER-block5/SWP391/main/ProjectSWP391_GR3-main/ProjectSWP391/src/java/Controller/UserManagement.java</file>
-            <file>file:/D:/FER-block5/SWP391/main/ProjectSWP391_GR3-main/ProjectSWP391/src/java/model/Customer.java</file>
-            <file>file:/D:/FER-block5/SWP391/main/ProjectSWP391_GR3-main/ProjectSWP391/src/java/DAO/CustomerDAO.java</file>
+            <file>file:/D:/FER-block5/SWP391/main/ProjectSWP391_GR3-main/ProjectSWP391/web/SideBar.jsp</file>
+            <file>file:/D:/FER-block5/SWP391/main/ProjectSWP391_GR3-main/ProjectSWP391/web/HeaderAdmin.jsp</file>
+            <file>file:/D:/FER-block5/SWP391/main/ProjectSWP391_GR3-main/ProjectSWP391/web/Header.jsp</file>
+            <file>file:/D:/FER-block5/SWP391/main/ProjectSWP391_GR3-main/ProjectSWP391/web/HomePage.jsp</file>
         </group>
     </open-files>
 </project-private>

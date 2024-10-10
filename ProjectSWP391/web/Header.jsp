@@ -60,21 +60,92 @@
                                 <li><a href="logout">Log out</a></li>
                                 <li class="active"><a href="profile?uID=${sessionScope.user.userID}">Hello ${user.fullName}</a></li>
                             </c:if>    
-                            <li class="has-children">
-                                <a href="properties.html">Properties</a>
-                                <ul class="dropdown">
-                                    <li><a href="#">Buy Property</a></li>
-                                    <li><a href="#">Sell Property</a></li>
-                                    <li class="has-children">
-                                        <a href="#">Dropdown</a>
-                                        <ul class="dropdown">
-                                            <li><a href="#">Sub Menu One</a></li>
-                                            <li><a href="#">Sub Menu Two</a></li>
-                                            <li><a href="#">Sub Menu Three</a></li>
-                                        </ul>
-                                    </li>
-                                </ul>
-                            </li>
+                            <c:if test="${sessionScope.user.role == 1}">    
+                                <li class="has-children">
+                                    <a href="properties.html">Properties - Admin</a>
+                                    <ul class="dropdown">
+                                        <li><a href="#">Buy Property</a></li>
+                                        <li><a href="#">Sell Property</a></li>
+                                        <li class="has-children">
+                                            <a href="#">Dropdown</a>
+                                            <ul class="dropdown">
+                                                <li><a href="UserManagement">Quản lí người dùng</a></li>
+                                                <li><a href="#">Quản lí auction</a></li>
+                                                <li><a href="#">Sub Menu Three</a></li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </c:if>
+                            <c:if test="${sessionScope.user.role == 2}">    
+                                <li class="has-children">
+                                    <a href="properties.html">Properties - User</a>
+                                    <ul class="dropdown">
+                                        <li><a href="#">Buy Property</a></li>
+                                        <li><a href="#">Sell Property</a></li>
+                                        <li class="has-children">
+                                            <a href="#">Dropdown</a>
+                                            <ul class="dropdown">
+                                                <li><a href="#">Xem phien dau gia</a></li>
+                                                <li><a href="#">Sub Menu Two</a></li>
+                                                <li><a href="#">Sub Menu Three</a></li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </c:if>
+                              
+                                <c:if test="${sessionScope.user.role == 3}">    
+                                <li class="has-children">
+                                    <a href="properties.html">Properties - Staff</a>
+                                    <ul class="dropdown">
+                                        <li><a href="#">Buy Property</a></li>
+                                        <li><a href="#">Sell Property</a></li>
+                                        <li class="has-children">
+                                            <a href="#">Dropdown</a>
+                                            <ul class="dropdown">
+                                                <li><a href="#">Xem phien dau gia</a></li>
+                                                <li><a href="#">Sub Menu Two</a></li>
+                                                <li><a href="#">Sub Menu Three</a></li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </c:if>
+                                <c:if test="${sessionScope.user.role == 4}">    
+                                <li class="has-children">
+                                    <a href="properties.html">Properties - Auction</a>
+                                    <ul class="dropdown">
+                                        <li><a href="#">Buy Property</a></li>
+                                        <li><a href="#">Sell Property</a></li>
+                                        <li class="has-children">
+                                            <a href="#">Dropdown</a>
+                                            <ul class="dropdown">
+                                                <li><a href="#">Xem phien dau gia</a></li>
+                                                <li><a href="#">Sub Menu Two</a></li>
+                                                <li><a href="#">Sub Menu Three</a></li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </c:if>
+                                <c:if test="${sessionScope.user.role == 5}">    
+                                <li class="has-children">
+                                    <a href="properties.html">Properties - Guest</a>
+                                    <ul class="dropdown">
+                                        <li><a href="#">Buy Property</a></li>
+                                        <li><a href="#">Sell Property</a></li>
+                                        <li class="has-children">
+                                            <a href="#">Dropdown</a>
+                                            <ul class="dropdown">
+                                                <li><a href="#">Xem phien dau gia</a></li>
+                                                <li><a href="#">Sub Menu Two</a></li>
+                                                <li><a href="#">Sub Menu Three</a></li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </c:if>
                             <li><a href="services.html">Services</a></li>
                             <li><a href="about.html">About</a></li>
                             <li><a href="contact.html">Contact Us</a></li>

@@ -162,10 +162,12 @@
                             <div class="mb-3">
                                 <label for="role" class="form-label">Chức vụ</label>
                                 <select class="form-select" name="role" id="role" required>
-                                    <option value="1">Nhân viên</option>
-                                    <option value="2">Khách hàng</option>
-                                    <option value="3">Saler</option>
-                                    <option value="4">Nhà đấu giá</option>
+                                    <option value="1">admin</option>
+                                    <option value="2">user</option>
+                                    <option value="3">staff</option>
+                                    <option value="4">auction</option>
+                                    <option value="5">guest</option>
+
                                 </select>
                             </div>
                             <div class="mb-3">
@@ -218,10 +220,11 @@
                             <div class="mb-3">
                                 <label for="newRole" class="form-label">Chức vụ</label>
                                 <select class="form-select" name="role" id="newRole" required>
-                                    <option value="1">Nhân viên</option>
-                                    <option value="2">Khách hàng</option>
-                                    <option value="3">Saler</option>
-                                    <option value="4">Nhà đấu giá</option>
+                                    <option value="1">admin</option>
+                                    <option value="2">user</option>
+                                    <option value="3">staff</option>
+                                    <option value="4">auction</option>
+                                    <option value="5">guest</option>
                                 </select>
                             </div>
                             <div class="mb-3">
