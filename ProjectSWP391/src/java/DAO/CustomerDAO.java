@@ -166,7 +166,6 @@ public boolean deleteUser(int userID) {
                         rs.getDate(9));
             }
         } catch (Exception e) {
-            System.out.println(e);
         }
         return cus;
     }
@@ -200,16 +199,14 @@ public boolean deleteUser(int userID) {
                 );
             }
         } catch (Exception e) {
-            System.out.println(e);
+
         }
         return null;
     }
     
     public Customer getUserDetailByEmail(String email) {
         String query = """
-                       select*from [Users] u join UserRoles ur
-                       on u.userID = ur.UserID
-                       join Roles r on ur.RoleID = r.RoleID
+                       select*from [Users] u 
                        where u.email = ?""";
         try {
             ps = con.prepareStatement(query);
@@ -225,8 +222,7 @@ public boolean deleteUser(int userID) {
                         rs.getString(6),
                         rs.getString(7),
                         rs.getString(8),
-                        rs.getDate(9),
-                        rs.getString(13)
+                        rs.getDate(9)
                 );
             }
         } catch (Exception e) {
@@ -311,36 +307,13 @@ public boolean checkCustomerExist(String email) {
         return true;
     }
 
-//    public static void main(String[] args) {
-//        CustomerDAO dao = new CustomerDAO();
-//        if(dao.login("admin","123") != null){
-//           System.out.println("Success"); 
-//        }else{
-//            System.out.println("Fail"); 
-//        }
-//        
-//    }
-    
     public static void main(String[] args) {
-    CustomerDAO customerDAO = new CustomerDAO();
-    List<Customer> customers = customerDAO.getAllUsers();
-    
-    // Kiểm tra xem danh sách người dùng có được lấy ra không
-    if (customers.isEmpty()) {
-        System.out.println("Không có người dùng nào được tìm thấy.");
-    } else {
-        for (Customer customer : customers) {
-            System.out.println("UserID: " + customer.getUserID());
-            System.out.println("UserName: " + customer.getUserName());
-            System.out.println("FullName: " + customer.getFullName());
-            System.out.println("Email: " + customer.getEmail());
-            System.out.println("Phone: " + customer.getPhone());
-            System.out.println("Role: " + customer.getRole());
-            System.out.println("Address: " + customer.getAddress());
-            System.out.println("Created At: " + customer.getCreatedAt());
-            System.out.println("----------------------------");
+        CustomerDAO dao = new CustomerDAO();
+        if(dao.login("admin","123") != null){
+           System.out.println("Success"); 
+        }else{
+            System.out.println("Fail"); 
         }
+        
     }
-}
-
 }

@@ -39,7 +39,7 @@
 
     <body>
         <header class="header d-none d-lg-block">
-            <jsp:include page="HeaderAdmin.jsp"></jsp:include>
+            <jsp:include page="Header.jsp"></jsp:include>
             </header>
 
         <jsp:include page="SideBar.jsp"></jsp:include>

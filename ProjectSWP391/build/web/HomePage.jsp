@@ -58,12 +58,13 @@
                             Easiest way to find your dream home
                         </h1>
                         <form
-                            action="#"
+                            action="search"
                             class="narrow-w form-search d-flex align-items-stretch mb-3"
                             data-aos="fade-up"
                             data-aos-delay="200"
                             >
                             <input
+                                name="search" value="${requestScope.search}"
                                 type="text"
                                 class="form-control px-4"
                                 placeholder="Your ZIP code or City. e.g. New York"
@@ -869,7 +870,9 @@
             </div>
         </div>
 
+<<<<<<< HEAD
         <jsp:include page="Footer.jsp"></jsp:include>
+=======
         <div class="site-footer">
             <div class="container">
                 <div class="row">
@@ -974,6 +977,7 @@
             </div>
             <!-- /.container -->
         </div>
+>>>>>>> 20dfa6ac9f07448acbfe98973d4d95dbb24347d8
         <!-- /.site-footer -->
 
         <!-- Preloader -->

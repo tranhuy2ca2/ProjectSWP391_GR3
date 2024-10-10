@@ -98,9 +98,11 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response)
         err = "Email này đã tồn tại, vui lòng nhập lại email khác để đăng kí!";
     } else {
         // Mặc định role là 2 (khách hàng)
-       int role = 2; // Default role for customer
+        int role = 2;
 
-Customer newCustomer = new Customer(0, username, password, fullname, email, phone, String.valueOf(role), address, null, null);
+        // Thêm các giá trị mặc định cho các thuộc tính bổ sung
+       Customer newCustomer = new Customer(0, username, password, fullname, email, phone, "", address, null, String.valueOf(role));
+
 
         // Call the signup method in DAO to save the user
         boolean success = cud.signup(newCustomer);
