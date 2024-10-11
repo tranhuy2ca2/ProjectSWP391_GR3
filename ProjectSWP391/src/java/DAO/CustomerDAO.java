@@ -1,4 +1,5 @@
 package DAO;
+
 import DAL.DBContext;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -7,13 +8,13 @@ import java.util.List;
 import model.Customer;
 
 public class CustomerDAO {
-    
+
     private Connection con;
     PreparedStatement ps;
     ResultSet rs;
     private List<Customer> user;
     private String status = "ok";
-    
+
     public CustomerDAO() {
         try {
             con = new DBContext().getConnection();
@@ -21,8 +22,8 @@ public class CustomerDAO {
             status = "Error at connection" + e.getMessage();
         }
     }
-    
-    public Customer login(String username, String password){
+
+    public Customer login(String username, String password) {
         String sql = "select * from [Users] where [userName] = ? and [password] = ?;";
         Customer cus = null;
         try {
@@ -45,16 +46,15 @@ public class CustomerDAO {
         }
         return cus;
     }
-    
+
     public void logout() {
         user = null;
     }
 
     public Customer getUserDetailByUserID(int id) {
         String query = """
-                       select*from [Users] u join UserRoles ur
-                       on u.userID = ur.UserID
-                       join Roles r on ur.RoleID = r.RoleID
+                       select*from [Users] u join Roles ur
+                       on u.[role] = ur.RoleID
                        where u.userID = ?""";
         try {
             ps = con.prepareStatement(query);
@@ -71,7 +71,7 @@ public class CustomerDAO {
                         rs.getString(7),
                         rs.getString(8),
                         rs.getDate(9),
-                        rs.getString(13)
+                        rs.getString(11)
                 );
             }
         } catch (Exception e) {
@@ -79,7 +79,7 @@ public class CustomerDAO {
         }
         return null;
     }
-    
+
     public Customer getUserDetailByEmail(String email) {
         String query = """
                        select*from [Users] u join UserRoles ur
@@ -109,8 +109,8 @@ public class CustomerDAO {
         }
         return null;
     }
-    
-    public boolean UpdateUser(int uID,String fullName, String email, String phone, String address) {
+
+    public boolean UpdateUser(int uID, String fullName, String email, String phone, String address) {
         String query = """
                        update [Users]
                        set [fullName] = ?,
@@ -131,8 +131,43 @@ public class CustomerDAO {
         }
         return true;
     }
-    
-    public boolean UpdatePassword(int uID,String password) {
+
+    public boolean signup(Customer customer) {
+        String sql = "INSERT INTO [Users] ([userName], [password], [fullName], [Email], [phone], [role], [address], [createdAt]) "
+                + "VALUES (?, ?, ?, ?, ?, ?, ?, GETDATE())";
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setString(1, customer.getUserName());
+            ps.setString(2, customer.getPassword());
+            ps.setString(3, customer.getFullName());
+            ps.setString(4, customer.getEmail());
+            ps.setString(5, customer.getPhone());
+            ps.setString(6, customer.getRole());
+            ps.setString(7, customer.getAddress());
+            ps.executeUpdate();
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Lỗi trong quá trình đăng ký: " + e.getMessage());
+        }
+        return false;
+
+    }
+
+    public boolean checkCustomerExist(String email) {
+        String sql = "SELECT * FROM [Users] WHERE [Email] = ?";
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setString(1, email);
+            rs = ps.executeQuery();
+            return rs.next(); // returns true if a user exists with this email
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public boolean UpdatePassword(int uID, String password) {
         String query = """
                        update [Users]
                        set [password] = ?
@@ -150,11 +185,6 @@ public class CustomerDAO {
 
     public static void main(String[] args) {
         CustomerDAO dao = new CustomerDAO();
-        if(dao.login("admin","123") != null){
-           System.out.println("Success"); 
-        }else{
-            System.out.println("Fail"); 
-        }
-        
+        System.out.println(dao.getUserDetailByUserID(2));
     }
 }

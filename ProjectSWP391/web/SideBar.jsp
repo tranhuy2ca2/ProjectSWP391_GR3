@@ -34,12 +34,20 @@
                         <span>Profile</span>
                     </a>
                 </li><!-- End Profile Page Nav -->
-                <li class="nav-item">
-                    <a class="nav-link collapsed" href="#">
-                        <i class="bi bi-book"></i>
-                        <span>Ðăng Tin</span>
-                    </a>
-                </li>
+                <c:if test="${sessionScope.user.role == 2}">
+                    <li class="nav-item">
+                        <a class="nav-link collapsed" href="uploadlandlot">
+                            <i class="bi bi-upload"></i>
+                            <span>Ðăng Tin</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link collapsed" href="managemylandlot">
+                            <i class="bi bi-bag"></i>
+                            <span>Quản lí đất đai</span>
+                        </a>
+                    </li>
+                </c:if>        
         </aside>   
     </body>
 </html>
