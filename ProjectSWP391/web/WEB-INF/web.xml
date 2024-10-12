@@ -29,12 +29,12 @@
         <servlet-class>Controller.Signup</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>UploadLandLot</servlet-name>
-        <servlet-class>Controller.UploadLandLot</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>ManageMyLandLot</servlet-name>
         <servlet-class>Controller.ManageMyLandLot</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UploadLandLot</servlet-name>
+        <servlet-class>Controller.UploadLandLot</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>HomePage</servlet-name>
@@ -65,11 +65,11 @@
         <url-pattern>/Signup</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>UploadLandLot</servlet-name>
-        <url-pattern>/uploadlandlot</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>ManageMyLandLot</servlet-name>
         <url-pattern>/managemylandlot</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UploadLandLot</servlet-name>
+        <url-pattern>/uploadlandlot</url-pattern>
     </servlet-mapping>
 </web-app>
