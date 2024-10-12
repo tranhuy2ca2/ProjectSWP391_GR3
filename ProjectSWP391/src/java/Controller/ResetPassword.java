@@ -71,7 +71,7 @@ public class ResetPassword extends HttpServlet {
             String newpass = EmailService.getAlphaNumericString();
             EmailService.sendEmail(email, "Đặt lại mật khẩu", "Mật khẩu mới là : " + newpass);
             dao.UpdatePassword(customer.getUserID(), newpass);
-            response.sendRedirect("login");
+            response.sendRedirect("homepage");
         }
     }
 

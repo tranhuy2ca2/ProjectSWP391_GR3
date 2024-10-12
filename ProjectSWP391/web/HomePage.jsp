@@ -53,7 +53,6 @@
                         ></div>
                 </div>
 
-<<<<<<< HEAD
                 <div class="container">
                     <div class="row justify-content-center align-items-center">
                         <div class="col-lg-9 text-center">
@@ -74,28 +73,6 @@
                                 <button type="submit" class="btn btn-primary">Search</button>
                             </form>
                         </div>
-=======
-            <div class="container">
-                <div class="row justify-content-center align-items-center">
-                    <div class="col-lg-9 text-center">
-                        <h1 class="heading" data-aos="fade-up">
-                            Easiest way to find your dream home
-                        </h1>
-                        <form
-                            action="search"
-                            class="narrow-w form-search d-flex align-items-stretch mb-3"
-                            data-aos="fade-up"
-                            data-aos-delay="200"
-                            >
-                            <input
-                                name="search" value="${requestScope.search}"
-                                type="text"
-                                class="form-control px-4"
-                                placeholder="Your ZIP code or City. e.g. New York"
-                                />
-                            <button type="submit" class="btn btn-primary">Search</button>
-                        </form>
->>>>>>> cca4b9c09ddabc5793631385b888fd730a487ea7
                     </div>
                 </div>
             </div>
