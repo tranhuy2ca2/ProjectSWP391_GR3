@@ -15,15 +15,9 @@
 @if $enable-cssgrid {
   .grid {
     display: grid;
-<<<<<<< HEAD
 /*    grid-template-rows: repeat(var(--#{$variable-prefix}rows, 1), 1fr);
     grid-template-columns: repeat(var(--#{$variable-prefix}columns, #{$grid-columns}), 1fr);
     gap: var(--#{$variable-prefix}gap, #{$grid-gutter-width});*/
-=======
-    grid-template-rows: repeat(var(--#{$variable-prefix}rows, 1), 1fr);
-    grid-template-columns: repeat(var(--#{$variable-prefix}columns, #{$grid-columns}), 1fr);
-    gap: var(--#{$variable-prefix}gap, #{$grid-gutter-width});
->>>>>>> 20dfa6ac9f07448acbfe98973d4d95dbb24347d8
 
     @include make-cssgrid();
   }

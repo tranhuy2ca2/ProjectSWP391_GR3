@@ -12,14 +12,14 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.util.List;
-import model.LandLots;
+import jakarta.servlet.http.HttpSession;
+import model.Customer;
 
 /**
  *
  * @author TTT
  */
-public class HomePage extends HttpServlet {
+public class ManageMyLandLot extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -36,10 +36,10 @@ public class HomePage extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet HomePage</title>");  
+            out.println("<title>Servlet ManageMyLandLot</title>");  
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet HomePage at " + request.getContextPath () + "</h1>");
+            out.println("<h1>Servlet ManageMyLandLot at " + request.getContextPath () + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -56,11 +56,16 @@ public class HomePage extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        //processRequest(request, response);
-        LandLotsDAO landdao = new LandLotsDAO();
-        List<LandLots> listlandlot = landdao.getAllLandLotsDetail();
-        request.setAttribute("listlandlot", listlandlot);
-        request.getRequestDispatcher("HomePage.jsp").forward(request, response);
+        try{
+            HttpSession ses = request.getSession();
+            Customer u = (Customer) ses.getAttribute("user"); 
+            LandLotsDAO cusdao = new LandLotsDAO();
+            request.setAttribute("manageland", cusdao.getLandLotsByUserID(u.getUserID()));
+            request.getRequestDispatcher("MyListLandLot.jsp").forward(request, response);
+        }catch(Exception e){
+            request.getRequestDispatcher("sign_in.jsp").forward(request, response);
+        }        
+        
     } 
 
     /** 
@@ -73,7 +78,8 @@ public class HomePage extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        processRequest(request, response);
+        //processRequest(request, response);
+        request.getRequestDispatcher("MyListLandLot.jsp").forward(request, response);
     }
 
     /** 

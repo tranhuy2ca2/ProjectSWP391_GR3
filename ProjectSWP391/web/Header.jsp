@@ -59,7 +59,11 @@
                             <c:if test="${sessionScope.user!=null}">
                                 <li><a href="logout">Log out</a></li>
                                 <li class="active"><a href="profile?uID=${sessionScope.user.userID}">Hello ${user.fullName}</a></li>
+<<<<<<< HEAD
+                            </c:if>  
+=======
                             </c:if>    
+>>>>>>> cca4b9c09ddabc5793631385b888fd730a487ea7
                             <c:if test="${sessionScope.user.role == 1}">    
                                 <li class="has-children">
                                     <a href="properties.html">Properties - Admin</a>
@@ -69,8 +73,13 @@
                                         <li class="has-children">
                                             <a href="#">Dropdown</a>
                                             <ul class="dropdown">
+<<<<<<< HEAD
+                                                <li><a href="#">Quan li nguoi dung</a></li>
+                                                <li><a href="#">Sub Menu Two</a></li>
+=======
                                                 <li><a href="UserManagement">Quản lí người dùng</a></li>
                                                 <li><a href="#">Quản lí auction</a></li>
+>>>>>>> cca4b9c09ddabc5793631385b888fd730a487ea7
                                                 <li><a href="#">Sub Menu Three</a></li>
                                             </ul>
                                         </li>
@@ -94,6 +103,9 @@
                                     </ul>
                                 </li>
                             </c:if>
+<<<<<<< HEAD
+                            
+=======
                               
                                 <c:if test="${sessionScope.user.role == 3}">    
                                 <li class="has-children">
@@ -146,6 +158,7 @@
                                     </ul>
                                 </li>
                             </c:if>
+>>>>>>> cca4b9c09ddabc5793631385b888fd730a487ea7
                             <li><a href="services.html">Services</a></li>
                             <li><a href="about.html">About</a></li>
                             <li><a href="contact.html">Contact Us</a></li>

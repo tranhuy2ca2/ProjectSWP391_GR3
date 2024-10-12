@@ -35,12 +35,10 @@
                             <!-- Logo and link to home -->
                             <div class="text-center mb-4">
                                 <img src="images/logo.png" alt="Logo" class="mb-3" style="width: 100px;">
-                                <img src="${pageContext.request.contextPath}/images/logo-daugia.png" alt="Logo" class="mb-3" style="width: 100px;">
                             </div>
 
                             <!-- Sign In Title -->
                             <h2 class="text-center mb-4">Đăng nhập vào đấu giá</h2>
-                            ${mess}
                             <p class="text-danger text-center" style="color: red">${mess}</p>
                             <% 
                                 String signupSuccess = (String) session.getAttribute("signupSuccess");

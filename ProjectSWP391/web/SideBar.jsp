@@ -22,6 +22,23 @@
                         <i class="bi bi-person"></i>
                         <span>Profile</span>
                     </a>
+<<<<<<< HEAD
+                </li><!-- End Profile Page Nav -->
+                <c:if test="${sessionScope.user.role == 2}">
+                    <li class="nav-item">
+                        <a class="nav-link collapsed" href="uploadlandlot">
+                            <i class="bi bi-upload"></i>
+                            <span>Ðăng Tin</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link collapsed" href="managemylandlot">
+                            <i class="bi bi-bag"></i>
+                            <span>Quản lí đất đai</span>
+                        </a>
+                    </li>
+                </c:if>        
+=======
                 </li>
 
                 <!-- Menu items visible to admin only (role = 1) -->
@@ -76,6 +93,7 @@
 
                 </c:if>
             </ul>
+>>>>>>> cca4b9c09ddabc5793631385b888fd730a487ea7
         </aside>   
     </body>
 </html>

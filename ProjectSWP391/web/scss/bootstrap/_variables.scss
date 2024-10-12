@@ -326,19 +326,11 @@ $cyans: (
 
 // Characters which are escaped by the escape-svg function
 $escaped-characters: (
-<<<<<<< HEAD
 /*  ("<", "%3c"),
   (">", "%3e"),
   ("#", "%23"),
   ("(", "%28"),
   (")", "%29"),*/
-=======
-  ("<", "%3c"),
-  (">", "%3e"),
-  ("#", "%23"),
-  ("(", "%28"),
-  (")", "%29"),
->>>>>>> 20dfa6ac9f07448acbfe98973d4d95dbb24347d8
 ) !default;
 
 // Options
@@ -585,13 +577,8 @@ $aspect-ratios: (
 $font-family-sans-serif:      system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji" !default;
 $font-family-monospace:       SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace !default;
 // stylelint-enable value-keyword-case
-<<<<<<< HEAD
 /*$font-family-base:            var(--#{$variable-prefix}font-sans-serif) !default;
 $font-family-code:            var(--#{$variable-prefix}font-monospace) !default;*/
-=======
-$font-family-base:            var(--#{$variable-prefix}font-sans-serif) !default;
-$font-family-code:            var(--#{$variable-prefix}font-monospace) !default;
->>>>>>> 20dfa6ac9f07448acbfe98973d4d95dbb24347d8
 
 // $font-size-root affects the value of `rem`, which is used for as well font sizes, paddings, and margins
 // $font-size-base affects the font size of the body text
