@@ -25,16 +25,16 @@
         <servlet-class>Controller.ResetPassword</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>SearchController</servlet-name>
-        <servlet-class>Controller.SearchController</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>Signup</servlet-name>
         <servlet-class>Controller.Signup</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>UserManagement</servlet-name>
-        <servlet-class>Controller.UserManagement</servlet-class>
+        <servlet-name>UploadLandLot</servlet-name>
+        <servlet-class>Controller.UploadLandLot</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ManageMyLandLot</servlet-name>
+        <servlet-class>Controller.ManageMyLandLot</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>HomePage</servlet-name>
@@ -58,18 +58,18 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ResetPassword</servlet-name>
-        <url-pattern>/resetpassword</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>SearchController</servlet-name>
-        <url-pattern>/search</url-pattern>
+        <url-pattern>/forgot</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>Signup</servlet-name>
         <url-pattern>/Signup</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>UserManagement</servlet-name>
-        <url-pattern>/UserManagement</url-pattern>
+        <servlet-name>UploadLandLot</servlet-name>
+        <url-pattern>/uploadlandlot</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ManageMyLandLot</servlet-name>
+        <url-pattern>/managemylandlot</url-pattern>
     </servlet-mapping>
 </web-app>
