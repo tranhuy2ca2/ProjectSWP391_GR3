@@ -8,6 +8,7 @@ import DAO.CustomerDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -77,7 +78,27 @@ public class Login extends HttpServlet {
         CustomerDAO cusdao = new CustomerDAO();
         String username = request.getParameter("username");
         String password = request.getParameter("password");
+        String remember = request.getParameter("rem");
+        //tao 3 cookies : username , password , remember
+        Cookie cu = new Cookie("cuser", username);
+        Cookie cp = new Cookie("cpass", password);
+        Cookie cr = new Cookie("crem", remember);
 
+        if (remember != null) {
+            //co chon
+            cu.setMaxAge(60 * 60 * 24 * 7); //7 ngay
+            cp.setMaxAge(60 * 60 * 24 * 7);
+            cr.setMaxAge(60 * 60 * 24 * 7);
+        } else {
+            //khong chon
+            cu.setMaxAge(0); //7 ngay
+            cp.setMaxAge(0);
+            cr.setMaxAge(0);
+        }
+        // luu vao browser
+        response.addCookie(cu);
+        response.addCookie(cp);
+        response.addCookie(cr);
         Customer u = cusdao.login(username, password);
         if (u != null) {
             HttpSession ses = request.getSession();
