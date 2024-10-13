@@ -11,6 +11,8 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
 import model.Customer;
 
@@ -96,6 +98,7 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response)
         String phone = request.getParameter("phone");
         String role = request.getParameter("role");
         String address = request.getParameter("address");
+String passwordmd5 = md5Hash(password);
 
         // Nếu mật khẩu không được nhập, lấy mật khẩu hiện tại từ cơ sở dữ liệu
         if (password == null || password.isEmpty()) {
@@ -106,7 +109,7 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response)
         }
 
         // Tạo đối tượng Customer với các tham số đã lấy được
-        Customer user = new Customer(userID, userName, password, fullName, email, phone, role, address, null);
+        Customer user = new Customer(userID, userName, passwordmd5, fullName, email, phone, role, address, null);
 
         boolean success = userDAO.updateUser(user); // Gọi DAO để cập nhật
 
@@ -147,9 +150,9 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response)
     String phone = request.getParameter("phone");
     String role = request.getParameter("role");
     String address = request.getParameter("address");
-
+String passwordmd5 = md5Hash(password);
     // Tạo đối tượng Customer với các tham số
-    Customer newUser = new Customer(0, userName, password, fullName, email, phone, role, address, null);
+    Customer newUser = new Customer(0, userName, passwordmd5, fullName, email, phone, role, address, null);
 
     boolean success = userDAO.addUser(newUser); // Gọi DAO để thêm người dùng
 
@@ -167,7 +170,22 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response)
 
     
     }
+ public String md5Hash(String input) {
+        try {
+            MessageDigest md = MessageDigest.getInstance("MD5");
+            byte[] messageDigest = md.digest(input.getBytes());
 
+            // Chuyển byte array thành dạng hex string
+            StringBuilder hexString = new StringBuilder();
+            for (byte b : messageDigest) {
+                hexString.append(String.format("%02x", b));
+            }
+            return hexString.toString();
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
     /**
      * Returns a short description of the servlet.
      *

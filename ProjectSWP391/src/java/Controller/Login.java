@@ -12,6 +12,8 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import model.Customer;
 
 /**
@@ -70,27 +72,43 @@ public class Login extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    @Override
+     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        //processRequest(request, response);
         CustomerDAO cusdao = new CustomerDAO();
         String username = request.getParameter("username");
         String password = request.getParameter("password");
 
-        Customer u = cusdao.login(username, password);
+        // Hash password before comparison
+        String passwordMd5 = md5Hash(password);
+
+        Customer u = cusdao.login(username, passwordMd5);
         if (u != null) {
             HttpSession ses = request.getSession();
             ses.setAttribute("user", u);
-            response.sendRedirect("homepage");
-        }
-        if (u == null) {
+            response.sendRedirect("homepage");  // Redirect to homepage if login is successful
+        } else {
             request.setAttribute("mess", "Sai tên đăng nhập hoặc mật khẩu");
-            request.getRequestDispatcher("sign_in.jsp").forward(request, response);
+            request.getRequestDispatcher("sign_in.jsp").forward(request, response);  // Show error message on login page
         }
-
     }
 
+    // Utility method to hash the password using MD5
+    public String md5Hash(String input) {
+        try {
+            MessageDigest md = MessageDigest.getInstance("MD5");
+            byte[] messageDigest = md.digest(input.getBytes());
+
+            StringBuilder hexString = new StringBuilder();
+            for (byte b : messageDigest) {
+                hexString.append(String.format("%02x", b));
+            }
+            return hexString.toString();
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
     /**
      * Returns a short description of the servlet.
      *
