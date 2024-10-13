@@ -36,6 +36,10 @@
         <servlet-name>ManageMyLandLot</servlet-name>
         <servlet-class>Controller.ManageMyLandLot</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ChangePassword</servlet-name>
+        <servlet-class>Controller.ChangePassword</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>HomePage</servlet-name>
         <url-pattern>/homepage</url-pattern>
@@ -71,5 +75,9 @@
     <servlet-mapping>
         <servlet-name>ManageMyLandLot</servlet-name>
         <url-pattern>/managemylandlot</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ChangePassword</servlet-name>
+        <url-pattern>/changepassword</url-pattern>
     </servlet-mapping>
 </web-app>

@@ -59,7 +59,8 @@
 
                                 <div class="form-group mb-3">
                                     <label class="form-label">Tài Khoản của bạn*</label>
-                                    <input class="form-control h_50" type="username" name="username" placeholder="Nhập username của bạn" required>
+                                    <input class="form-control h_50" type="username" name="username" placeholder="Nhập username của bạn" 
+                                           value="${cookie.cuser.value}" required>
                                 </div>
 
                                 <div class="form-group mb-3">
@@ -67,31 +68,14 @@
                                         Mật khẩu* 
                                         <a class="forgot-pass-link" href="forgot?action=customer">Quên mật khẩu?</a>
                                     </label>
-                                    <input class="form-control h_50" type="password" name="password" placeholder="Nhập mật khẩu của bạn" required>
+                                    <input class="form-control h_50" type="password" name="password" placeholder="Nhập mật khẩu của bạn" 
+                                           value="${cookie.cpass.value}" required>
                                 </div>
-
+                                <div class="pass-link">
+                                    <input type="checkbox" ${(cookie.crem != null ? 'checked' : '')} name="rem" value="ON"/> Nhớ tài khoản  
+                                </div>
                                 <button class="btn btn-primary w-100 mt-3" type="submit">Đăng nhập <i class="fas fa-sign-in-alt ms-2"></i></button>
                             </form>
-
-                            <!-- Alternative Sign In and Sign Up -->
-                            <div class="text-center mt-4">
-                                <a href="stafflogin" class="text-secondary">Đăng nhập với vai trò khác?</a>
-                            </div>
-
-                            <!-- Divider for social login -->
-                            <div class="d-flex align-items-center justify-content-center mt-4">
-                                <hr class="w-25">
-                                <span class="px-2 text-muted">hoặc</span>
-                                <hr class="w-25">
-                            </div>
-
-                            <!-- Social Login Button -->
-                            <div class="text-center mt-3">
-                                <a href="https://accounts.google.com/o/oauth2/auth?scope=email%20profile&redirect_uri=http://localhost:9999/Project_SWP391/loginGoogleHandler&response_type=code&client_id=317266700784-kg2ivgn1cgkturjutcqgmkitdo1o5nl3.apps.googleusercontent.com&approval_prompt=force"
-                                   class="btn btn-outline-secondary w-100 d-flex align-items-center justify-content-center">
-                                    <i class="fab fa-google me-2"></i> Đăng nhập với Google
-                                </a>
-                            </div>
 
                             <div class="text-center mt-3">
                                 New to Auction? <a class="text-primary" href="sign_up.jsp">Đăng kí</a>

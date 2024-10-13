@@ -18,7 +18,8 @@ public class Customer {
     public Customer() {
     }
 
-    public Customer(int userID, String userName, String password, String fullName, String email, String phone, String role, String address, Date createdAt) {
+    public Customer(int userID, String userName, String password, String fullName, String email, String phone, String role, String address, 
+            Date createdAt) {
         this.userID = userID;
         this.userName = userName;
         this.password = password;
@@ -31,7 +32,8 @@ public class Customer {
     }
 
 
-    public Customer(int userID, String userName, String password, String fullName, String email, String phone, String role, String address, Date createdAt, String rolename) {
+    public Customer(int userID, String userName, String password, String fullName, String email, String phone, String role, String address, 
+            Date createdAt, String rolename) {
         this.userID = userID;
         this.userName = userName;
         this.password = password;

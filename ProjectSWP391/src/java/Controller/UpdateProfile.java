@@ -81,7 +81,7 @@ public class UpdateProfile extends HttpServlet {
             if (updateprofile) {
                 Customer user = cusdao.getUserDetailByUserID(uid);
                 request.getSession().setAttribute("user", user);
-                response.sendRedirect("profile");
+                response.sendRedirect("profile?uID="+uid);
                 return;
             } else {
                 // Trường hợp cập nhật không thành công

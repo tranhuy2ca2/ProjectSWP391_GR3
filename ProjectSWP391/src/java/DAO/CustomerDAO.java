@@ -182,9 +182,48 @@ public class CustomerDAO {
         }
         return true;
     }
+    
+    public Customer getAccountByID(int id) {
+        String query = """
+                       select * from [Users]
+                       where userID = ?""";
+        try {
+            ps = con.prepareStatement(query);
+            ps.setInt(1, id);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                return new Customer(rs.getInt(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getString(4),
+                        rs.getString(5),
+                        rs.getString(6),
+                        rs.getString(7),
+                        rs.getString(8),
+                        rs.getDate(9));
+            }
+        } catch (Exception e) {
+
+        }
+        return null;
+    }
+    
+    public boolean ChangePassword(int user_id, String user_pass) {
+        String sql = """
+                     update [Users] set [password] = ?
+                     where [userID] = ?""";
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setString(1, user_pass);
+            ps.setInt(2, user_id);
+            ps.executeUpdate();
+        } catch (Exception e) {
+        }
+        return true;
+    }
 
     public static void main(String[] args) {
         CustomerDAO dao = new CustomerDAO();
-        System.out.println(dao.getUserDetailByUserID(2));
+        System.out.println(dao.getAccountByID(2));
     }
 }
