@@ -8,6 +8,7 @@ import DAO.CustomerDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -72,28 +73,48 @@ public class Login extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-     @Override
+    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        //processRequest(request, response);
         CustomerDAO cusdao = new CustomerDAO();
         String username = request.getParameter("username");
         String password = request.getParameter("password");
+        String remember = request.getParameter("rem");
+        //tao 3 cookies : username , password , remember
+        Cookie cu = new Cookie("cuser", username);
+        Cookie cp = new Cookie("cpass", password);
+        Cookie cr = new Cookie("crem", remember);
 
-        // Hash password before comparison
-        String passwordMd5 = md5Hash(password);
-
+        if (remember != null) {
+            //co chon
+            cu.setMaxAge(60 * 60 * 24 * 7); //7 ngay
+            cp.setMaxAge(60 * 60 * 24 * 7);
+            cr.setMaxAge(60 * 60 * 24 * 7);
+        } else {
+            //khong chon
+            cu.setMaxAge(0); //7 ngay
+            cp.setMaxAge(0);
+            cr.setMaxAge(0);
+        }
+        // luu vao browser
+        response.addCookie(cu);
+        response.addCookie(cp);
+        response.addCookie(cr);
+         String passwordMd5 = md5Hash(password);
         Customer u = cusdao.login(username, passwordMd5);
         if (u != null) {
             HttpSession ses = request.getSession();
             ses.setAttribute("user", u);
-            response.sendRedirect("homepage");  // Redirect to homepage if login is successful
-        } else {
-            request.setAttribute("mess", "Sai tên đăng nhập hoặc mật khẩu");
-            request.getRequestDispatcher("sign_in.jsp").forward(request, response);  // Show error message on login page
+            response.sendRedirect("homepage");
         }
-    }
+        if (u == null) {
+            request.setAttribute("mess", "Sai tên đăng nhập hoặc mật khẩu");
+            request.getRequestDispatcher("sign_in.jsp").forward(request, response);
+        }
 
-    // Utility method to hash the password using MD5
+    }
+  // Utility method to hash the password using MD5
     public String md5Hash(String input) {
         try {
             MessageDigest md = MessageDigest.getInstance("MD5");

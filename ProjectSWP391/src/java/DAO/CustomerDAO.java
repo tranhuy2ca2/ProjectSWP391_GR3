@@ -16,7 +16,7 @@ public class CustomerDAO {
     private List<Customer> user;
     private String status = "ok";
 
-    public Customer getUserById(int userID) {
+     public Customer getUserById(int userID) {
         String query = "SELECT * FROM [SWP391_G3_Project].[dbo].[Users] WHERE UserID = ?";
         try {
             DBContext dbContext = new DBContext();
@@ -177,9 +177,8 @@ public class CustomerDAO {
 
     public Customer getUserDetailByUserID(int id) {
         String query = """
-                       select*from [Users] u join UserRoles ur
-                       on u.userID = ur.UserID
-                       join Roles r on ur.RoleID = r.RoleID
+                       select*from [Users] u join Roles ur
+                       on u.[role] = ur.RoleID
                        where u.userID = ?""";
         try {
             ps = con.prepareStatement(query);
@@ -196,7 +195,7 @@ public class CustomerDAO {
                         rs.getString(7),
                         rs.getString(8),
                         rs.getDate(9),
-                        rs.getString(13)
+                        rs.getString(11)
                 );
             }
         } catch (Exception e) {
@@ -207,7 +206,9 @@ public class CustomerDAO {
 
     public Customer getUserDetailByEmail(String email) {
         String query = """
-                       select*from [Users] u 
+                       select*from [Users] u join UserRoles ur
+                       on u.userID = ur.UserID
+                       join Roles r on ur.RoleID = r.RoleID
                        where u.email = ?""";
         try {
             ps = con.prepareStatement(query);
@@ -223,7 +224,8 @@ public class CustomerDAO {
                         rs.getString(6),
                         rs.getString(7),
                         rs.getString(8),
-                        rs.getDate(9)
+                        rs.getDate(9),
+                        rs.getString(13)
                 );
             }
         } catch (Exception e) {
@@ -266,7 +268,6 @@ public class CustomerDAO {
             ps.setString(5, customer.getPhone());
             ps.setString(6, customer.getRole());
             ps.setString(7, customer.getAddress());
-
             ps.executeUpdate();
             return true;
         } catch (Exception e) {
@@ -276,8 +277,7 @@ public class CustomerDAO {
         return false;
 
     }
-
-    public boolean checkUsernameExist(String username) {
+ public boolean checkUsernameExist(String username) {
         String sql = "SELECT * FROM [Users] WHERE userName = ?";
         try {
             ps = con.prepareStatement(sql);
@@ -292,7 +292,6 @@ public class CustomerDAO {
         }
         return false;
     }
-
     public boolean checkCustomerExist(String email) {
         String sql = "SELECT * FROM [Users] WHERE [Email] = ?";
         try {
@@ -321,14 +320,48 @@ public class CustomerDAO {
         }
         return true;
     }
+    
+    public Customer getAccountByID(int id) {
+        String query = """
+                       select * from [Users]
+                       where userID = ?""";
+        try {
+            ps = con.prepareStatement(query);
+            ps.setInt(1, id);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                return new Customer(rs.getInt(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getString(4),
+                        rs.getString(5),
+                        rs.getString(6),
+                        rs.getString(7),
+                        rs.getString(8),
+                        rs.getDate(9));
+            }
+        } catch (Exception e) {
+
+        }
+        return null;
+    }
+    
+    public boolean ChangePassword(int user_id, String user_pass) {
+        String sql = """
+                     update [Users] set [password] = ?
+                     where [userID] = ?""";
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setString(1, user_pass);
+            ps.setInt(2, user_id);
+            ps.executeUpdate();
+        } catch (Exception e) {
+        }
+        return true;
+    }
 
     public static void main(String[] args) {
         CustomerDAO dao = new CustomerDAO();
-        if (dao.login("admin", "123") != null) {
-            System.out.println("Success");
-        } else {
-            System.out.println("Fail");
-        }
-
+        System.out.println(dao.getAccountByID(2));
     }
 }

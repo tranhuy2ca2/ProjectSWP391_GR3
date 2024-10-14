@@ -5,18 +5,21 @@
 
 package Controller;
 
+import DAO.LandLotsDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import model.Customer;
 
 /**
  *
- * @author Admin
+ * @author TTT
  */
-public class SearchController extends HttpServlet {
+public class ManageMyLandLot extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -29,8 +32,16 @@ public class SearchController extends HttpServlet {
     throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            String search = request.getParameter("search");
-            
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet ManageMyLandLot</title>");  
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet ManageMyLandLot at " + request.getContextPath () + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
         }
     } 
 
@@ -45,7 +56,16 @@ public class SearchController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        processRequest(request, response);
+        try{
+            HttpSession ses = request.getSession();
+            Customer u = (Customer) ses.getAttribute("user"); 
+            LandLotsDAO cusdao = new LandLotsDAO();
+            request.setAttribute("manageland", cusdao.getLandLotsByUserID(u.getUserID()));
+            request.getRequestDispatcher("MyListLandLot.jsp").forward(request, response);
+        }catch(Exception e){
+            request.getRequestDispatcher("sign_in.jsp").forward(request, response);
+        }        
+        
     } 
 
     /** 
@@ -58,7 +78,8 @@ public class SearchController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        processRequest(request, response);
+        //processRequest(request, response);
+        request.getRequestDispatcher("MyListLandLot.jsp").forward(request, response);
     }
 
     /** 

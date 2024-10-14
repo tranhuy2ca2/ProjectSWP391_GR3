@@ -70,7 +70,7 @@
     <body>
         <header class="header d-none d-lg-block">
             <jsp:include page="Header.jsp"></jsp:include>
-        </header>
+            </header>
             <!-- ======= Sidebar ======= -->
         <jsp:include page="SideBar.jsp"></jsp:include>
             <!-- End Sidebar-->
@@ -123,7 +123,9 @@
                                     </li>
 
                                     <li class="nav-item">
-                                        <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-change-password">Thay Đổi Mật Khẩu</button>
+                                        <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-change-password">
+                                            Thay Đổi Mật Khẩu
+                                        </button>
                                     </li>
                                     <li class="nav-item">
                                         <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-rechargemoney">Nạp tiền</button>
@@ -152,27 +154,33 @@
                                             <div class="row mb-3" style="display: none">
                                                 <label for="userID" class="col-md-4 col-lg-3 col-form-label">UserID</label>
                                                 <div class="col-md-8 col-lg-9">
-                                                    <input name="userID" type="text" class="form-control" id="userID" value="${user.userID==null?"Chưa có email":user.userID}" readonly="">
+                                                    <input name="userID" type="text" class="form-control" id="userID" 
+                                                           value="${user.userID==null?"Chưa có email":user.userID}" readonly="">
                                                 </div>
                                             </div>
                                             <div class="row mb-3">
                                                 <label for="fullname" class="col-md-4 col-lg-3 col-form-label">Tên Hiển Thị</label>
                                                 <div class="col-md-8 col-lg-9">
-                                                    <input name="fullname" type="text" class="form-control" id="fullname" value="${user.fullName==null?"Chưa có tên hiển thị":user.fullName}" required>
-                                                    <div class="invalid-feedback">Tên hiển thị không được để trống hoặc chỉ chứa khoảng trắng.</div>
+                                                    <input name="fullname" type="text" class="form-control" id="fullname" 
+                                                           value="${user.fullName==null?"Chưa có tên hiển thị":user.fullName}" required>
+                                                    <div class="invalid-feedback">
+                                                        Tên hiển thị không được để trống hoặc chỉ chứa khoảng trắng.
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div class="row mb-3">
                                                 <label for="email" class="col-md-4 col-lg-3 col-form-label">Email</label>
                                                 <div class="col-md-8 col-lg-9">
-                                                    <input name="email" type="email" class="form-control" id="email" value="${user.email==null?"Chưa có email":user.email}" required>
+                                                    <input name="email" type="email" class="form-control" id="email" 
+                                                           value="${user.email==null?"Chưa có email":user.email}" required>
                                                     <div class="invalid-feedback">Email không được để trống hoặc chỉ chứa khoảng trắng.</div>
                                                 </div>
                                             </div>
                                             <div class="row mb-3">
                                                 <label for="address" class="col-md-4 col-lg-3 col-form-label">Địa Chỉ</label>
                                                 <div class="col-md-8 col-lg-9">
-                                                    <input name="address" type="text" class="form-control" id="address" value="${user.address==null?"Chưa có địa chỉ":user.address}">
+                                                    <input name="address" type="text" class="form-control" id="address" 
+                                                           value="${user.address==null?"Chưa có địa chỉ":user.address}">
                                                     <div class="invalid-feedback">Địa chỉ không được để trống hoặc chỉ chứa khoảng trắng.</div>
                                                 </div>
                                             </div>
@@ -225,7 +233,8 @@
 
                                                     // Kiểm tra các trường bị bỏ trống hoặc chỉ chứa khoảng trắng
                                                     if (fullname === "" || email === "" || phone === "") {
-                                                        alert("Các trường tên hiển thị, email và số điện thoại không được bỏ trống hoặc chỉ chứa khoảng trắng.");
+                                                        alert("Các trường tên hiển thị, email và số điện thoại không được bỏ trống \n\
+                                                            hoặc chỉ chứa khoảng trắng.");
                                                         return false; // Ngăn không cho submit form
                                                     }
 
@@ -244,12 +253,14 @@
 
                                     <div class="tab-pane fade pt-3" id="profile-change-password">
                                         <!-- Change Password Form -->
-                                        <form id="changePasswordForm" action="#" method="post">
+                                        <form id="changePasswordForm" action="changepassword" method="post" 
+                                              onsubmit="return validatePasswordForm()">
                                             <div class="row mb-3">
                                                 <label for="currentPassword" class="col-md-4 col-lg-3 col-form-label">Mật Khẩu Cũ</label>
                                                 <div class="col-md-8 col-lg-9">
                                                     <div class="password-container">
                                                         <input class="form-control" type="password" id="currentPassword" name="oldpass" required>
+                                                        <span id="toggleCurrentPassword" class="toggle-password">👁️</span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -258,8 +269,12 @@
                                                 <label for="newPassword" class="col-md-4 col-lg-3 col-form-label">Mật Khẩu Mới</label>
                                                 <div class="col-md-8 col-lg-9">
                                                     <div class="password-container">
-                                                        <input class="form-control" type="password" id="newPassword" name="newpass" minlength="6" required>
+                                                        <input class="form-control" type="password" id="newPassword" name="newpass" 
+                                                               minlength="8" maxlength="20" required>
+                                                        <span id="toggleNewPassword" class="toggle-password">👁️</span>
                                                     </div>
+                                                    (Mật khẩu từ 8 đến 20 kí tự bao gồm ít nhất chữ cái thường, 
+                                                        chữ hoa, số, và có 1 ký tự đặc biệt)
                                                 </div>
                                             </div>
 
@@ -267,7 +282,9 @@
                                                 <label for="renewPassword" class="col-md-4 col-lg-3 col-form-label">Xác Nhận Lại Mật Khẩu</label>
                                                 <div class="col-md-8 col-lg-9">
                                                     <div class="password-container">
-                                                        <input class="form-control" type="password" id="confirmPassword" name="confirm" minlength="6" required>
+                                                        <input class="form-control" type="password" id="confirmPassword" name="confirm" 
+                                                               required>
+                                                        <span id="toggleConfirmPassword" class="toggle-password">👁️</span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -275,7 +292,63 @@
                                             <div class="text-center">
                                                 <button type="submit" class="btn btn-primary">Đổi Mật Khẩu</button>
                                             </div>
-                                        </form>                                     
+                                        </form>
+
+                                        <script>
+                                            const toggleCurrentPassword = document.querySelector('#toggleCurrentPassword');
+                                            const currentPassword = document.querySelector('#currentPassword');
+                                            const toggleNewPassword = document.querySelector('#toggleNewPassword');
+                                            const newPassword = document.querySelector('#newPassword');
+                                            const toggleConfirmPassword = document.querySelector('#toggleConfirmPassword');
+                                            const confirmPassword = document.querySelector('#confirmPassword');
+
+                                            toggleCurrentPassword.addEventListener('click', function () {
+                                                const type = currentPassword.getAttribute('type') === 'password' ? 'text' : 'password';
+                                                currentPassword.setAttribute('type', type);
+                                                this.textContent = this.textContent === '👁️' ? '🙈' : '👁️';
+                                            });
+
+                                            toggleNewPassword.addEventListener('click', function () {
+                                                const type = newPassword.getAttribute('type') === 'password' ? 'text' : 'password';
+                                                newPassword.setAttribute('type', type);
+                                                this.textContent = this.textContent === '👁️' ? '🙈' : '👁️';
+                                            });
+
+                                            toggleConfirmPassword.addEventListener('click', function () {
+                                                const type = confirmPassword.getAttribute('type') === 'password' ? 'text' : 'password';
+                                                confirmPassword.setAttribute('type', type);
+                                                this.textContent = this.textContent === '👁️' ? '🙈' : '👁️';
+                                            });
+                                        </script>
+                                        <c:if test="${not empty successMessage}">
+                                            <script>
+                                                alert("${successMessage}");
+                                                <c:remove var="successMessage" scope="session"/>
+                                            </script>
+                                        </c:if>
+                                        <c:if test="${not empty mess}">
+                                            <script>
+                                                alert("${mess}");
+                                                <c:remove var="successMessage" scope="session"/>
+                                            </script>
+                                        </c:if>     
+                                        <script>
+                                            function validateFormvalidatePasswordForm() {
+                                                var newPassword = document.getElementById("newPassword").value.trim();
+
+                                                if (newPassword === "") {
+                                                    alert("Do not enter spaces.");
+                                                    return false;
+                                                }
+                                                var passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+
+                                                if (!passwordPattern.test(newPassword)) {
+                                                    alert("Mật khẩu mới phải chứa ít nhất 1 chữ thường, 1 chữ hoa, 1 số, và 1 ký tự đặc biệt.");
+                                                    return false;
+                                                }
+                                                return true;
+                                            }
+                                        </script>                                      
                                     </div>
                                     <div class="tab-pane fade pt-3" id="profile-rechargemoney">
                                         <!-- Rechagre Money Form -->
