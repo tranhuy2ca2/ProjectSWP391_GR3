@@ -47,7 +47,54 @@
                             <span>Quản lí đất đai</span>
                         </a>
                     </li>
+<<<<<<< HEAD
+                </c:if>
+                 <c:if test="${sessionScope.user.role == 2}">
+                    <li class="nav-item">
+                        <a class="nav-link collapsed" href="uploadlandlot">
+                            <i class="bi bi-upload"></i>
+                            <span>Ðăng Tin</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link collapsed" href="managemylandlot">
+                            <i class="bi bi-bag"></i>
+                            <span>Quản lí đất đai</span>
+                        </a>
+                    </li>
+                </c:if>  
+                <c:if test="${sessionScope.user != null && sessionScope.user.role == 3}">
+                    <li class="nav-item">
+                        <a class="nav-link collapsed" href="#">
+                            <i class="bi bi-book"></i>
+                            <span>Xem dau gia</span>
+                        </a>
+                    </li>
+
+                </c:if>
+                <c:if test="${sessionScope.user != null && sessionScope.user.role == 4}">
+                    <li class="nav-item">
+                        <a class="nav-link collapsed" href="#">
+                            <i class="bi bi-book"></i>
+                            <span>Xem phien dau gia</span>
+                        </a>
+                    </li>
+
+                </c:if>
+                <c:if test="${sessionScope.user != null && sessionScope.user.role == 5}">
+                    <li class="nav-item">
+                        <a class="nav-link collapsed" href="#">
+                            <i class="bi bi-book"></i>
+                            <span>Xem phien dau gia</span>
+                        </a>
+                    </li>
+
+                </c:if>
+                    
+            </ul>
+=======
                 </c:if>        
+>>>>>>> 958a80d7aa69802d8cabc30de3f249b82a4c2cbd
         </aside>   
     </body>
 </html>
