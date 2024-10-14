@@ -4,7 +4,6 @@ import DAL.DBContext;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.ArrayList;
 import java.util.List;
 import model.Customer;
 
@@ -15,6 +14,7 @@ public class CustomerDAO {
     ResultSet rs;
     private List<Customer> user;
     private String status = "ok";
+<<<<<<< HEAD
 
      public Customer getUserById(int userID) {
         String query = "SELECT * FROM [SWP391_G3_Project].[dbo].[Users] WHERE UserID = ?";
@@ -138,6 +138,8 @@ public class CustomerDAO {
         }
         return false;
     }
+=======
+>>>>>>> 958a80d7aa69802d8cabc30de3f249b82a4c2cbd
 
     public CustomerDAO() {
         try {
@@ -277,6 +279,7 @@ public class CustomerDAO {
         return false;
 
     }
+<<<<<<< HEAD
  public boolean checkUsernameExist(String username) {
         String sql = "SELECT * FROM [Users] WHERE userName = ?";
         try {
@@ -305,6 +308,22 @@ public class CustomerDAO {
         return false;
     }
 
+=======
+
+    public boolean checkCustomerExist(String email) {
+        String sql = "SELECT * FROM [Users] WHERE [Email] = ?";
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setString(1, email);
+            rs = ps.executeQuery();
+            return rs.next(); // returns true if a user exists with this email
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+>>>>>>> 958a80d7aa69802d8cabc30de3f249b82a4c2cbd
     public boolean UpdatePassword(int uID, String password) {
         String query = """
                        update [Users]
