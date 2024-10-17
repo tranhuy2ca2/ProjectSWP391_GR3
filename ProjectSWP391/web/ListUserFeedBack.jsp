@@ -72,10 +72,8 @@
                                                 <td class="publishDate">${b.subject}</td>
                                                 <td class="detail">
                                                     <div class="detail-content">
-                                                        <span class="short-detail">${b.detail.substring(0, 100)}...</span>
-                                                        <span class="full-detail" style="display:none;">${b.detail}</span>
+                                                        <span class="short-detail">${b.detail}</span>
                                                     </div>
-                                                    <a href="javascript:void(0);" onclick="toggleDetail(this)" style="color: blue">Đọc thêm</a>
                                                 </td>
                                                 <td class="publishDate">${b.createAt}</td>
                                             </tr>
