@@ -4,24 +4,21 @@
  */
 package Controller;
 
-import DAO.CustomerDAO;
+import DAO.ContactDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import model.Customer;
 
 /**
  *
  * @author TTT
  */
-public class Login extends HttpServlet {
+public class Contact extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -40,10 +37,10 @@ public class Login extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet Login</title>");
+            out.println("<title>Servlet Contact</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet Login at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet Contact at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -62,7 +59,7 @@ public class Login extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         //processRequest(request, response);
-        request.getRequestDispatcher("sign_in.jsp").forward(request, response);
+        request.getRequestDispatcher("Contact.jsp").forward(request, response);
     }
 
     /**
@@ -76,64 +73,28 @@ public class Login extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        //processRequest(request, response);
-        CustomerDAO cusdao = new CustomerDAO();
-        String username = request.getParameter("username");
-        String password = request.getParameter("password");
-        String remember = request.getParameter("rem");
-        //tao 3 cookies : username , password , remember
-        Cookie cu = new Cookie("cuser", username);
-        Cookie cp = new Cookie("cpass", password);
-        Cookie cr = new Cookie("crem", remember);
+        ContactDAO condao = new ContactDAO();
+        HttpSession ses = request.getSession();
+        Customer u = (Customer) ses.getAttribute("user");
 
-        if (remember != null) {
-            //co chon
-            cu.setMaxAge(60 * 60 * 24 * 7); //7 ngay
-            cp.setMaxAge(60 * 60 * 24 * 7);
-            cr.setMaxAge(60 * 60 * 24 * 7);
-        } else {
-            //khong chon
-            cu.setMaxAge(0); //7 ngay
-            cp.setMaxAge(0);
-            cr.setMaxAge(0);
-        }
-        // luu vao browser
-        response.addCookie(cu);
-        response.addCookie(cp);
-        response.addCookie(cr);
-<<<<<<< HEAD
-         String passwordMd5 = md5Hash(password);
-        Customer u = cusdao.login(username, passwordMd5);
-=======
-        Customer u = cusdao.login(username, password);
->>>>>>> 958a80d7aa69802d8cabc30de3f249b82a4c2cbd
         if (u != null) {
-            HttpSession ses = request.getSession();
-            ses.setAttribute("user", u);
-            response.sendRedirect("homepage");
-        }
-        if (u == null) {
-            request.setAttribute("mess", "Sai tên đăng nhập hoặc mật khẩu");
-            request.getRequestDispatcher("sign_in.jsp").forward(request, response);
-        }
-
-    }
-  // Utility method to hash the password using MD5
-    public String md5Hash(String input) {
-        try {
-            MessageDigest md = MessageDigest.getInstance("MD5");
-            byte[] messageDigest = md.digest(input.getBytes());
-
-            StringBuilder hexString = new StringBuilder();
-            for (byte b : messageDigest) {
-                hexString.append(String.format("%02x", b));
-            }
-            return hexString.toString();
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-            return null;
+            int userID = u.getUserID();
+            String username = request.getParameter("username");
+            String email = request.getParameter("email");
+            String subject = request.getParameter("subject");
+            String detail = request.getParameter("detail");
+            condao.SendContact(userID, username, email, subject, detail);
+            response.sendRedirect("contact?status=success"); // Thêm trạng thái success
+        } else {
+            String username = request.getParameter("username");
+            String email = request.getParameter("email");
+            String subject = request.getParameter("subject");
+            String detail = request.getParameter("detail");
+            condao.SendContact1(username, email, subject, detail);
+            response.sendRedirect("contact?status=success"); // Thêm trạng thái success
         }
     }
+
     /**
      * Returns a short description of the servlet.
      *

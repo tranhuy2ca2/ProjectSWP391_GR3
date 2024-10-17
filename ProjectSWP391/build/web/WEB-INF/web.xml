@@ -39,10 +39,29 @@
     <servlet>
         <servlet-name>ChangePassword</servlet-name>
         <servlet-class>Controller.ChangePassword</servlet-class>
+<<<<<<< HEAD
     </servlet>
     <servlet>
         <servlet-name>UserManagement</servlet-name>
         <servlet-class>Controller.UserManagement</servlet-class>
+=======
+>>>>>>> 958a80d7aa69802d8cabc30de3f249b82a4c2cbd
+    </servlet>
+    <servlet>
+        <servlet-name>DetailMyLandLot</servlet-name>
+        <servlet-class>Controller.DetailMyLandLot</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateLandLot</servlet-name>
+        <servlet-class>Controller.UpdateLandLot</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Contact</servlet-name>
+        <servlet-class>Controller.Contact</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ListUserFeedback</servlet-name>
+        <servlet-class>Controller.ListUserFeedback</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>AuctionManagement</servlet-name>
@@ -91,10 +110,29 @@
     <servlet-mapping>
         <servlet-name>ChangePassword</servlet-name>
         <url-pattern>/changepassword</url-pattern>
+<<<<<<< HEAD
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>UserManagement</servlet-name>
         <url-pattern>/UserManagement</url-pattern>
+=======
+>>>>>>> 958a80d7aa69802d8cabc30de3f249b82a4c2cbd
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DetailMyLandLot</servlet-name>
+        <url-pattern>/detailmylandlot</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateLandLot</servlet-name>
+        <url-pattern>/updatelandlot</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Contact</servlet-name>
+        <url-pattern>/contact</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ListUserFeedback</servlet-name>
+        <url-pattern>/listuserfeedback</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AuctionManagement</servlet-name>

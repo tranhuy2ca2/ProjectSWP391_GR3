@@ -1,3 +1,8 @@
+<%-- 
+    Document   : SideBar
+    Created on : Aug 26, 2024, 10:50:24 AM
+    Author     : TTT
+--%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -15,27 +20,43 @@
     </head>
     <body>
         <aside style="margin-top: 40px" id="sidebar" class="sidebar">
+
             <ul class="sidebar-nav" id="sidebar-nav">
-                <!-- Other general menu items (visible to all users) -->
+
+                <li class="nav-item">
+                    <i class="bi bi-grid"></i>
+                    <span>Dashboard</span>
+                </li><!-- End Dashboard Nav -->
+
                 <li class="nav-item">
                     <a class="nav-link collapsed" href="profile">
                         <i class="bi bi-person"></i>
                         <span>Profile</span>
                     </a>
-                </li>
-
-                <!-- Menu items visible to admin only (role = 1) -->
-                <c:if test="${sessionScope.user != null && sessionScope.user.role == 1}">
+                </li><!-- End Profile Page Nav -->
+                <c:if test="${sessionScope.user.role == 2}">
                     <li class="nav-item">
-                        <a class="nav-link collapsed" href="UserManagement">
-                            <i class="bi bi-book"></i>
-                            <span>Quản lý người dùng</span>
+                        <a class="nav-link collapsed" href="uploadlandlot">
+                            <i class="bi bi-upload"></i>
+                            <span>Ðăng Đất</span>
                         </a>
                     </li>
                     <li class="nav-item">
+<<<<<<< HEAD
                         <a class="nav-link collapsed" href="AuctionManagement">
                             <i class="bi bi-book"></i>
                             <span>Quản lý auction</span>
+=======
+                        <a class="nav-link collapsed" href="managemylandlot">
+                            <i class="bi bi-bag"></i>
+                            <span>Quản lí đất đai</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link collapsed" href="listuserfeedback">
+                            <i class="bi bi-list"></i>
+                            <span>Danh Sách Liên Hệ Đã Gửi</span>
+>>>>>>> b9c87d88345f8f97a3caa5528b53064ef4412078
                         </a>
                     </li>
                 </c:if>
@@ -82,6 +103,7 @@
                 </c:if>
                     
             </ul>
+                </c:if>        
         </aside>   
     </body>
 </html>
