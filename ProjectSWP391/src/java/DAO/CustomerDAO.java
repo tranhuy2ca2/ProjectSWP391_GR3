@@ -82,9 +82,8 @@ public class CustomerDAO {
 
     public Customer getUserDetailByEmail(String email) {
         String query = """
-                       select*from [Users] u join UserRoles ur
-                       on u.userID = ur.UserID
-                       join Roles r on ur.RoleID = r.RoleID
+                       select*from [Users] u join Roles ur on
+                       u.[role] = ur.RoleID
                        where u.email = ?""";
         try {
             ps = con.prepareStatement(query);
@@ -101,7 +100,7 @@ public class CustomerDAO {
                         rs.getString(7),
                         rs.getString(8),
                         rs.getDate(9),
-                        rs.getString(13)
+                        rs.getString(11)
                 );
             }
         } catch (Exception e) {
@@ -182,7 +181,7 @@ public class CustomerDAO {
         }
         return true;
     }
-    
+
     public Customer getAccountByID(int id) {
         String query = """
                        select * from [Users]
@@ -207,7 +206,7 @@ public class CustomerDAO {
         }
         return null;
     }
-    
+
     public boolean ChangePassword(int user_id, String user_pass) {
         String sql = """
                      update [Users] set [password] = ?
@@ -224,6 +223,6 @@ public class CustomerDAO {
 
     public static void main(String[] args) {
         CustomerDAO dao = new CustomerDAO();
-        System.out.println(dao.getAccountByID(2));
+        System.out.println(dao.getUserDetailByEmail("tranhuy2ca2@gmail.com"));
     }
 }

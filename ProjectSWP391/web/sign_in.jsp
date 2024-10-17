@@ -66,7 +66,7 @@
                                 <div class="form-group mb-3">
                                     <label class="form-label d-flex justify-content-between">
                                         Mật khẩu* 
-                                        <a class="forgot-pass-link" href="forgot?action=customer">Quên mật khẩu?</a>
+                                        <a class="forgot-pass-link" href="resetpassword?action=customer">Quên mật khẩu?</a>
                                     </label>
                                     <input class="form-control h_50" type="password" name="password" placeholder="Nhập mật khẩu của bạn" 
                                            value="${cookie.cpass.value}" required>
