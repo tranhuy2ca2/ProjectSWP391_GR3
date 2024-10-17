@@ -39,6 +39,13 @@
     <servlet>
         <servlet-name>ChangePassword</servlet-name>
         <servlet-class>Controller.ChangePassword</servlet-class>
+<<<<<<< HEAD
+    </servlet>
+    <servlet>
+        <servlet-name>UserManagement</servlet-name>
+        <servlet-class>Controller.UserManagement</servlet-class>
+=======
+>>>>>>> 958a80d7aa69802d8cabc30de3f249b82a4c2cbd
     </servlet>
     <servlet>
         <servlet-name>DetailMyLandLot</servlet-name>
@@ -95,6 +102,13 @@
     <servlet-mapping>
         <servlet-name>ChangePassword</servlet-name>
         <url-pattern>/changepassword</url-pattern>
+<<<<<<< HEAD
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UserManagement</servlet-name>
+        <url-pattern>/UserManagement</url-pattern>
+=======
+>>>>>>> 958a80d7aa69802d8cabc30de3f249b82a4c2cbd
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>DetailMyLandLot</servlet-name>
