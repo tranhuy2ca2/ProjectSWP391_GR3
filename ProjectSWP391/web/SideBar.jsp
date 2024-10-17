@@ -47,7 +47,6 @@
                             <span>Quản lí đất đai</span>
                         </a>
                     </li>
-<<<<<<< HEAD
                 </c:if>
                  <c:if test="${sessionScope.user.role == 2}">
                     <li class="nav-item">
@@ -92,9 +91,7 @@
                 </c:if>
                     
             </ul>
-=======
                 </c:if>        
->>>>>>> 958a80d7aa69802d8cabc30de3f249b82a4c2cbd
         </aside>   
     </body>
 </html>
