@@ -70,8 +70,7 @@
                                             <a href="#">Dropdown</a>
                                             <ul class="dropdown">
                                                 <li><a href="UserManagement">Quản lí người dùng</a></li>
-                                                <li><a href="#">Quản lí auction</a></li>
-                                                <li><a href="#">Sub Menu Three</a></li>
+                                                <li><a href="AuctionManagement">Quản lí auction</a></li>
                                             </ul>
                                         </li>
                                     </ul>

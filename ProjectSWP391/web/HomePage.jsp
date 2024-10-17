@@ -88,10 +88,9 @@
                         <div class="col-lg-6 text-lg-end">
                             <p>
                                 <a
-                                    href="#"
-                                    target="_blank"
+                                    href="ViewAuction"
                                     class="btn btn-primary text-white py-3 px-4"
-                                    >View all properties</a
+                                    >View all auction</a
                                 >
                             </p>
                         </div>

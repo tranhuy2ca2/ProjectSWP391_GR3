@@ -44,6 +44,14 @@
         <servlet-name>UserManagement</servlet-name>
         <servlet-class>Controller.UserManagement</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AuctionManagement</servlet-name>
+        <servlet-class>Controller.AuctionManagement</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ViewAuction</servlet-name>
+        <servlet-class>Controller.ViewAuction</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>HomePage</servlet-name>
         <url-pattern>/homepage</url-pattern>
@@ -87,5 +95,13 @@
     <servlet-mapping>
         <servlet-name>UserManagement</servlet-name>
         <url-pattern>/UserManagement</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AuctionManagement</servlet-name>
+        <url-pattern>/AuctionManagement</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ViewAuction</servlet-name>
+        <url-pattern>/ViewAuction</url-pattern>
     </servlet-mapping>
 </web-app>
