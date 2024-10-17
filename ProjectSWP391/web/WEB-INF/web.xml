@@ -47,6 +47,22 @@
 =======
 >>>>>>> 958a80d7aa69802d8cabc30de3f249b82a4c2cbd
     </servlet>
+    <servlet>
+        <servlet-name>DetailMyLandLot</servlet-name>
+        <servlet-class>Controller.DetailMyLandLot</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateLandLot</servlet-name>
+        <servlet-class>Controller.UpdateLandLot</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Contact</servlet-name>
+        <servlet-class>Controller.Contact</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ListUserFeedback</servlet-name>
+        <servlet-class>Controller.ListUserFeedback</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>HomePage</servlet-name>
         <url-pattern>/homepage</url-pattern>
@@ -93,5 +109,21 @@
         <url-pattern>/UserManagement</url-pattern>
 =======
 >>>>>>> 958a80d7aa69802d8cabc30de3f249b82a4c2cbd
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DetailMyLandLot</servlet-name>
+        <url-pattern>/detailmylandlot</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateLandLot</servlet-name>
+        <url-pattern>/updatelandlot</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Contact</servlet-name>
+        <url-pattern>/contact</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ListUserFeedback</servlet-name>
+        <url-pattern>/listuserfeedback</url-pattern>
     </servlet-mapping>
 </web-app>

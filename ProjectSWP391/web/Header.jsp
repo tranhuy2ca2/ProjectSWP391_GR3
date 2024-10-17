@@ -54,10 +54,10 @@
                             >
                             <li class="active"><a href="homepage">Home</a></li>
                             <c:if test="${sessionScope.user==null}">
-                                <li><a href="sign_in.jsp">Login</a></li>
+                                <li><a href="sign_in.jsp">Đăng Nhập</a></li>
                             </c:if>
                             <c:if test="${sessionScope.user!=null}">
-                                <li><a href="logout">Log out</a></li>
+                                <li><a href="logout">Đăng Xuất</a></li>
                                 <li class="active"><a href="profile?uID=${sessionScope.user.userID}">Hello ${user.fullName}</a></li>
                             </c:if>  
                             <c:if test="${sessionScope.user.role == 1}">    
@@ -95,9 +95,9 @@
                                 </li>
                             </c:if>
                             
-                            <li><a href="services.html">Services</a></li>
-                            <li><a href="about.html">About</a></li>
-                            <li><a href="contact.html">Contact Us</a></li>
+                            <li><a href="#">Services</a></li>
+                            <li><a href="AboutUs.jsp">Giới Thiệu</a></li>
+                            <li><a href="Contact.jsp">Liên Hệ</a></li>
                         </ul>
 
                         <a

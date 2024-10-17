@@ -39,70 +39,46 @@
                 <div class="row">
                     <div class="col-lg-4">
                         <div class="widget">
-                            <h3>Contact</h3>
-                            <address>43 Raymouth Rd. Baltemoer, London 3910</address>
+                            <h3>Liên Hệ</h3>
+                            <address>Địa Chỉ : Trường Đại Học FPT Hòa Lạc</address>
                             <ul class="list-unstyled links">
-                                <li><a href="tel://11234567890">+1(123)-456-7890</a></li>
-                                <li><a href="tel://11234567890">+1(123)-456-7890</a></li>
+                                <li><a>Số Điện Thoại : 0346842677</a></li>
                                 <li>
-                                    <a href="mailto:info@mydomain.com">info@mydomain.com</a>
+                                    Địa Chỉ Email :<a href="">huytdqhe173448@fpt.edu.vn</a>
                                 </li>
-                            </ul>
-                        </div>
-                        <!-- /.widget -->
-                    </div>
-                    <!-- /.col-lg-4 -->
-                    <div class="col-lg-4">
-                        <div class="widget">
-                            <h3>Sources</h3>
-                            <ul class="list-unstyled float-start links">
-                                <li><a href="#">About us</a></li>
-                                <li><a href="#">Services</a></li>
-                                <li><a href="#">Vision</a></li>
-                                <li><a href="#">Mission</a></li>
-                                <li><a href="#">Terms</a></li>
-                                <li><a href="#">Privacy</a></li>
-                            </ul>
-                            <ul class="list-unstyled float-start links">
-                                <li><a href="#">Partners</a></li>
-                                <li><a href="#">Business</a></li>
-                                <li><a href="#">Careers</a></li>
-                                <li><a href="#">Blog</a></li>
-                                <li><a href="#">FAQ</a></li>
-                                <li><a href="#">Creative</a></li>
-                            </ul>
-                        </div>
-                        <!-- /.widget -->
-                    </div>
-                    <!-- /.col-lg-4 -->
-                    <div class="col-lg-4">
-                        <div class="widget">
-                            <h3>Links</h3>
-                            <ul class="list-unstyled links">
-                                <li><a href="#">Our Vision</a></li>
-                                <li><a href="#">About us</a></li>
-                                <li><a href="#">Contact us</a></li>
-                            </ul>
 
-                            <ul class="list-unstyled social">
-                                <li>
-                                    <a href="#"><span class="icon-instagram"></span></a>
-                                </li>
-                                <li>
-                                    <a href="#"><span class="icon-twitter"></span></a>
-                                </li>
-                                <li>
-                                    <a href="#"><span class="icon-facebook"></span></a>
-                                </li>
-                                <li>
-                                    <a href="#"><span class="icon-linkedin"></span></a>
-                                </li>
-                                <li>
-                                    <a href="#"><span class="icon-pinterest"></span></a>
-                                </li>
-                                <li>
-                                    <a href="#"><span class="icon-dribbble"></span></a>
-                                </li>
+                            </ul>
+                            <div>
+                                Số giấy đăng ký hoạt động: 01/TP-ĐKHĐ do Sở tư pháp Thành phố Hà Nội Cấp ngày 07/08/2017
+                            </div>
+                            <div style="margin-top: 20px">
+                                Đại diện: Anh Trần Đỗ Quang Huy - Chức vụ: Tổng giám đốc
+                            </div>
+                        </div>
+                        <!-- /.widget -->
+                    </div>
+                    <!-- /.col-lg-4 -->
+                    <div class="col-lg-4">
+                        <div class="widget">
+                            <h3>Về chúng tôi</h3>
+                            <ul class="list-unstyled float-start links">
+                                <li><a href="AboutUs.jsp">Giới thiệu</a></li>
+                                <li><a href="https://drive.google.com/drive/folders/1xFC2XmYYBqfrqRQmkxsGrG_XcL2rAzAW">Quy chế hoạt động</a></li>
+                                <li><a href="#">Cơ chế giải quyết tranh chấp</a></li>
+                            </ul>
+                        </div>
+                        <!-- /.widget -->
+                    </div>
+                    <!-- /.col-lg-4 -->
+                    <div class="col-lg-4">
+                        <div class="widget">
+                            <h3>Chính sách</h3>
+                            <ul class="list-unstyled links">
+                                <li><a href="
+                                       https://thuvienphapluat.vn/van-ban/thuong-mai/Nghi-dinh-62-2017-
+                                       ND-CP-huong-dan-Luat-dau-gia-tai-san-346009.aspx">Văn bản pháp quy</a></li>
+                                <li><a href="https://drive.google.com/drive/folders/1iFBlWzf8-WzCi5LT1T3TJglzTYSuAC_W">
+                                        Chính sách bảo mật thông tin</a></li>
                             </ul>
                         </div>
                         <!-- /.widget -->
@@ -113,26 +89,14 @@
 
                 <div class="row mt-5">
                     <div class="col-12 text-center">
-                        <!-- 
-                          **==========
-                          NOTE: 
-                          Please don't remove this copyright link unless you buy the license here https://untree.co/license/  
-                          **==========
-                        -->
-
                         <p>
                             Copyright &copy;
                             <script>
                                 document.write(new Date().getFullYear());
                             </script>
-                            . All Rights Reserved. &mdash; Designed with love by
-                            <a href="https://untree.co">Untree.co</a>
-                            <!-- License information: https://untree.co/license/ -->
+                            Công ty đấu giá hợp danh <strong style="font-size: 30px">Property</strong>
                         </p>
-                        <div>
-                            Distributed by
-                            <a href="https://themewagon.com/" target="_blank">themewagon</a>
-                        </div>
+                        
                     </div>
                 </div>
             </div>

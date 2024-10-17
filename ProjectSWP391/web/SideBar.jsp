@@ -38,13 +38,19 @@
                     <li class="nav-item">
                         <a class="nav-link collapsed" href="uploadlandlot">
                             <i class="bi bi-upload"></i>
-                            <span>Ðăng Tin</span>
+                            <span>Ðăng Đất</span>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link collapsed" href="managemylandlot">
                             <i class="bi bi-bag"></i>
                             <span>Quản lí đất đai</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link collapsed" href="listuserfeedback">
+                            <i class="bi bi-list"></i>
+                            <span>Danh Sách Liên Hệ Đã Gửi</span>
                         </a>
                     </li>
                 </c:if>

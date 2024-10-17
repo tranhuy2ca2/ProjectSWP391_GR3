@@ -10,7 +10,7 @@ public class LandLots {
     private String location;
     private float area;
     private String description;
-    private float startprice;
+    private long startprice;
     private Date createdAt;
     private String status;
     private List<ZoningTypes> zoningtype;
@@ -19,7 +19,7 @@ public class LandLots {
     public LandLots() {
     }
 
-    public LandLots(int landLotsID, int sellerID, String landLotName, String location, float area, String description, float startprice, Date createdAt, String status) {
+    public LandLots(int landLotsID, int sellerID, String landLotName, String location, float area, String description, long startprice, Date createdAt, String status) {
         this.landLotsID = landLotsID;
         this.sellerID = sellerID;
         this.landLotName = landLotName;
@@ -31,7 +31,7 @@ public class LandLots {
         this.status = status;
     }
 
-    public LandLots(int landLotsID, int sellerID, String landLotName, String location, float area, String description, float startprice, Date createdAt, String status, List<ZoningTypes> zoningtype, List<LandLotImage> landlotimage) {
+    public LandLots(int landLotsID, int sellerID, String landLotName, String location, float area, String description, long startprice, Date createdAt, String status, List<ZoningTypes> zoningtype, List<LandLotImage> landlotimage) {
         this.landLotsID = landLotsID;
         this.sellerID = sellerID;
         this.landLotName = landLotName;
@@ -93,11 +93,11 @@ public class LandLots {
         this.description = description;
     }
 
-    public float getStartprice() {
+    public long getStartprice() {
         return startprice;
     }
 
-    public void setStartprice(float startprice) {
+    public void setStartprice(long startprice) {
         this.startprice = startprice;
     }
 
