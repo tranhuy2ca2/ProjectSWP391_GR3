@@ -23,13 +23,9 @@ public class DBContext {
 
     /*Insert your other code right after this comment*/
  /*Change/update information of your database connection, DO NOT change name of instance variables in this class*/
-    private final String serverName = "DESKTOP-GPAPFK9";
+    private final String serverName = "localhost";
     private final String dbName = "SWP391_G3_Project";
     private final String portNumber = "1433";
     private final String userID = "sa";
-<<<<<<< HEAD
-    private final String password = "123";
-=======
     private final String password = "123456789";
->>>>>>> 958a80d7aa69802d8cabc30de3f249b82a4c2cbd
 }

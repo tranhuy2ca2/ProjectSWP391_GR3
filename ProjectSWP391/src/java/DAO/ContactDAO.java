@@ -91,6 +91,6 @@ public class ContactDAO {
     }
     public static void main(String[] args) {
         ContactDAO dao = new ContactDAO();
-        System.out.println(dao.getContactByUserID(4));
+        System.out.println(dao.getContactByUserID(2));
     }
 }

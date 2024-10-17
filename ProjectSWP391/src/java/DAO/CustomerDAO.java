@@ -4,6 +4,7 @@ import DAL.DBContext;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.List;
 import model.Customer;
 
@@ -14,7 +15,6 @@ public class CustomerDAO {
     ResultSet rs;
     private List<Customer> user;
     private String status = "ok";
-<<<<<<< HEAD
 
      public Customer getUserById(int userID) {
         String query = "SELECT * FROM [SWP391_G3_Project].[dbo].[Users] WHERE UserID = ?";
@@ -47,7 +47,8 @@ public class CustomerDAO {
 
     public List<Customer> getAllUsers() {
         List<Customer> customers = new ArrayList<>();
-        String query = "SELECT [UserID], [userName], [password], [fullName], [Email], [phone], [role], [address], [createdAt] FROM [SWP391_G3_Project].[dbo].[Users]";
+        String query = "SELECT [UserID], [userName], [password], [fullName], [Email], [phone], [role], "
+                + "[address], [createdAt] FROM [SWP391_G3_Project].[dbo].[Users]";
         try {
             // Create an instance of DBContext and get the connection
             DBContext dbContext = new DBContext();
@@ -138,8 +139,6 @@ public class CustomerDAO {
         }
         return false;
     }
-=======
->>>>>>> 958a80d7aa69802d8cabc30de3f249b82a4c2cbd
 
     public CustomerDAO() {
         try {
@@ -208,9 +207,8 @@ public class CustomerDAO {
 
     public Customer getUserDetailByEmail(String email) {
         String query = """
-                       select*from [Users] u join UserRoles ur
-                       on u.userID = ur.UserID
-                       join Roles r on ur.RoleID = r.RoleID
+                       select*from [Users] u join Roles ur on
+                       u.[role] = ur.RoleID
                        where u.email = ?""";
         try {
             ps = con.prepareStatement(query);
@@ -227,7 +225,7 @@ public class CustomerDAO {
                         rs.getString(7),
                         rs.getString(8),
                         rs.getDate(9),
-                        rs.getString(13)
+                        rs.getString(11)
                 );
             }
         } catch (Exception e) {
@@ -279,7 +277,7 @@ public class CustomerDAO {
         return false;
 
     }
-<<<<<<< HEAD
+
  public boolean checkUsernameExist(String username) {
         String sql = "SELECT * FROM [Users] WHERE userName = ?";
         try {
@@ -308,22 +306,6 @@ public class CustomerDAO {
         return false;
     }
 
-=======
-
-    public boolean checkCustomerExist(String email) {
-        String sql = "SELECT * FROM [Users] WHERE [Email] = ?";
-        try {
-            ps = con.prepareStatement(sql);
-            ps.setString(1, email);
-            rs = ps.executeQuery();
-            return rs.next(); // returns true if a user exists with this email
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return false;
-    }
-
->>>>>>> 958a80d7aa69802d8cabc30de3f249b82a4c2cbd
     public boolean UpdatePassword(int uID, String password) {
         String query = """
                        update [Users]
@@ -339,7 +321,7 @@ public class CustomerDAO {
         }
         return true;
     }
-    
+
     public Customer getAccountByID(int id) {
         String query = """
                        select * from [Users]
@@ -364,7 +346,7 @@ public class CustomerDAO {
         }
         return null;
     }
-    
+
     public boolean ChangePassword(int user_id, String user_pass) {
         String sql = """
                      update [Users] set [password] = ?
@@ -381,6 +363,6 @@ public class CustomerDAO {
 
     public static void main(String[] args) {
         CustomerDAO dao = new CustomerDAO();
-        System.out.println(dao.getAccountByID(2));
+        System.out.println(dao.getUserDetailByEmail("tranhuy2ca2@gmail.com"));
     }
 }
