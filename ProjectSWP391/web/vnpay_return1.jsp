@@ -105,7 +105,7 @@
                     <div class="form-group">
                         <label>Thời gian thanh toán:</label>
                         <label><%= formattedPayDate %></label>
-                        <input name="date" value="<%= formattedPayDate %>" style="display:none"/>
+                        <input name="date" value="<%= formattedPayDate %>" style="display:"/>
                     </div>
                     <div class="form-group">
                         <label>Tình trạng giao dịch:</label>
@@ -127,7 +127,7 @@
         if ("00".equals(request.getParameter("vnp_TransactionStatus"))) { %>
                 <button style="margin-top:30px" type="submit" class="btn btn-primary">Back To Profile</button>
                 <% } else { %>
-                <a href="homepage   " style="margin-top:30px" class="btn btn-primary">Back To Homepage</a>
+                <a href="homepage" style="margin-top:30px" class="btn btn-primary">Back To Homepage</a>
                 <% } %>
             </form>
             <p>
