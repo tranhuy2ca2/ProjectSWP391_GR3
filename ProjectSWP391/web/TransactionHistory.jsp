@@ -1,5 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html >
 
@@ -11,6 +12,7 @@
         <link href="./assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
         <link href="./assets/css/style.css" rel="stylesheet">
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+        <link rel="stylesheet" href="css/ManagerProduct.css">
         <style>
             .table td {
                 width: 20%; /* Đặt chiều rộng 20% cho mỗi cột */
@@ -18,6 +20,21 @@
             .detail {
                 /* Điều chỉnh kích cỡ nội dung trong cột Detail */
                 font-size: 13px;
+            }
+            .transaction-type-1 {
+                background-color: #d1e7dd; /* Màu xanh lá nhạt */
+            }
+
+            .transaction-type-2 {
+                background-color: #f8d7da; /* Màu đỏ nhạt */
+            }
+
+            .transaction-type-3 {
+                background-color: #cff4fc; /* Màu xanh dương nhạt */
+            }
+
+            .transaction-type-4 {
+                background-color: #fff3cd; /* Màu vàng nhạt */
             }
         </style>
     </head>
@@ -35,6 +52,28 @@
                     font-size: 0.8em;
                     margin-left: 5px;
                 }
+                .table td {
+                    width: 20%; /* Đặt chiều rộng 20% cho mỗi cột */
+                }
+                .detail {
+                    /* Điều chỉnh kích cỡ nội dung trong cột Detail */
+                    font-size: 13px;
+                }
+                .transaction-type-1 {
+                    background-color: #d1e7dd; /* Màu xanh lá nhạt */
+                }
+
+                .transaction-type-2 {
+                    background-color: #f8d7da; /* Màu đỏ nhạt */
+                }
+
+                .transaction-type-3 {
+                    background-color: #cff4fc; /* Màu xanh dương nhạt */
+                }
+
+                .transaction-type-4 {
+                    background-color: #fff3cd; /* Màu vàng nhạt */
+                }
             </style>
             <script>
                 function toggleSubMenu(event) {
@@ -48,7 +87,7 @@
             <main style="margin-top: 20px" id="main" class="main">
 
                 <div class="pagetitle">
-                    <h1>Danh Sách Truyện Của Bạn Quản Lý</h1>
+                    <h1>Lịch Sử Giao Dịch</h1>
                 </div>
 
                 <section class="section">
@@ -60,49 +99,42 @@
                                         <thead>
                                             <tr>
                                                 <th class="col-1 text-center">STT</th>
-                                                <th class="col-3 text-center">Tiêu Đề</th>
-                                                <th class="col-3 text-center">Nội Dung</th>
-                                                <th class="col-3 text-center" data-type="date" data-format="YYYY/DD/MM">Ngày Đăng</th>
+                                                <th class="col-3 text-center">Loại giao dịch</th>
+                                                <th class="col-3 text-center">Số tiền giao dịch</th>
+                                                <th class="col-3 text-center" data-type="date" data-format="YYYY/DD/MM">Publish Date</th>
                                             </tr>
-                                        </thead>
+                                        </thead>                                        
                                         <tbody>
-                                        <c:forEach items="${listfeedback}" var="b" varStatus="status">
-                                            <tr>
+                                        <c:forEach items="${transaction}" var="tran" varStatus="status">
+                                            <tr> 
                                                 <td class="col-1 text-center">${status.index + 1}</td>
-                                                <td class="col-3 text-center">${b.subject}</td>
-                                                <td class="col-3 text-center">${b.detail}</td>
-                                                <td class="col-3 text-center">${b.createAt}</td>
+                                                <td class="col-3 text-center">
+                                                    <c:choose>
+                                                        <c:when test="${tran.transactiontypeID == 1}">
+                                                            <span class="transaction-type-1">Nạp tiền</span>
+                                                        </c:when> 
+                                                        <c:when test="${tran.transactiontypeID == 2}">
+                                                            <span class="transaction-type-2">Rút tiền</span>
+                                                        </c:when>
+                                                    </c:choose>
+                                                </td>
+                                                <td class="col-3 text-center">
+                                                    <fmt:formatNumber value="${tran.money}" pattern="#,##0.##"/>đ
+                                                </td>
+                                                <td class="col-3 text-center">${tran.publishdate}</td>                                     
                                             </tr>
                                         </c:forEach>
-                                    </tbody>
+                                    </tbody>                                      
                                 </table>
                             </div>
                         </div>
                     </div>
                 </div>
             </section>
-
         </main>
         <div id="footer" class="footer border-top pt-2">
             <jsp:include page="Footer.jsp"></jsp:include>
         </div>
-        <script>
-            function toggleDetail(link) {
-                const detailContent = link.previousElementSibling;
-                const shortDetail = detailContent.querySelector('.short-detail');
-                const fullDetail = detailContent.querySelector('.full-detail');
-
-                if (shortDetail.style.display === 'none') {
-                    shortDetail.style.display = 'inline';
-                    fullDetail.style.display = 'none';
-                    link.textContent = 'Đọc thêm';
-                } else {
-                    shortDetail.style.display = 'none';
-                    fullDetail.style.display = 'inline';
-                    link.textContent = 'Thu gọn';
-                }
-            }
-        </script>   
         <script src="assets/vendor/simple-datatables/simple-datatables.js"></script>
         <script src="assets/vendor/tinymce/tinymce.min.js"></script>
         <script src="assets/js/main.js"></script>

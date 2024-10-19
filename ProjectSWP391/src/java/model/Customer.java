@@ -14,11 +14,12 @@ public class Customer {
     private String address;
     private Date createdAt;
     private String rolename;
+    private int money;
 
     public Customer() {
     }
 
-    public Customer(int userID, String userName, String password, String fullName, String email, String phone, String role, String address, 
+    public Customer(int userID, String userName, String password, String fullName, String email, String phone, String role, String address,
             Date createdAt) {
         this.userID = userID;
         this.userName = userName;
@@ -31,8 +32,7 @@ public class Customer {
         this.createdAt = createdAt;
     }
 
-
-    public Customer(int userID, String userName, String password, String fullName, String email, String phone, String role, String address, 
+    public Customer(int userID, String userName, String password, String fullName, String email, String phone, String role, String address,
             Date createdAt, String rolename) {
         this.userID = userID;
         this.userName = userName;
@@ -46,6 +46,21 @@ public class Customer {
         this.rolename = rolename;
     }
 
+    public Customer(int userID, String userName, String password, String fullName, String email, String phone, 
+            String role, String address, Date createdAt, String rolename, int money) {
+        this.userID = userID;
+        this.userName = userName;
+        this.password = password;
+        this.fullName = fullName;
+        this.email = email;
+        this.phone = phone;
+        this.role = role;
+        this.address = address;
+        this.createdAt = createdAt;
+        this.rolename = rolename;
+        this.money = money;
+    }
+    
 
     public int getUserID() {
         return userID;
@@ -127,9 +142,19 @@ public class Customer {
         this.rolename = rolename;
     }
 
+    public int getMoney() {
+        return money;
+    }
+
+    public void setMoney(int money) {
+        this.money = money;
+    }
+
     @Override
     public String toString() {
-        return "Customer{" + "userID=" + userID + ", userName=" + userName + ", password=" + password + ", fullName=" + fullName + ", "
-                + "email=" + email + ", phone=" + phone + ", role=" + role + ", address=" + address + ", createdAt=" + createdAt + '}';
+        return "Customer{" + "userID=" + userID + ", userName=" + userName + ", password=" + password + ", "
+                + "fullName=" + fullName + ", email=" + email + ", phone=" + phone + ", role=" + role + ", "
+                + "address=" + address + ", createdAt=" + createdAt + ", rolename=" + rolename + ", money=" + money + '}';
     }
+
 }

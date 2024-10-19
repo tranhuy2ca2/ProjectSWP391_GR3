@@ -41,10 +41,6 @@
         <servlet-class>Controller.ChangePassword</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>UserManagement</servlet-name>
-        <servlet-class>Controller.UserManagement</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>DetailMyLandLot</servlet-name>
         <servlet-class>Controller.DetailMyLandLot</servlet-class>
     </servlet>
@@ -61,8 +57,29 @@
         <servlet-class>Controller.ListUserFeedback</servlet-class>
     </servlet>
     <servlet>
+<<<<<<< HEAD
         <servlet-name>SearchLandLot</servlet-name>
         <servlet-class>Controller.SearchLandLot</servlet-class>
+=======
+        <servlet-name>RechargeMoney</servlet-name>
+        <servlet-class>Controller.RechargeMoney</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>FinalPay</servlet-name>
+        <servlet-class>Controller.FinalPay</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>TransactionHistory</servlet-name>
+        <servlet-class>Controller.TransactionHistory</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>WithDraw</servlet-name>
+        <servlet-class>Controller.WithDraw</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>WithDrawMoney</servlet-name>
+        <servlet-class>Controller.WithDrawMoney</servlet-class>
+>>>>>>> c2ae3e68e54dd1115be0fb11f20d1fdcefe689a2
     </servlet>
     <servlet-mapping>
         <servlet-name>HomePage</servlet-name>
@@ -105,10 +122,6 @@
         <url-pattern>/changepassword</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>UserManagement</servlet-name>
-        <url-pattern>/UserManagement</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>DetailMyLandLot</servlet-name>
         <url-pattern>/detailmylandlot</url-pattern>
     </servlet-mapping>
@@ -125,7 +138,28 @@
         <url-pattern>/listuserfeedback</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+<<<<<<< HEAD
         <servlet-name>SearchLandLot</servlet-name>
         <url-pattern>/SearchLandLot</url-pattern>
+=======
+        <servlet-name>RechargeMoney</servlet-name>
+        <url-pattern>/rechargemoney</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>FinalPay</servlet-name>
+        <url-pattern>/finalpay</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>TransactionHistory</servlet-name>
+        <url-pattern>/transactionhistory</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>WithDraw</servlet-name>
+        <url-pattern>/withdraw</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>WithDrawMoney</servlet-name>
+        <url-pattern>/withdrawmoney</url-pattern>
+>>>>>>> c2ae3e68e54dd1115be0fb11f20d1fdcefe689a2
     </servlet-mapping>
 </web-app>

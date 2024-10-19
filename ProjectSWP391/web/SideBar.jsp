@@ -53,6 +53,12 @@
                             <span>Danh Sách Liên Hệ Đã Gửi</span>
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link collapsed" href="transactionhistory">
+                            <i class="bi bi-cash"></i>
+                            <span>Lịch Sử Giao Dịch</span>
+                        </a>
+                    </li>
                 </c:if>        
         </aside>   
     </body>
