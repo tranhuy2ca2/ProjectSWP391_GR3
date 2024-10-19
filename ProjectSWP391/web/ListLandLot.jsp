@@ -1,11 +1,11 @@
 <%-- 
-    Document   : HomePage
-    Created on : Sep 23, 2024, 4:16:00 PM
-    Author     : TTT
+    Document   : ListLandLot
+    Created on : Oct 19, 2024, 7:03:07 PM
+    Author     : Admin
 --%>
 
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -79,29 +79,23 @@
             </div>
 
             <div class="section">
-                <div class="container">
-                    <div class="row mb-5 align-items-center">
-                        <div class="col-lg-6">
-                            <h2 class="font-weight-bold text-primary heading">
-                                Popular Properties
-                            </h2>
-                        </div>
-                        <div class="col-lg-6 text-lg-end">
-                            <p>
-                                <a
-                                    href="#"
-                                    target="_blank"
-                                    class="btn btn-primary text-white py-3 px-4"
-                                    >View all properties</a
-                                >
-                            </p>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="property-slider-wrap">
-                                <div class="property-slider">
-                                <c:forEach var="land" items="${listlandlot}">
+                <div style="margin: 2% 45%">
+                    <form action="SearchLandLot">
+                        <input type="hidden" name="keyword" value="${requestScope.keyword}">
+                    <select class="form-control" name="order" onchange="this.form.submit()" style="width: 150%">
+                        <option value="StartingPrice" ${requestScope.order == '1' ? selected : ''}>Giá tăng dần</option>
+                        <option value="StartingPrice desc" ${requestScope.order == '2' ? selected : ''}>Giá giảm dần</option>
+                        <option value="Area" ${requestScope.order == '3' ? selected : ''}>Diện tích tăng dần</option>
+                        <option value="Area desc" ${requestScope.order == '4' ? selected : ''}>Diện tích giảm dần</option>
+                    </select>
+                </form>
+            </div>
+            <div class="container">
+                <div class="row">
+                    <c:forEach var="land" items="${listlandlot}">
+                        <div class="col-4">
+                            <div>
+                                <div>
                                     <div class="property-item">
                                         <a href="#" class="img">
                                             <c:if test="${not empty land.landlotimage}">
@@ -146,33 +140,16 @@
                                             </div>
                                         </div>
                                     </div>
-                                </c:forEach>
-                            </div>
-
-                            <div
-                                id="property-nav"
-                                class="controls"
-                                tabindex="0"
-                                aria-label="Carousel Navigation"
-                                >
-                                <span
-                                    class="prev"
-                                    data-controls="prev"
-                                    aria-controls="property"
-                                    tabindex="-1"
-                                    >Prev</span
-                                >
-                                <span
-                                    class="next"
-                                    data-controls="next"
-                                    aria-controls="property"
-                                    tabindex="-1"
-                                    >Next</span
-                                >
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    </c:forEach>
                 </div>
+            </div>
+            <div style="text-align: center;font-size: large">
+                <c:forEach begin="1" end="${requestScope.totalPage}" var="item">
+                    <a href="${pageContext.request.contextPath}/SearchLandLot?keyword=${keyword}&pageNumber=${item}">${item}</a>
+                </c:forEach>
             </div>
         </div>
 

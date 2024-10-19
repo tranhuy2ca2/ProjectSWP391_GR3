@@ -60,6 +60,10 @@
         <servlet-name>ListUserFeedback</servlet-name>
         <servlet-class>Controller.ListUserFeedback</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>SearchLandLot</servlet-name>
+        <servlet-class>Controller.SearchLandLot</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>HomePage</servlet-name>
         <url-pattern>/homepage</url-pattern>
@@ -119,5 +123,9 @@
     <servlet-mapping>
         <servlet-name>ListUserFeedback</servlet-name>
         <url-pattern>/listuserfeedback</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SearchLandLot</servlet-name>
+        <url-pattern>/SearchLandLot</url-pattern>
     </servlet-mapping>
 </web-app>

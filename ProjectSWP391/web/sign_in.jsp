@@ -23,6 +23,11 @@
         <link href="${pageContext.request.contextPath}/vendor/OwlCarousel/assets/owl.carousel.css" rel="stylesheet">
         <link href="${pageContext.request.contextPath}/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
         <link href="${pageContext.request.contextPath}/vendor/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet">
+        <!-- Thư viện CSS của Toastr -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+        <!-- Thư viện JavaScript của Toastr -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     </head>
 
     <body class="d-flex justify-content-center align-items-center h-100 bg-light">
@@ -97,6 +102,15 @@
         <script src="${pageContext.request.contextPath}/vendor/OwlCarousel/owl.carousel.js"></script>
         <script src="${pageContext.request.contextPath}/vendor/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
         <script src="${pageContext.request.contextPath}/js/night-mode.js"></script>
+        <script>
+            $(document).ready(function () {
+                // Kiểm tra message từ Servlet
+                var message = '${requestScope.report}';
+                if (message) {
+                    toastr.success(message);  // Hoặc toastr.error(), toastr.info() tùy theo loại thông báo
+                }
+            });
+        </script>
     </body>
 
 </html>

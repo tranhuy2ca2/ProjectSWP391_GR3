@@ -60,13 +60,14 @@
                                 Easiest way to find your dream home
                             </h1>
                             <form
-                                action="#"
+                                action="SearchLandLot"
                                 class="narrow-w form-search d-flex align-items-stretch mb-3"
                                 data-aos="fade-up"
                                 data-aos-delay="200"
                                 >
                                 <input
                                     type="text"
+                                    name="keyword"
                                     class="form-control px-4"
                                     placeholder="Your ZIP code or City. e.g. New York"
                                     />
