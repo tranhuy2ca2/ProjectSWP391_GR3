@@ -431,6 +431,92 @@ public class LandLotsDAO {
 
         return landlotList;
     }
+    
+    public List<LandLots> getAllLandLotsDetail(String keyword,String order) {
+        List<LandLots> landlotList = new ArrayList<>();
+
+        // Truy vấn chính để lấy thông tin LandLots
+        String sql = "SELECT * FROM LandLots where 1=1";
+
+        // Truy vấn để lấy loại zoning của LandLots
+        String zonetypeSql = """
+                         SELECT z.* FROM LandLotZoning lz
+                         JOIN ZoningTypes z ON lz.ZoningID = z.ZoningID
+                         WHERE lz.LandLotID = ?""";
+
+        // Truy vấn để lấy hình ảnh của LandLots
+        String imageSql = """
+                      SELECT * FROM LandLotImages li 
+                      WHERE li.LandLotID = ?""";
+
+        try {
+            if(keyword != null && !keyword.trim().isEmpty()){
+                sql += " and LandLotName like ?";
+            }
+            if(order != null){
+                sql += " order by " + order;
+            }
+            ps = con.prepareStatement(sql);
+            if(keyword != null && !keyword.trim().isEmpty()){
+                ps.setString(1, "%" + keyword + "%");
+            }
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                int landID = rs.getInt("LandLotID");
+                List<ZoningTypes> zoningtypeList = new ArrayList<>();
+                List<LandLotImage> landlotImages = new ArrayList<>();
+
+                // Lấy danh sách zoning
+                try (PreparedStatement zoningtypePs = con.prepareStatement(zonetypeSql)) {
+                    zoningtypePs.setInt(1, landID);
+                    try (ResultSet zoningtypeRs = zoningtypePs.executeQuery()) {
+                        while (zoningtypeRs.next()) {
+                            zoningtypeList.add(new ZoningTypes(
+                                    zoningtypeRs.getInt("ZoningID"),
+                                    zoningtypeRs.getString("ZoningCode"),
+                                    zoningtypeRs.getString("ZoningDescription")
+                            ));
+                        }
+                    }
+                }
+
+                // Lấy danh sách hình ảnh
+                try (PreparedStatement imagePs = con.prepareStatement(imageSql)) {
+                    imagePs.setInt(1, landID);
+                    try (ResultSet imageRs = imagePs.executeQuery()) {
+                        while (imageRs.next()) {
+                            landlotImages.add(new LandLotImage(
+                                    imageRs.getInt("ImageID"),
+                                    imageRs.getInt("LandLotID"),
+                                    imageRs.getString("ImageURL"),
+                                    imageRs.getDate("UploadedAt")
+                            ));
+                        }
+                    }
+                }
+
+                // Thêm vào danh sách LandLots
+                landlotList.add(new LandLots(
+                        rs.getInt("LandLotID"),
+                        rs.getInt("SellerID"),
+                        rs.getString("LandLotName"),
+                        rs.getString("Location"),
+                        rs.getInt("Area"),
+                        rs.getString("Description"),
+                        rs.getLong("StartingPrice"),
+                        rs.getDate("CreatedAt"),
+                        rs.getString("Status"),
+                        zoningtypeList, // Truyền danh sách zoning types
+                        landlotImages // Truyền danh sách hình ảnh
+                ));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return landlotList;
+    }
 
     public static void main(String[] args) {
         LandLotsDAO dao = new LandLotsDAO();

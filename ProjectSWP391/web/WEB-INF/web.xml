@@ -57,6 +57,10 @@
         <servlet-class>Controller.ListUserFeedback</servlet-class>
     </servlet>
     <servlet>
+<<<<<<< HEAD
+        <servlet-name>SearchLandLot</servlet-name>
+        <servlet-class>Controller.SearchLandLot</servlet-class>
+=======
         <servlet-name>RechargeMoney</servlet-name>
         <servlet-class>Controller.RechargeMoney</servlet-class>
     </servlet>
@@ -75,6 +79,7 @@
     <servlet>
         <servlet-name>WithDrawMoney</servlet-name>
         <servlet-class>Controller.WithDrawMoney</servlet-class>
+>>>>>>> c2ae3e68e54dd1115be0fb11f20d1fdcefe689a2
     </servlet>
     <servlet-mapping>
         <servlet-name>HomePage</servlet-name>
@@ -133,6 +138,10 @@
         <url-pattern>/listuserfeedback</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+<<<<<<< HEAD
+        <servlet-name>SearchLandLot</servlet-name>
+        <url-pattern>/SearchLandLot</url-pattern>
+=======
         <servlet-name>RechargeMoney</servlet-name>
         <url-pattern>/rechargemoney</url-pattern>
     </servlet-mapping>
@@ -151,5 +160,6 @@
     <servlet-mapping>
         <servlet-name>WithDrawMoney</servlet-name>
         <url-pattern>/withdrawmoney</url-pattern>
+>>>>>>> c2ae3e68e54dd1115be0fb11f20d1fdcefe689a2
     </servlet-mapping>
 </web-app>
