@@ -34,7 +34,21 @@
                         <span>Profile</span>
                     </a>
                 </li><!-- End Profile Page Nav -->
-                <c:if test="${sessionScope.user.role == 2}">
+                  <c:if test="${sessionScope.user != null && sessionScope.user.role == 1}">
+                    <li class="nav-item">
+                        <a class="nav-link collapsed" href="UserManagement">
+                            <i class="bi bi-book"></i>
+                            <span>Quản lý người dùng</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link collapsed" href="AuctionManagement">
+                            <i class="bi bi-book"></i>
+                            <span>Quản lý auction</span>
+                        </a>
+                    </li>
+                </c:if>
+                 <c:if test="${sessionScope.user.role == 2}">
                     <li class="nav-item">
                         <a class="nav-link collapsed" href="uploadlandlot">
                             <i class="bi bi-upload"></i>
@@ -42,11 +56,6 @@
                         </a>
                     </li>
                     <li class="nav-item">
-<<<<<<< HEAD
-                        <a class="nav-link collapsed" href="AuctionManagement">
-                            <i class="bi bi-book"></i>
-                            <span>Quản lý auction</span>
-=======
                         <a class="nav-link collapsed" href="managemylandlot">
                             <i class="bi bi-bag"></i>
                             <span>Quản lí đất đai</span>
@@ -56,24 +65,9 @@
                         <a class="nav-link collapsed" href="listuserfeedback">
                             <i class="bi bi-list"></i>
                             <span>Danh Sách Liên Hệ Đã Gửi</span>
->>>>>>> b9c87d88345f8f97a3caa5528b53064ef4412078
                         </a>
                     </li>
-                </c:if>
-                 <c:if test="${sessionScope.user.role == 2}">
-                    <li class="nav-item">
-                        <a class="nav-link collapsed" href="uploadlandlot">
-                            <i class="bi bi-upload"></i>
-                            <span>Ðăng Tin</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link collapsed" href="managemylandlot">
-                            <i class="bi bi-bag"></i>
-                            <span>Quản lí đất đai</span>
-                        </a>
-                    </li>
-                </c:if>  
+                </c:if> 
                 <c:if test="${sessionScope.user != null && sessionScope.user.role == 3}">
                     <li class="nav-item">
                         <a class="nav-link collapsed" href="#">
@@ -103,7 +97,6 @@
                 </c:if>
                     
             </ul>
-                </c:if>        
         </aside>   
     </body>
 </html>

@@ -12,7 +12,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import model.Auction;
 import model.Customer;
 import model.LandLotImage;
 import model.LandLots;
@@ -432,69 +431,92 @@ public class LandLotsDAO {
 
         return landlotList;
     }
-// Method to get all land lots with their images
-public List<LandLots> getAllLandLotsWithImages() {
-    List<LandLots> landLotsList = new ArrayList<>();
     
-    try {
-        String query = "SELECT l.LandLotID, l.SellerID, l.LandLotName, l.Location, l.Area, l.Description, "
-                     + "l.StartingPrice, l.CreatedAt, l.Status, i.ImageID, i.ImageURL, i.UploadedAt "
-                     + "FROM LandLots l "
-                     + "LEFT JOIN LandLotImages i ON l.LandLotID = i.LandLotID "
-                     + "ORDER BY l.LandLotID";
-        
-        PreparedStatement stmt = con.prepareStatement(query);
-        ResultSet rs = stmt.executeQuery();
-        
-        while (rs.next()) {
-            int landLotID = rs.getInt("LandLotID");
-            LandLots landLot = findLandLotById(landLotsList, landLotID);
+    public List<LandLots> getAllLandLotsDetail(String keyword,String order) {
+        List<LandLots> landlotList = new ArrayList<>();
 
-            // If LandLot is not already in the list, create a new one
-            if (landLot == null) {
-                landLot = new LandLots(
-                    landLotID,
-                    rs.getInt("SellerID"),
-                    rs.getString("LandLotName"),
-                    rs.getString("Location"),
-                    rs.getFloat("Area"),
-                    rs.getString("Description"),
-                    rs.getFloat("StartingPrice"),
-                    rs.getDate("CreatedAt"),
-                    rs.getString("Status")
-                );
-                landLotsList.add(landLot);
-            }
+        // Truy vấn chính để lấy thông tin LandLots
+        String sql = "SELECT * FROM LandLots where 1=1";
 
-            // Add images to the landLot if present
-            int imageID = rs.getInt("ImageID");
-            if (imageID > 0) {
-                LandLotImage image = new LandLotImage(
-                    imageID,
-                    landLotID,
-                    rs.getString("ImageURL"),
-                    rs.getDate("UploadedAt")
-                );
-                landLot.getLandlotimage().add(image);
+        // Truy vấn để lấy loại zoning của LandLots
+        String zonetypeSql = """
+                         SELECT z.* FROM LandLotZoning lz
+                         JOIN ZoningTypes z ON lz.ZoningID = z.ZoningID
+                         WHERE lz.LandLotID = ?""";
+
+        // Truy vấn để lấy hình ảnh của LandLots
+        String imageSql = """
+                      SELECT * FROM LandLotImages li 
+                      WHERE li.LandLotID = ?""";
+
+        try {
+            if(keyword != null && !keyword.trim().isEmpty()){
+                sql += " and LandLotName like ?";
             }
-        }
-        
-     } catch (Exception e) {
+            if(order != null){
+                sql += " order by " + order;
+            }
+            ps = con.prepareStatement(sql);
+            if(keyword != null && !keyword.trim().isEmpty()){
+                ps.setString(1, "%" + keyword + "%");
+            }
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                int landID = rs.getInt("LandLotID");
+                List<ZoningTypes> zoningtypeList = new ArrayList<>();
+                List<LandLotImage> landlotImages = new ArrayList<>();
+
+                // Lấy danh sách zoning
+                try (PreparedStatement zoningtypePs = con.prepareStatement(zonetypeSql)) {
+                    zoningtypePs.setInt(1, landID);
+                    try (ResultSet zoningtypeRs = zoningtypePs.executeQuery()) {
+                        while (zoningtypeRs.next()) {
+                            zoningtypeList.add(new ZoningTypes(
+                                    zoningtypeRs.getInt("ZoningID"),
+                                    zoningtypeRs.getString("ZoningCode"),
+                                    zoningtypeRs.getString("ZoningDescription")
+                            ));
+                        }
+                    }
+                }
+
+                // Lấy danh sách hình ảnh
+                try (PreparedStatement imagePs = con.prepareStatement(imageSql)) {
+                    imagePs.setInt(1, landID);
+                    try (ResultSet imageRs = imagePs.executeQuery()) {
+                        while (imageRs.next()) {
+                            landlotImages.add(new LandLotImage(
+                                    imageRs.getInt("ImageID"),
+                                    imageRs.getInt("LandLotID"),
+                                    imageRs.getString("ImageURL"),
+                                    imageRs.getDate("UploadedAt")
+                            ));
+                        }
+                    }
+                }
+
+                // Thêm vào danh sách LandLots
+                landlotList.add(new LandLots(
+                        rs.getInt("LandLotID"),
+                        rs.getInt("SellerID"),
+                        rs.getString("LandLotName"),
+                        rs.getString("Location"),
+                        rs.getInt("Area"),
+                        rs.getString("Description"),
+                        rs.getLong("StartingPrice"),
+                        rs.getDate("CreatedAt"),
+                        rs.getString("Status"),
+                        zoningtypeList, // Truyền danh sách zoning types
+                        landlotImages // Truyền danh sách hình ảnh
+                ));
+            }
+        } catch (Exception e) {
             e.printStackTrace();
         }
-    
-    return landLotsList;
-}
 
-// Utility method to check if a LandLot is already in the list
-private LandLots findLandLotById(List<LandLots> landLotsList, int landLotID) {
-    for (LandLots lot : landLotsList) {
-        if (lot.getLandLotsID() == landLotID) {
-            return lot;
-        }
+        return landlotList;
     }
-    return null;
-}
 
     public static void main(String[] args) {
         LandLotsDAO dao = new LandLotsDAO();

@@ -80,8 +80,6 @@ public class ManageMyLandLot extends HttpServlet {
     throws ServletException, IOException {
         //processRequest(request, response);
         request.getRequestDispatcher("MyListLandLot.jsp").forward(request, response);
-                request.getRequestDispatcher("ViewAuction.jsp").forward(request, response);
-
     }
 
     /** 

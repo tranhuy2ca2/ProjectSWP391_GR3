@@ -3,12 +3,14 @@ package model;
 import java.util.Date;
 
 public class Auction {
+
     private int auctionID;
     private int landLotID;
     private String landLotName;
     private String auctioneerName;
     private String winnerName;
-    private int winnerID;  // Add winnerID field
+    private Integer winnerID; // Change from int to Integer
+
     private Date startTime;
     private Date endTime;
     private String status;
@@ -23,7 +25,7 @@ public class Auction {
         this.startTime = startTime;
         this.endTime = endTime;
         this.status = status;
-        this.winnerID = -1;  // Default to -1 if no winner is assigned
+        this.winnerID = null;  // Default to null if no winner is assigned
     }
 
     public Auction() {
@@ -69,11 +71,11 @@ public class Auction {
         this.winnerName = winnerName;
     }
 
-    public int getWinnerID() {  // Getter for winnerID
+    public Integer getWinnerID() {  // Getter for winnerID now returns Integer
         return winnerID;
     }
 
-    public void setWinnerID(int winnerID) {  // Setter for winnerID
+    public void setWinnerID(Integer winnerID) {  // Setter for winnerID accepts Integer
         this.winnerID = winnerID;
     }
 

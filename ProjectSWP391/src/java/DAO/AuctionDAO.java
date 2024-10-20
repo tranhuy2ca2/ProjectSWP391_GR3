@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
+import jdk.jfr.Timestamp;
 import model.Auction;
 
 public class AuctionDAO {
@@ -43,6 +44,81 @@ public class AuctionDAO {
         }
         return auctions;
     }
+// Method to retrieve all Land Lot names
+public List<String> getAllLandLotNames() {
+    List<String> landLotNames = new ArrayList<>();
+    String query = "SELECT LandLotName FROM LandLots";
+
+    try (Connection con = new DBContext().getConnection();
+         PreparedStatement ps = con.prepareStatement(query);
+         ResultSet rs = ps.executeQuery()) {
+
+        while (rs.next()) {
+            landLotNames.add(rs.getString("LandLotName"));
+        }
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+    return landLotNames;
+}
+
+public List<String> getAllAuctioneerNames() {
+    List<String> auctioneerNames = new ArrayList<>();
+    String query = "SELECT userName FROM Users WHERE role = 4";  // Fetch only users with role 4 (Auctioneers)
+
+    try (Connection con = new DBContext().getConnection();
+         PreparedStatement ps = con.prepareStatement(query);
+         ResultSet rs = ps.executeQuery()) {
+
+        while (rs.next()) {
+            auctioneerNames.add(rs.getString("userName"));
+        }
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+    return auctioneerNames;
+}
+public List<String> getAllWinnerNames() {
+    List<String> winnerNames = new ArrayList<>();
+    String query = "SELECT userName FROM Users WHERE role = 2";  // Fetch only users with role 2 (Winners)
+
+    try (Connection con = new DBContext().getConnection();
+         PreparedStatement ps = con.prepareStatement(query);
+         ResultSet rs = ps.executeQuery()) {
+
+        while (rs.next()) {
+            winnerNames.add(rs.getString("userName"));
+        }
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+    return winnerNames;
+}
+public boolean isAuctioneerAvailable(int auctioneerID, java.sql.Timestamp startTime, java.sql.Timestamp endTime) {
+    String query = "SELECT COUNT(*) FROM Auctions WHERE auctioneerID = ? AND " +
+                   "(? BETWEEN startTime AND endTime OR ? BETWEEN startTime AND endTime OR " +
+                   "startTime BETWEEN ? AND ? OR endTime BETWEEN ? AND ?)";
+    try (Connection con = new DBContext().getConnection();
+         PreparedStatement ps = con.prepareStatement(query)) {
+        
+        ps.setInt(1, auctioneerID);
+        ps.setTimestamp(2, (java.sql.Timestamp) startTime);
+        ps.setTimestamp(3, (java.sql.Timestamp) endTime);
+        ps.setTimestamp(4, (java.sql.Timestamp) startTime);
+        ps.setTimestamp(5, (java.sql.Timestamp) endTime);
+        ps.setTimestamp(6, (java.sql.Timestamp) startTime);
+        ps.setTimestamp(7, (java.sql.Timestamp) endTime);
+
+        ResultSet rs = ps.executeQuery();
+        if (rs.next()) {
+            return rs.getInt(1) == 0;  // No conflicts
+        }
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+    return false;  // Conflict found or error occurred
+}
+
 
     // Method to get auction by ID
     public Auction getAuctionById(int auctionID) {
@@ -69,15 +145,16 @@ public class AuctionDAO {
         }
         return null;
     }
-
- public boolean updateAuction(Auction auction) {
-    String query = "UPDATE Auctions SET startTime = ?, endTime = ?, status = ? WHERE auctionID = ?";
+public boolean updateAuction(Auction auction) {
+    String query = "UPDATE Auctions SET startTime = ?, endTime = ?, status = ?, winnerID = ? WHERE auctionID = ?";
     try (Connection con = new DBContext().getConnection();
          PreparedStatement ps = con.prepareStatement(query)) {
+        
         ps.setTimestamp(1, new java.sql.Timestamp(auction.getStartTime().getTime()));
         ps.setTimestamp(2, new java.sql.Timestamp(auction.getEndTime().getTime()));
         ps.setString(3, auction.getStatus());
-        ps.setInt(4, auction.getAuctionID());
+        ps.setObject(4, auction.getWinnerID() != null ? auction.getWinnerID() : null); // Handle nullable WinnerID
+        ps.setInt(5, auction.getAuctionID());
 
         return ps.executeUpdate() > 0;
     } catch (Exception e) {

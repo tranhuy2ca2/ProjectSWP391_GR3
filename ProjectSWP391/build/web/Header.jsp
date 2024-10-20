@@ -69,14 +69,9 @@
                                         <li class="has-children">
                                             <a href="#">Dropdown</a>
                                             <ul class="dropdown">
-<<<<<<< HEAD
-                                                <li><a href="UserManagement">Quản lí người dùng</a></li>
-                                                <li><a href="AuctionManagement">Quản lí auction</a></li>
-=======
                                                 <li><a href="#">Quan li nguoi dung</a></li>
                                                 <li><a href="#">Sub Menu Two</a></li>
                                                 <li><a href="#">Sub Menu Three</a></li>
->>>>>>> b9c87d88345f8f97a3caa5528b53064ef4412078
                                             </ul>
                                         </li>
                                     </ul>

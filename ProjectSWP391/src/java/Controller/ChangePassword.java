@@ -1,100 +1,50 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
- */
 package Controller;
 
 import DAO.CustomerDAO;
 import java.io.IOException;
-import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import model.Customer;
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
-/**
- *
- * @author TTT
- */
+
 public class ChangePassword extends HttpServlet {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet ChangePassword</title>");
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet ChangePassword at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
-    }
-
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
-    }
-
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        //processRequest(request, response);
+
         CustomerDAO dao = new CustomerDAO();
         HttpSession ses = request.getSession();
         Customer u = (Customer) ses.getAttribute("user");
         int userID = u.getUserID();
-        String oldpassword = u.getPassword();
+        String oldpassword = u.getPassword(); // Already MD5 hashed
         String oldpass = request.getParameter("oldpass");
         String newpass = request.getParameter("newpass");
         String confirm = request.getParameter("confirm");
 
-        // Biểu thức chính quy cho mật khẩu mới
+        // Regular expression for the new password
         String passwordPattern = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$";
 
         try {
-            if (oldpass.equals(oldpassword) && !oldpass.isEmpty()) {
+            // Hash the oldpass input using MD5 before comparing
+            String oldpassMd5 = md5Hash(oldpass);
+
+            if (oldpassMd5.equals(oldpassword) && !oldpass.isEmpty()) {
                 if (confirm.equals(newpass) && newpass != null) {
-                    // Kiểm tra mật khẩu mới có hợp lệ không
+                    // Validate the new password format
                     Pattern pattern = Pattern.compile(passwordPattern);
                     Matcher matcher = pattern.matcher(newpass);
 
                     if (matcher.matches()) {
-                        boolean passwordChanged = dao.ChangePassword(userID, newpass);
+                        // Hash the new password before saving it
+                        String newpassMd5 = md5Hash(newpass);
+                        boolean passwordChanged = dao.ChangePassword(userID, newpassMd5);
                         if (passwordChanged) {
                             Customer user = dao.getAccountByID(userID);
                             request.getSession().setAttribute("user", user);
@@ -118,18 +68,29 @@ public class ChangePassword extends HttpServlet {
                 response.sendRedirect("profile?uID=" + userID);
             }
         } catch (Exception e) {
-            request.getRequestDispatcher("sigin_in.jsp").forward(request, response);
+            request.getRequestDispatcher("sign_in.jsp").forward(request, response);
         }
     }
 
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
+    // MD5 hashing function
+    public String md5Hash(String input) {
+        try {
+            MessageDigest md = MessageDigest.getInstance("MD5");
+            byte[] messageDigest = md.digest(input.getBytes());
+
+            StringBuilder hexString = new StringBuilder();
+            for (byte b : messageDigest) {
+                hexString.append(String.format("%02x", b));
+            }
+            return hexString.toString();
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
     @Override
     public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
-
+        return "Change password servlet";
+    }
 }

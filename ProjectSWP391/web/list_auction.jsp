@@ -65,24 +65,30 @@
                                     </button>
 
                                     <div class="tab-content pt-2">
-                                        <div class="tab-pane fade show active" id="AuctionManagement">
-                                            <div class="row">
-                                                <div class="col-md-12">
-                                                    <table class="table table-striped table-bordered">
-                                                        <thead>
-                                                            <tr>
-                                                                <th>ID</th>
-                                                                <th>Tên Lô Đất</th>
-                                                                <th>Người Tổ Chức</th>
-                                                                <th>Người Thắng</th>
-                                                                <th>Thời Gian Bắt Đầu</th>
-                                                                <th>Thời Gian Kết Thúc</th>
-                                                                <th>Trạng Thái</th>                                                                
-                                                                <th>Hành Động</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            <!-- Lặp qua danh sách đấu giá -->
+                                    <%-- Hiển thị thông báo lỗi (nếu có) --%>
+                                    <c:if test="${not empty message}">
+                                        <div class="alert alert-danger">
+                                            ${message}
+                                        </div>
+                                    </c:if>
+                                    <div class="tab-pane fade show active" id="AuctionManagement">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <table class="table table-striped table-bordered">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>ID</th>
+                                                            <th>Tên Lô Đất</th>
+                                                            <th>Người Tổ Chức</th>
+                                                            <th>Người Thắng</th>
+                                                            <th>Thời Gian Bắt Đầu</th>
+                                                            <th>Thời Gian Kết Thúc</th>
+                                                            <th>Trạng Thái</th>                                                                
+                                                            <th>Hành Động</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <!-- Lặp qua danh sách đấu giá -->
                                                         <c:forEach var="auction" items="${auctions}">
                                                             <tr>
                                                                 <td>${auction.auctionID}</td>
@@ -153,16 +159,29 @@
                             <input type="hidden" name="action" value="add">
                             <!-- Các trường dữ liệu cho đấu giá -->
                             <div class="mb-3">
-                                <label for="landLotName" class="form-label">Tên Lô Đất</label>
-                                <input type="text" class="form-control" name="landLotName" id="landLotName" required>
+                                <select class="form-control" name="landLotName" id="landLotName" required>
+                                    <option value="">Chọn Lô Đất▼</option>
+                                    <c:forEach var="landLot" items="${landLotNames}">
+                                        <option value="${landLot}">${landLot}</option>
+                                    </c:forEach>
+                                </select>
                             </div>
                             <div class="mb-3">
-                                <label for="auctioneerName" class="form-label">Người Tổ Chức</label>
-                                <input type="text" class="form-control" name="auctioneerName" id="auctioneerName" required>
+                                <select class="form-control" name="auctioneerName" id="auctioneerName" required>
+                                    <option value="">Chọn Người Tổ Chức▼</option>
+                                    <c:forEach var="auctioneer" items="${auctioneerNames}">
+                                        <option value="${auctioneer}">${auctioneer}</option>
+                                    </c:forEach>
+                                </select>
                             </div>
                             <div class="mb-3">
-                                <label for="winnerName" class="form-label">Người Thắng</label>
-                                <input type="text" class="form-control" name="winnerName" id="winnerName">
+                                <select class="form-control" name="winnerName" id="winnerName">
+                                    <option value="">Chọn Người Chiến thắng▼</option>
+                                     <option value="Chưa có">Chưa có</option>
+                                    <c:forEach var="winner" items="${winnerNames}">
+                                        <option value="${winner}">${winner}</option>
+                                    </c:forEach>
+                                </select>
                             </div>
                             <div class="mb-3">
                                 <label for="startTime" class="form-label">Thời Gian Bắt Đầu</label>
@@ -225,6 +244,7 @@
         </div>
 
 
+
         <div id="footer" class="footer border-top pt-2">
             <jsp:include page="Footer.jsp"></jsp:include>
         </div>
@@ -235,30 +255,29 @@
                 editButtons.forEach(button => {
                     button.addEventListener('click', function () {
                         const auctionID = this.getAttribute('data-auction-id');
-                        const startTime = this.getAttribute('data-start-time').replace(' ', 'T');
-                        const endTime = this.getAttribute('data-end-time').replace(' ', 'T');
+                        const startTime = this.getAttribute('data-start-time');
+                        const endTime = this.getAttribute('data-end-time');
                         const status = this.getAttribute('data-status');
 
+                        // Set values into the modal's form fields
                         document.getElementById('editAuctionID').value = auctionID;
-                        document.getElementById('editStartTime').value = startTime;
-                        document.getElementById('editEndTime').value = endTime;
+                        document.getElementById('editStartTime').value = startTime.replace(' ', 'T');
+                        document.getElementById('editEndTime').value = endTime.replace(' ', 'T');
                         document.getElementById('editStatus').value = status;
 
-
-                        // Debugging: Log values
+                        // Debugging: Log values to ensure they are correct
                         console.log('Auction ID:', auctionID);
                         console.log('Start Time:', startTime);
                         console.log('End Time:', endTime);
                         console.log('Status:', status);
 
+                        // Show the modal
                         $('#editAuctionModal').modal('show');
                     });
                 });
             });
-
-
-
         </script>
+
 
         <!-- Vendor JS Files -->
         <script src="assets/vendor/apexcharts/apexcharts.min.js"></script>

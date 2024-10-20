@@ -59,25 +59,19 @@
                                     <table class="table datatable">
                                         <thead>
                                             <tr>
-                                                <th>STT</th>
-                                                <th>Tiêu Đề</th>
-                                                <th>Nội Dung</th>
-                                                <th data-type="date" data-format="YYYY/DD/MM">Ngày Đăng</th>
+                                                <th class="col-1 text-center">STT</th>
+                                                <th class="col-3 text-center">Tiêu Đề</th>
+                                                <th class="col-3 text-center">Nội Dung</th>
+                                                <th class="col-3 text-center" data-type="date" data-format="YYYY/DD/MM">Ngày Đăng</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                         <c:forEach items="${listfeedback}" var="b" varStatus="status">
                                             <tr>
-                                                <td class="title">${status.index + 1}</td>
-                                                <td class="publishDate">${b.subject}</td>
-                                                <td class="detail">
-                                                    <div class="detail-content">
-                                                        <span class="short-detail">${b.detail.substring(0, 100)}...</span>
-                                                        <span class="full-detail" style="display:none;">${b.detail}</span>
-                                                    </div>
-                                                    <a href="javascript:void(0);" onclick="toggleDetail(this)" style="color: blue">Đọc thêm</a>
-                                                </td>
-                                                <td class="publishDate">${b.createAt}</td>
+                                                <td class="col-1 text-center">${status.index + 1}</td>
+                                                <td class="col-3 text-center">${b.subject}</td>
+                                                <td class="col-3 text-center">${b.detail}</td>
+                                                <td class="col-3 text-center">${b.createAt}</td>
                                             </tr>
                                         </c:forEach>
                                     </tbody>

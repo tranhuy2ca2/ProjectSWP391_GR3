@@ -4,6 +4,7 @@ import DAL.DBContext;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.List;
 import model.Customer;
 
@@ -14,132 +15,6 @@ public class CustomerDAO {
     ResultSet rs;
     private List<Customer> user;
     private String status = "ok";
-<<<<<<< HEAD
-
-     public Customer getUserById(int userID) {
-        String query = "SELECT * FROM [SWP391_G3_Project].[dbo].[Users] WHERE UserID = ?";
-        try {
-            DBContext dbContext = new DBContext();
-            Connection con = dbContext.getConnection();
-            PreparedStatement ps = con.prepareStatement(query);
-            ps.setInt(1, userID);
-            ResultSet rs = ps.executeQuery();
-
-            if (rs.next()) {
-                Customer user = new Customer(
-                        rs.getInt("UserID"),
-                        rs.getString("userName"),
-                        rs.getString("password"),
-                        rs.getString("fullName"),
-                        rs.getString("Email"),
-                        rs.getString("phone"),
-                        String.valueOf(rs.getInt("role")),
-                        rs.getString("address"),
-                        rs.getDate("createdAt")
-                );
-                return user;
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    public List<Customer> getAllUsers() {
-        List<Customer> customers = new ArrayList<>();
-        String query = "SELECT [UserID], [userName], [password], [fullName], [Email], [phone], [role], [address], [createdAt] FROM [SWP391_G3_Project].[dbo].[Users]";
-        try {
-            // Create an instance of DBContext and get the connection
-            DBContext dbContext = new DBContext();
-            Connection con = dbContext.getConnection();
-            PreparedStatement ps = con.prepareStatement(query);
-            ResultSet rs = ps.executeQuery();
-
-            while (rs.next()) {
-                Customer customer = new Customer();
-                customer.setUserID(rs.getInt("UserID"));
-                customer.setUserName(rs.getString("userName"));
-                customer.setPassword(rs.getString("password"));
-                customer.setFullName(rs.getString("fullName"));
-                customer.setEmail(rs.getString("Email"));
-                customer.setPhone(rs.getString("phone"));
-                customer.setRole(rs.getString("role"));  // Assuming role is stored as an integer
-
-                customer.setAddress(rs.getString("address"));
-                customer.setCreatedAt(rs.getDate("createdAt"));
-                customers.add(customer);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return customers;
-    }
-
-    public boolean addUser(Customer customer) {
-        String query = "INSERT INTO [SWP391_G3_Project].[dbo].[Users] (userName, password, fullName, Email, phone, role, address) VALUES (?, ?, ?, ?, ?, ?, ?)";
-        try {
-            DBContext dbContext = new DBContext();
-            Connection con = dbContext.getConnection();
-            PreparedStatement ps = con.prepareStatement(query);
-            ps.setString(1, customer.getUserName());
-            ps.setString(2, customer.getPassword()); // Set the password here
-            ps.setString(3, customer.getFullName());
-            ps.setString(4, customer.getEmail());
-            ps.setString(5, customer.getPhone());
-            ps.setInt(6, Integer.parseInt(customer.getRole())); // Assuming role is stored as a string
-            ps.setString(7, customer.getAddress());
-            int result = ps.executeUpdate();
-            return result > 0; // Return true if the insert was successful
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return false;
-    }
-
-    public boolean updateUser(Customer customer) {
-        String query = "UPDATE [SWP391_G3_Project].[dbo].[Users] SET userName = ?, fullName = ?, Email = ?, phone = ?, role = ?, address = ? "
-                + (customer.getPassword() != null && !customer.getPassword().isEmpty() ? ", password = ?" : "") + " WHERE UserID = ?";
-        try {
-            DBContext dbContext = new DBContext();
-            Connection con = dbContext.getConnection();
-            PreparedStatement ps = con.prepareStatement(query);
-            ps.setString(1, customer.getUserName());
-            ps.setString(2, customer.getFullName());
-            ps.setString(3, customer.getEmail());
-            ps.setString(4, customer.getPhone());
-            ps.setInt(5, Integer.parseInt(customer.getRole()));
-            ps.setString(6, customer.getAddress());
-
-            int index = 7;  // Vị trí của tham số tiếp theo
-            if (customer.getPassword() != null && !customer.getPassword().isEmpty()) {
-                ps.setString(index++, customer.getPassword());
-            }
-            ps.setInt(index, customer.getUserID());
-
-            int result = ps.executeUpdate();
-            return result > 0; // Trả về true nếu cập nhật thành công
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return false;
-    }
-
-    public boolean deleteUser(int userID) {
-        String query = "DELETE FROM [SWP391_G3_Project].[dbo].[Users] WHERE UserID = ?";
-        try {
-            DBContext dbContext = new DBContext();
-            Connection con = dbContext.getConnection();
-            PreparedStatement ps = con.prepareStatement(query);
-            ps.setInt(1, userID);
-            int result = ps.executeUpdate();
-            return result > 0; // Return true if the deletion was successful
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return false;
-    }
-=======
->>>>>>> 958a80d7aa69802d8cabc30de3f249b82a4c2cbd
 
     public CustomerDAO() {
         try {
@@ -181,6 +56,7 @@ public class CustomerDAO {
         String query = """
                        select*from [Users] u join Roles ur
                        on u.[role] = ur.RoleID
+                       join Wallet w on u.userID = w.UserID
                        where u.userID = ?""";
         try {
             ps = con.prepareStatement(query);
@@ -197,7 +73,8 @@ public class CustomerDAO {
                         rs.getString(7),
                         rs.getString(8),
                         rs.getDate(9),
-                        rs.getString(11)
+                        rs.getString(11),
+                        rs.getInt(14)
                 );
             }
         } catch (Exception e) {
@@ -205,12 +82,129 @@ public class CustomerDAO {
         }
         return null;
     }
+      public Customer getUserById(int userID) {
+        String query = "SELECT * FROM [SWP391_G3_Project].[dbo].[Users] WHERE UserID = ?";
+        try {
+            DBContext dbContext = new DBContext();
+            Connection con = dbContext.getConnection();
+            PreparedStatement ps = con.prepareStatement(query);
+            ps.setInt(1, userID);
+            ResultSet rs = ps.executeQuery();
 
+            if (rs.next()) {
+                Customer user = new Customer(
+                        rs.getInt("UserID"),
+                        rs.getString("userName"),
+                        rs.getString("password"),
+                        rs.getString("fullName"),
+                        rs.getString("Email"),
+                        rs.getString("phone"),
+                        String.valueOf(rs.getInt("role")),
+                        rs.getString("address"),
+                        rs.getDate("createdAt")
+                );
+                return user;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+ public List<Customer> getAllUsers() {
+        List<Customer> customers = new ArrayList<>();
+        String query = "SELECT [UserID], [userName], [password], [fullName], [Email], [phone], [role], [address], [createdAt] FROM [SWP391_G3_Project].[dbo].[Users]";
+        try {
+            // Create an instance of DBContext and get the connection
+            DBContext dbContext = new DBContext();
+            Connection con = dbContext.getConnection();
+            PreparedStatement ps = con.prepareStatement(query);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Customer customer = new Customer();
+                customer.setUserID(rs.getInt("UserID"));
+                customer.setUserName(rs.getString("userName"));
+                customer.setPassword(rs.getString("password"));
+                customer.setFullName(rs.getString("fullName"));
+                customer.setEmail(rs.getString("Email"));
+                customer.setPhone(rs.getString("phone"));
+                customer.setRole(rs.getString("role"));  // Assuming role is stored as an integer
+
+                customer.setAddress(rs.getString("address"));
+                customer.setCreatedAt(rs.getDate("createdAt"));
+                customers.add(customer);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return customers;
+    }
+  public boolean updateUser(Customer customer) {
+        String query = "UPDATE [SWP391_G3_Project].[dbo].[Users] SET userName = ?, fullName = ?, Email = ?, phone = ?, role = ?, address = ? "
+                + (customer.getPassword() != null && !customer.getPassword().isEmpty() ? ", password = ?" : "") + " WHERE UserID = ?";
+        try {
+            DBContext dbContext = new DBContext();
+            Connection con = dbContext.getConnection();
+            PreparedStatement ps = con.prepareStatement(query);
+            ps.setString(1, customer.getUserName());
+            ps.setString(2, customer.getFullName());
+            ps.setString(3, customer.getEmail());
+            ps.setString(4, customer.getPhone());
+            ps.setInt(5, Integer.parseInt(customer.getRole()));
+            ps.setString(6, customer.getAddress());
+
+            int index = 7;  // Vị trí của tham số tiếp theo
+            if (customer.getPassword() != null && !customer.getPassword().isEmpty()) {
+                ps.setString(index++, customer.getPassword());
+            }
+            ps.setInt(index, customer.getUserID());
+
+            int result = ps.executeUpdate();
+            return result > 0; // Trả về true nếu cập nhật thành công
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public boolean deleteUser(int userID) {
+        String query = "DELETE FROM [SWP391_G3_Project].[dbo].[Users] WHERE UserID = ?";
+        try {
+            DBContext dbContext = new DBContext();
+            Connection con = dbContext.getConnection();
+            PreparedStatement ps = con.prepareStatement(query);
+            ps.setInt(1, userID);
+            int result = ps.executeUpdate();
+            return result > 0; // Return true if the deletion was successful
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+     public boolean addUser(Customer customer) {
+        String query = "INSERT INTO [SWP391_G3_Project].[dbo].[Users] (userName, password, fullName, Email, phone, role, address) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        try {
+            DBContext dbContext = new DBContext();
+            Connection con = dbContext.getConnection();
+            PreparedStatement ps = con.prepareStatement(query);
+            ps.setString(1, customer.getUserName());
+            ps.setString(2, customer.getPassword()); // Set the password here
+            ps.setString(3, customer.getFullName());
+            ps.setString(4, customer.getEmail());
+            ps.setString(5, customer.getPhone());
+            ps.setInt(6, Integer.parseInt(customer.getRole())); // Assuming role is stored as a string
+            ps.setString(7, customer.getAddress());
+            int result = ps.executeUpdate();
+            return result > 0; // Return true if the insert was successful
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
     public Customer getUserDetailByEmail(String email) {
         String query = """
-                       select*from [Users] u join UserRoles ur
-                       on u.userID = ur.UserID
-                       join Roles r on ur.RoleID = r.RoleID
+                       select*from [Users] u join Roles ur on
+                       u.[role] = ur.RoleID
                        where u.email = ?""";
         try {
             ps = con.prepareStatement(query);
@@ -227,7 +221,7 @@ public class CustomerDAO {
                         rs.getString(7),
                         rs.getString(8),
                         rs.getDate(9),
-                        rs.getString(13)
+                        rs.getString(11)
                 );
             }
         } catch (Exception e) {
@@ -279,7 +273,6 @@ public class CustomerDAO {
         return false;
 
     }
-<<<<<<< HEAD
  public boolean checkUsernameExist(String username) {
         String sql = "SELECT * FROM [Users] WHERE userName = ?";
         try {
@@ -308,22 +301,6 @@ public class CustomerDAO {
         return false;
     }
 
-=======
-
-    public boolean checkCustomerExist(String email) {
-        String sql = "SELECT * FROM [Users] WHERE [Email] = ?";
-        try {
-            ps = con.prepareStatement(sql);
-            ps.setString(1, email);
-            rs = ps.executeQuery();
-            return rs.next(); // returns true if a user exists with this email
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return false;
-    }
-
->>>>>>> 958a80d7aa69802d8cabc30de3f249b82a4c2cbd
     public boolean UpdatePassword(int uID, String password) {
         String query = """
                        update [Users]
@@ -339,7 +316,7 @@ public class CustomerDAO {
         }
         return true;
     }
-    
+
     public Customer getAccountByID(int id) {
         String query = """
                        select * from [Users]
@@ -364,7 +341,7 @@ public class CustomerDAO {
         }
         return null;
     }
-    
+
     public boolean ChangePassword(int user_id, String user_pass) {
         String sql = """
                      update [Users] set [password] = ?
@@ -381,6 +358,6 @@ public class CustomerDAO {
 
     public static void main(String[] args) {
         CustomerDAO dao = new CustomerDAO();
-        System.out.println(dao.getAccountByID(2));
+        System.out.println(dao.getUserDetailByEmail("tranhuy2ca2@gmail.com"));
     }
 }

@@ -12,7 +12,6 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.util.List;
-import model.Auction;
 import model.LandLots;
 
 /**
@@ -21,13 +20,8 @@ import model.LandLots;
  */
 public class ViewAuction extends HttpServlet {
 
-    private LandLotsDAO auctionDAO;
 
-    @Override
-    public void init() {
-        auctionDAO = new LandLotsDAO();  // Initialize DAO
-    }
-
+    
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -64,14 +58,14 @@ public class ViewAuction extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
      @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) 
-            throws ServletException, IOException {
-        
-        List<LandLots> landLotsList = auctionDAO.getAllLandLotsWithImages();
-        request.setAttribute("landLotsList", landLotsList);
-        
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    throws ServletException, IOException {
+        //processRequest(request, response);
+        LandLotsDAO landdao = new LandLotsDAO();
+        List<LandLots> listlandlot = landdao.getAllLandLotsDetail();
+        request.setAttribute("listlandlot", listlandlot);
         request.getRequestDispatcher("ViewAuction.jsp").forward(request, response);
-    }
+    } 
 
     /**
      * Handles the HTTP <code>POST</code> method.
