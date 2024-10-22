@@ -34,7 +34,7 @@
                         <span>Profile</span>
                     </a>
                 </li><!-- End Profile Page Nav -->
-                  <c:if test="${sessionScope.user != null && sessionScope.user.role == 1}">
+                <c:if test="${sessionScope.user != null && sessionScope.user.role == 1}">
                     <li class="nav-item">
                         <a class="nav-link collapsed" href="UserManagement">
                             <i class="bi bi-book"></i>
@@ -48,7 +48,7 @@
                         </a>
                     </li>
                 </c:if>
-                 <c:if test="${sessionScope.user.role == 2}">
+                <c:if test="${sessionScope.user.role == 2}">
                     <li class="nav-item">
                         <a class="nav-link collapsed" href="uploadlandlot">
                             <i class="bi bi-upload"></i>
@@ -95,8 +95,14 @@
                     </li>
 
                 </c:if>
-                    
+
             </ul>
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="transactionhistory">
+                    <i class="bi bi-cash"></i>
+                    <span>Lịch Sử Giao Dịch</span>
+                </a>
+            </li>
         </aside>   
     </body>
 </html>

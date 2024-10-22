@@ -82,7 +82,8 @@ public class CustomerDAO {
         }
         return null;
     }
-      public Customer getUserById(int userID) {
+
+    public Customer getUserById(int userID) {
         String query = "SELECT * FROM [SWP391_G3_Project].[dbo].[Users] WHERE UserID = ?";
         try {
             DBContext dbContext = new DBContext();
@@ -110,7 +111,8 @@ public class CustomerDAO {
         }
         return null;
     }
- public List<Customer> getAllUsers() {
+
+    public List<Customer> getAllUsers() {
         List<Customer> customers = new ArrayList<>();
         String query = "SELECT [UserID], [userName], [password], [fullName], [Email], [phone], [role], [address], [createdAt] FROM [SWP391_G3_Project].[dbo].[Users]";
         try {
@@ -139,7 +141,8 @@ public class CustomerDAO {
         }
         return customers;
     }
-  public boolean updateUser(Customer customer) {
+
+    public boolean updateUser(Customer customer) {
         String query = "UPDATE [SWP391_G3_Project].[dbo].[Users] SET userName = ?, fullName = ?, Email = ?, phone = ?, role = ?, address = ? "
                 + (customer.getPassword() != null && !customer.getPassword().isEmpty() ? ", password = ?" : "") + " WHERE UserID = ?";
         try {
@@ -181,7 +184,8 @@ public class CustomerDAO {
         }
         return false;
     }
-     public boolean addUser(Customer customer) {
+
+    public boolean addUser(Customer customer) {
         String query = "INSERT INTO [SWP391_G3_Project].[dbo].[Users] (userName, password, fullName, Email, phone, role, address) VALUES (?, ?, ?, ?, ?, ?, ?)";
         try {
             DBContext dbContext = new DBContext();
@@ -201,6 +205,7 @@ public class CustomerDAO {
         }
         return false;
     }
+
     public Customer getUserDetailByEmail(String email) {
         String query = """
                        select*from [Users] u join Roles ur on
@@ -273,7 +278,8 @@ public class CustomerDAO {
         return false;
 
     }
- public boolean checkUsernameExist(String username) {
+
+    public boolean checkUsernameExist(String username) {
         String sql = "SELECT * FROM [Users] WHERE userName = ?";
         try {
             ps = con.prepareStatement(sql);
@@ -288,6 +294,7 @@ public class CustomerDAO {
         }
         return false;
     }
+
     public boolean checkCustomerExist(String email) {
         String sql = "SELECT * FROM [Users] WHERE [Email] = ?";
         try {
