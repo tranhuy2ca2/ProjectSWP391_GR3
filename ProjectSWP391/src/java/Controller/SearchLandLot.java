@@ -47,7 +47,7 @@ public class SearchLandLot extends HttpServlet {
                 request.setAttribute("order", 2);
             } else if ("Area".equals(order)) {
                 request.setAttribute("order", 3);
-            } else if("Area desc".equals(order)){
+            } else if ("Area desc".equals(order)) {
                 request.setAttribute("order", 4);
             }
             LandLotsDAO landdao = new LandLotsDAO();
@@ -57,7 +57,9 @@ public class SearchLandLot extends HttpServlet {
             request.setAttribute("listlandlot", subList);
             request.setAttribute("totalPage", total);
             request.setAttribute("pageNum", pageNum);
-            request.getRequestDispatcher("ListLandLot.jsp").forward(request, response);
+            request.getRequestDispatcher("ListLandLot.jsp").include(request, response);
+            request.getRequestDispatcher("ViewAuction.jsp").forward(request, response);
+
         }
     }
 

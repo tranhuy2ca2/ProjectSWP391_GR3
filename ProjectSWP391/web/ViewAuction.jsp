@@ -86,96 +86,110 @@
                                             <!-- Sử dụng grid layout để phân chia các lô đất thành các cột -->
                                             <div class="col-md-12">
                                                 <div class="row">
-                                                    <c:forEach var="land" items="${listlandlot}">
-                                                        <div class="col-md-4">
-                                                            <div class="property-item">
-                                                                <a href="#" class="img">
-                                                                    <c:if test="${not empty land.landlotimage}">
-                                                                        <img src="${land.landlotimage[0].imageURL}" alt="Image" class="img-fluid" />
+                                                    <div class="container">
+                                                        <!-- Unified Search and Filter Form -->
+                                                        <form action="SearchLandLot"  class="d-flex align-items-center">
+                                                            <input type="text" name="keyword" class="form-control me-2" placeholder="Search by ZIP code or City..." value="${requestScope.keyword}">
+                                                            <select class="form-control me-2" name="order">
+                                                                <option value="StartingPrice" ${requestScope.order == '1' ? 'selected' : ''}>Price Ascending</option>
+                                                                <option value="StartingPrice desc" ${requestScope.order == '2' ? 'selected' : ''}>Price Descending</option>
+                                                                <option value="Area" ${requestScope.order == '3' ? 'selected' : ''}>Area Ascending</option>
+                                                                <option value="Area desc" ${requestScope.order == '4' ? 'selected' : ''}>Area Descending</option>
+                                                            </select>
+                                                            <button type="submit" class="btn btn-primary">Search & Filter</button>
+                                                        </form>
+                                                        <div class="row mt-4">
+                                                            <c:forEach var="land" items="${listlandlot}">
+                                                                <div class="col-md-4">
+                                                                    <div class="property-item">
+                                                                        <a href="#" class="img">
+                                                                            <c:if test="${not empty land.landlotimage}">
+                                                                                <img src="${land.landlotimage[0].imageURL}" alt="Image" class="img-fluid" />
 
-                                                                    </c:if>
-                                                                    <c:if test="${empty land.landlotimage}">
-                                                                        <img width="100%" 
-                                                                             src="default-image-url.jpg" 
-                                                                             alt="No Image Available" class="img-fluid" />
-                                                                    </c:if>
-                                                                </a>
+                                                                            </c:if>
+                                                                            <c:if test="${empty land.landlotimage}">
+                                                                                <img width="100%" 
+                                                                                     src="default-image-url.jpg" 
+                                                                                     alt="No Image Available" class="img-fluid" />
+                                                                            </c:if>
+                                                                        </a>
 
-                                                                <div class="property-content">
-                                                                    <div class="price mb-2">
-                                                                        <span>Giá Khởi Điểm - 
-                                                                            <fmt:formatNumber value="${land.startprice}" 
-                                                                                              type="currency" 
-                                                                                              currencySymbol="₫" 
-                                                                                              groupingUsed="true" />
-                                                                        </span>
-                                                                    </div>
-                                                                    <div>
-                                                                        <span class="d-block mb-2 text-black-50">
-                                                                            Vị Trí : ${land.location}
-                                                                        </span>
-                                                                        <span class="city d-block mb-3">
-                                                                            Tên Đất : ${land.landLotName}
-                                                                        </span>
-
-                                                                        <div class="d-block d-flex align-items-center me-3">
-                                                                            <span class="icon-area-chart me-2"></span>
-                                                                            <span class="caption">Diện Tích : ${land.area} m&sup2;</span>
-                                                                        </div>
-                                                                        <br>
-                                                                        <c:if test="${not empty land.zoningtype}">
-                                                                            <span class="d-block d-flex align-items-center">
-                                                                                <span class="icon-book me-2"></span>
-                                                                                <span class="caption">Loại Đất :
-                                                                                    <c:forEach var="zoning" items="${land.zoningtype}">
-                                                                                        <span class="caption">${zoning.zoningDescription}, </span>
-                                                                                    </c:forEach>   
+                                                                        <div class="property-content">
+                                                                            <div class="price mb-2">
+                                                                                <span>Giá Khởi Điểm - 
+                                                                                    <fmt:formatNumber value="${land.startprice}" 
+                                                                                                      type="currency" 
+                                                                                                      currencySymbol="₫" 
+                                                                                                      groupingUsed="true" />
                                                                                 </span>
-                                                                            </span>                                                      
-                                                                        </c:if>
+                                                                            </div>
+                                                                            <div>
+                                                                                <span class="d-block mb-2 text-black-50">
+                                                                                    Vị Trí : ${land.location}
+                                                                                </span>
+                                                                                <span class="city d-block mb-3">
+                                                                                    Tên Đất : ${land.landLotName}
+                                                                                </span>
 
-                                                                        <a href="#" class="btn btn-primary py-2 px-3">See details</a>
+                                                                                <div class="d-block d-flex align-items-center me-3">
+                                                                                    <span class="icon-area-chart me-2"></span>
+                                                                                    <span class="caption">Diện Tích : ${land.area} m&sup2;</span>
+                                                                                </div>
+                                                                                <br>
+                                                                                <c:if test="${not empty land.zoningtype}">
+                                                                                    <span class="d-block d-flex align-items-center">
+                                                                                        <span class="icon-book me-2"></span>
+                                                                                        <span class="caption">Loại Đất :
+                                                                                            <c:forEach var="zoning" items="${land.zoningtype}">
+                                                                                                <span class="caption">${zoning.zoningDescription}, </span>
+                                                                                            </c:forEach>   
+                                                                                        </span>
+                                                                                    </span>                                                      
+                                                                                </c:if>
+
+                                                                                <a href="#" class="btn btn-primary py-2 px-3">See details</a>
+                                                                            </div>
+                                                                        </div>
                                                                     </div>
                                                                 </div>
-                                                            </div>
+                                                            </c:forEach>
                                                         </div>
-                                                    </c:forEach>
+                                                        <!-- Nếu danh sách lô đất trống -->
+                                                        <c:if test="${empty listlandlot}">
+                                                            <p>Không có lô đất nào.</p>
+                                                        </c:if>
+                                                    </div>
                                                 </div>
-                                                <!-- Nếu danh sách lô đất trống -->
-                                                <c:if test="${empty listlandlot}">
-                                                    <p>Không có lô đất nào.</p>
-                                                </c:if>
-                                            </div>
+
+                                                <nav aria-label="Page navigation example">
+                                                    <ul class="pagination justify-content-center">
+                                                        <li class="page-item">
+                                                            <a class="page-link" href="?page=${currentPage - 1}" aria-label="Previous">
+                                                                <span aria-hidden="true">&laquo;</span>
+                                                            </a>
+                                                        </li>
+                                                        <c:forEach begin="1" end="${totalPages}" var="i">
+                                                            <li class="page-item <c:if test='${i == currentPage}'>active</c:if>">
+                                                                <a class="page-link" href="?page=${i}">
+                                                                    ${i}
+                                                                </a>
+                                                            </li>
+                                                        </c:forEach>
+                                                        <li class="page-item">
+                                                            <a class="page-link" href="?page=${currentPage + 1}" aria-label="Next">
+                                                                <span aria-hidden="true">&raquo;</span>
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                </nav>
+
+                                            </div><!-- End Tab Content -->
                                         </div>
-
-                                        <nav aria-label="Page navigation example">
-                                            <ul class="pagination justify-content-center">
-                                                <li class="page-item">
-                                                    <a class="page-link" href="?page=${currentPage - 1}" aria-label="Previous">
-                                                        <span aria-hidden="true">&laquo;</span>
-                                                    </a>
-                                                </li>
-                                                <c:forEach begin="1" end="${totalPages}" var="i">
-                                                    <li class="page-item <c:if test='${i == currentPage}'>active</c:if>">
-                                                        <a class="page-link" href="?page=${i}">
-                                                            ${i}
-                                                        </a>
-                                                    </li>
-                                                </c:forEach>
-                                                <li class="page-item">
-                                                    <a class="page-link" href="?page=${currentPage + 1}" aria-label="Next">
-                                                        <span aria-hidden="true">&raquo;</span>
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </nav>
-
-                                    </div><!-- End Tab Content -->
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
             </section>
         </main>
 
