@@ -27,5 +27,5 @@ public class DBContext {
     private final String dbName = "SWP391_G3_Project";
     private final String portNumber = "1433";
     private final String userID = "sa";
-    private final String password = "sa";
+    private final String password = "123";
 }

@@ -12,6 +12,8 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import model.Customer;
@@ -81,7 +83,7 @@ public class Signup extends HttpServlet {
 
         // Collect input
         String username = request.getParameter("username");
-        String fullname = request.getParameter("fullname");  // Lấy fullname từ request
+        String fullname = request.getParameter("fullname");
         String password = request.getParameter("password");
         String repassword = request.getParameter("repassword");
         String email = request.getParameter("Email");
@@ -91,31 +93,32 @@ public class Signup extends HttpServlet {
         String err = "";
 
         // Validate inputs
-        if (!isValidStringEmail(email)) {
+        if (username.length() < 5) {
+            err = "Tên đăng nhập phải có ít nhất 5 kí tự.";
+        } else if (cud.checkUsernameExist(username)) {
+            err = "Tên đăng nhập này đã tồn tại, vui lòng chọn tên khác.";
+        } else if (!isValidStringEmail(email)) {
             err = "Email không đúng định dạng";
         } else if (!password.equals(repassword)) {
             err = "Mật khẩu không trùng khớp";
         } else if (!isValidString(password)) {
-            err = "Mật khẩu từ 8 đến 20 kí tự bao gồm ít nhất chữ cái thường, chữ hoa, số";
+            err = "Mật khẩu phải từ 8 đến 20 kí tự, bao gồm ít nhất chữ cái thường, chữ hoa và số.";
         } else if (!isValidPhoneNumber(phone)) {
-            err = "Số điện thoại không hợp lệ, phải là 10 chữ số và bắt đầu bằng số 0";
+            err = "Số điện thoại không hợp lệ, phải là 10 chữ số và bắt đầu bằng số 0.";
         } else if (cud.checkCustomerExist(email)) {
-            err = "Email này đã tồn tại, vui lòng nhập lại email khác để đăng kí!";
+            err = "Email này đã tồn tại, vui lòng nhập email khác.";
         } else {
+            String passwordMd5 = md5Hash(password);
             // Mặc định role là 2 (khách hàng)
-            int role = 2;
+            int role = 1; // Default role for customer
 
-            // Thêm các giá trị mặc định cho các thuộc tính bổ sung
-            Customer newCustomer = new Customer(0, username, password, fullname, email, phone, "", address, null, String.valueOf(role));
+            Customer newCustomer = new Customer(0, username, passwordMd5, fullname, email, phone, String.valueOf(role), address, null, null);
 
             // Call the signup method in DAO to save the user
             boolean success = cud.signup(newCustomer);
 
             if (success) {
-                // Set success message in session
                 session.setAttribute("signupSuccess", "Đăng kí thành công! Bạn có thể đăng nhập ngay.");
-
-                // Redirect to login page after successful signup
                 response.sendRedirect("sign_in.jsp");
                 return;
             } else {
@@ -123,12 +126,28 @@ public class Signup extends HttpServlet {
             }
         }
 
-        // Set error message and return to sign up page
+        // Set error message and return to sign-up page
         request.setAttribute("username", username);
         request.setAttribute("fullname", fullname);
         request.setAttribute("email", email);
         request.setAttribute("err", err);
         request.getRequestDispatcher("sign_up.jsp").forward(request, response);
+    }
+
+    public String md5Hash(String input) {
+        try {
+            MessageDigest md = MessageDigest.getInstance("MD5");
+            byte[] messageDigest = md.digest(input.getBytes());
+
+            StringBuilder hexString = new StringBuilder();
+            for (byte b : messageDigest) {
+                hexString.append(String.format("%02x", b));
+            }
+            return hexString.toString();
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     // kiểm tra email hợp lệ
