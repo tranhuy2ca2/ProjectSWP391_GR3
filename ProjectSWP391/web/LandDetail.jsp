@@ -32,7 +32,7 @@
         <link rel="stylesheet" href="css/style.css" />
 
         <title>
-            Property &mdash; Free Bootstrap 5 Website Template by Untree.co
+            Chi Tiết Sản Phẩm
         </title>
     </head>
     <body>
@@ -125,7 +125,8 @@
                                     </li>
                                 </ul>
                             </div>
-                            <button type="submit" class="btn btn-lg btn-primary">Đăng kí tham gia đấu giá</button>
+                            <!--                            <button type="submit" class="btn btn-lg btn-primary">Đăng kí tham gia đấu giá</button>-->
+                            <a href="RegistAuction.jsp" class="btn btn-lg btn-primary">Đăng kí tham gia đấu giá</a>
                         </div>
                     </div>
                 </div>

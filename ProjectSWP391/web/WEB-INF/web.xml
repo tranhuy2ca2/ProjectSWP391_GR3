@@ -41,16 +41,16 @@
         <servlet-class>Controller.ChangePassword</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>RegistAuction</servlet-name>
-        <servlet-class>Controller.RegistAuction</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>DetailMyLandLot</servlet-name>
         <servlet-class>Controller.DetailMyLandLot</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>LandDetail</servlet-name>
         <servlet-class>Controller.LandDetail</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>RegistAuction</servlet-name>
+        <servlet-class>Controller.RegistAuction</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>HomePage</servlet-name>
@@ -93,15 +93,15 @@
         <url-pattern>/changepassword</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>RegistAuction</servlet-name>
-        <url-pattern>/RegistAuction</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>DetailMyLandLot</servlet-name>
         <url-pattern>/detailmylandlot</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>LandDetail</servlet-name>
         <url-pattern>/landdetail</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RegistAuction</servlet-name>
+        <url-pattern>/registauction</url-pattern>
     </servlet-mapping>
 </web-app>
