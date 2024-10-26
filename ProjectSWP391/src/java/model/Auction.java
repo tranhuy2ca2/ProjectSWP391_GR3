@@ -7,6 +7,7 @@ public class Auction {
     private int auctionID;
     private int landLotID;
     private String landLotName;
+    private String auctionnerid;
     private String auctioneerName;
     private String winnerName;
     private Integer winnerID; // Change from int to Integer
@@ -28,8 +29,29 @@ public class Auction {
         this.winnerID = null;  // Default to null if no winner is assigned
     }
 
+    public Auction(int auctionID, int landLotID, String auctionnerid, Integer winnerID, Date startTime, Date endTime, String status) {
+        this.auctionID = auctionID;
+        this.landLotID = landLotID;
+        this.auctionnerid = auctionnerid;
+        this.winnerID = winnerID;
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.status = status;
+    }
+    
+
     public Auction() {
     }
+
+    public String getAuctionnerid() {
+        return auctionnerid;
+    }
+
+    public void setAuctionnerid(String auctionnerid) {
+        this.auctionnerid = auctionnerid;
+    }
+    
+    
 
     public int getAuctionID() {
         return auctionID;

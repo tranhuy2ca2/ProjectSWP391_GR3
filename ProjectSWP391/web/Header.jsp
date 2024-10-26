@@ -100,7 +100,7 @@
                                         <li class="has-children">
                                             <a href="#">Dropdown</a>
                                             <ul class="dropdown">
-                                                <li><a href="#">Xem phien dau gia</a></li>
+                                                <li><a href="ManagerTime">Quản lí thời gian đấu giá</a></li>
                                             </ul>
                                         </li>
                                     </ul>

@@ -2,6 +2,7 @@ package model;
 
 import java.sql.Date;
 import java.util.List;
+import jdk.jfr.Timestamp;
 
 public class LandLots {
     private int landLotsID;
@@ -15,8 +16,43 @@ public class LandLots {
     private String status;
     private List<ZoningTypes> zoningtype;
     private List<LandLotImage> landlotimage;
-
+    private Date startTime;
+    private Date endTime;
+    private String status1;
     public LandLots() {
+    }
+
+    public LandLots(int landLotsID, int sellerID, String landLotName, String location, float area, String description, long startprice, Date createdAt, String status, List<ZoningTypes> zoningtype, List<LandLotImage> landlotimage, Date startTime, Date endTime, String status1) {
+        this.landLotsID = landLotsID;
+        this.sellerID = sellerID;
+        this.landLotName = landLotName;
+        this.location = location;
+        this.area = area;
+        this.description = description;
+        this.startprice = startprice;
+        this.createdAt = createdAt;
+        this.status = status;
+        this.zoningtype = zoningtype;
+        this.landlotimage = landlotimage;
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.status1 = status1;
+    }
+
+    public LandLots(int landLotsID, int sellerID, String landLotName, String location, float area, String description, long startprice, Date createdAt, String status, List<ZoningTypes> zoningtype, List<LandLotImage> landlotimage, Date startTime, Date endTime) {
+        this.landLotsID = landLotsID;
+        this.sellerID = sellerID;
+        this.landLotName = landLotName;
+        this.location = location;
+        this.area = area;
+        this.description = description;
+        this.startprice = startprice;
+        this.createdAt = createdAt;
+        this.status = status;
+        this.zoningtype = zoningtype;
+        this.landlotimage = landlotimage;
+        this.startTime = startTime;
+        this.endTime = endTime;
     }
 
     public LandLots(int landLotsID, int sellerID, String landLotName, String location, float area, String description, long startprice, Date createdAt, String status) {
@@ -45,6 +81,31 @@ public class LandLots {
         this.landlotimage = landlotimage;
     }
 
+    public String getStatus1() {
+        return status1;
+    }
+
+    public void setStatus1(String status1) {
+        this.status1 = status1;
+    }
+
+    public Date getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(Date startTime) {
+        this.startTime = startTime;
+    }
+
+    public Date getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(Date endTime) {
+        this.endTime = endTime;
+    }
+    
+    
     public int getLandLotsID() {
         return landLotsID;
     }
@@ -132,9 +193,13 @@ public class LandLots {
     public void setLandlotimage(List<LandLotImage> landlotimage) {
         this.landlotimage = landlotimage;
     }
+
     @Override
     public String toString() {
-        return "LandLots{" + "landLotsID=" + landLotsID + ", sellerID=" + sellerID + ", landLotName=" + landLotName + ", location=" + location + ", area=" + area + ", description=" + description + ", startprice=" + startprice + ", createdAt=" + createdAt + ", status=" + status + ", zoningtype=" + zoningtype + ", landlotimage=" + landlotimage + '}';
+        return "LandLots{" + "landLotsID=" + landLotsID + ", sellerID=" + sellerID + ", landLotName=" + landLotName + ", location=" + location + ", area=" + area + ", description=" + description + ", startprice=" + startprice + ", createdAt=" + createdAt + ", status=" + status + ", zoningtype=" + zoningtype + ", landlotimage=" + landlotimage + ", startTime=" + startTime + ", endTime=" + endTime + ", status1=" + status1 + '}';
     }
+
+
+    
 
 }

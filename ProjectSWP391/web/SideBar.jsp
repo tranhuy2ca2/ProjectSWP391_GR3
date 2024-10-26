@@ -70,9 +70,9 @@
                 </c:if> 
                 <c:if test="${sessionScope.user != null && sessionScope.user.role == 3}">
                     <li class="nav-item">
-                        <a class="nav-link collapsed" href="#">
+                        <a class="nav-link collapsed" href="ManagerTime">
                             <i class="bi bi-book"></i>
-                            <span>Xem dau gia</span>
+                            <span>Quản lí thời gian đấu giá</span>
                         </a>
                     </li>
 

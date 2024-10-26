@@ -85,12 +85,13 @@
                             <h2 class="font-weight-bold text-primary heading">
                                 Popular Properties
                             </h2>
+                            
                         </div>
                         <div class="col-lg-6 text-lg-end">
                             <p>
                                 <a href="ViewAuction"
-                                    class="btn btn-primary text-white py-3 px-4"
-                                    >View all properties</a
+                                   class="btn btn-primary text-white py-3 px-4"
+                                   >View all properties</a
                                 >
                             </p>
                         </div>
@@ -100,51 +101,59 @@
                             <div class="property-slider-wrap">
                                 <div class="property-slider">
                                 <c:forEach var="land" items="${listlandlot}">
-                                    <div class="property-item">
-                                        <a href="#" class="img">
-                                            <c:if test="${not empty land.landlotimage}">
-                                                <img width="100%" style="margin-bottom: 100px" 
-                                                     src="${land.landlotimage[0].imageURL}" alt="Image" class="img-fluid" />
-                                            </c:if>
-                                            <c:if test="${empty land.landlotimage}">
-                                                <img width="100%" style="margin-bottom: 100px" 
-                                                     src="default-image-url.jpg" alt="No Image Available" class="img-fluid" />
-                                            </c:if>
-                                        </a>
-
-                                        <div class="property-content">
-                                            <div class="price mb-2">
-                                                <span>Giá Khởi Điểm - 
-                                                    <fmt:formatNumber value="${land.startprice}" type="currency" 
-                                                                      currencySymbol="₫" groupingUsed="true" />
-                                                </span>
-                                            </div>
-                                            <div>
-                                                <span class="d-block mb-2 text-black-50">Vị Trí : ${land.location}</span>
-                                                <span class="city d-block mb-3">Tên Đất : ${land.landLotName}</span>
-
-
-                                                <div class="d-block d-flex align-items-center me-3">
-                                                    <span class="icon-area-chart me-2"></span>
-                                                    <span class="caption"> Diện Tích : ${land.area} m&sup2;</span>
-                                                </div><br>
-                                                <c:if test="${not empty land.zoningtype}">
-                                                    <span class="d-block d-flex align-items-center">
-                                                        <span class="icon-book me-2"></span>
-                                                        <span class="caption">Loại Đất :
-                                                            <c:forEach var="zoning" items="${land.zoningtype}">
-                                                                <span class="caption">${zoning.zoningDescription}, </span>
-                                                            </c:forEach>   
-                                                        </span>
-                                                    </span>                                                      
+                                        <div class="property-item">
+                                            <a href="#" class="img">
+                                                <c:if test="${not empty land.landlotimage}">
+                                                    <img width="100%" style="margin-bottom: 100px" 
+                                                         src="${land.landlotimage[0].imageURL}" alt="Image" class="img-fluid" />
                                                 </c:if>
+                                                <c:if test="${empty land.landlotimage}">
+                                                    <img width="100%" style="margin-bottom: 100px" 
+                                                         src="default-image-url.jpg" alt="No Image Available" class="img-fluid" />
+                                                </c:if>
+                                            </a>
 
+                                            <div class="property-content">
+                                                <div class="price mb-2">
+                                                    <span>Giá Khởi Điểm - 
+                                                        <fmt:formatNumber value="${land.startprice}" type="currency" 
+                                                                          currencySymbol="₫" groupingUsed="true" />
+                                                    </span>
+                                                </div>
+                                                <div class="d-block d-flex align-items-center me-3">
+                                                    <h3 class="icon-timelapse me-2"></h3>
+                                                    <h3 class="caption">${land.status1}</h3>
+                                                </div><br>
+                                                <div>
+                                                    <span class="d-block mb-2 text-black-50">Vị Trí : ${land.location}</span>
+                                                    <span class="city d-block mb-3">Tên Đất : ${land.landLotName}</span>
 
-                                                <a href="#" class="btn btn-primary py-2 px-3">See details</a>
+                                                    <div class="d-block d-flex align-items-center me-3">
+                                                        <span class="icon-area-chart me-2"></span>
+                                                        <span class="caption"> Diện Tích : ${land.area} m&sup2;</span>
+                                                    </div><br>
+                                                    <div class="d-block d-flex align-items-center me-3">
+                                                        <span class="icon-timer me-2"></span>
+                                                        <span class="caption"> Ngày bắt đầu : ${land.startTime} <br> Ngày kết thúc : ${land.endTime}</span>
+                                                    </div><br>
+
+                                                    <c:if test="${not empty land.zoningtype}">
+                                                        <span class="d-block d-flex align-items-center">
+                                                            <span class="icon-book me-2"></span>
+                                                            <span class="caption">Loại Đất :
+                                                                <c:forEach var="zoning" items="${land.zoningtype}">
+                                                                    <span class="caption">${zoning.zoningDescription}, </span>
+                                                                </c:forEach>
+                                                            </span>
+                                                        </span>
+                                                    </c:if>
+
+                                                    <a href="#" class="btn btn-primary py-2 px-3">See details</a>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
                                 </c:forEach>
+
                             </div>
 
                             <div
@@ -169,6 +178,7 @@
                                 >
                             </div>
                         </div>
+                            
                     </div>
                 </div>
             </div>
