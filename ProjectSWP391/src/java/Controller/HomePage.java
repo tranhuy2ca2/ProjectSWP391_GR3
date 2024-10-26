@@ -58,7 +58,7 @@ public class HomePage extends HttpServlet {
     throws ServletException, IOException {
         //processRequest(request, response);
         LandLotsDAO landdao = new LandLotsDAO();
-        List<LandLots> listlandlot = landdao.getAllLandLotsDetail();
+        List<LandLots> listlandlot = landdao.getAllLandLotsDetail1();
         request.setAttribute("listlandlot", listlandlot);
         request.getRequestDispatcher("HomePage.jsp").forward(request, response);
     } 

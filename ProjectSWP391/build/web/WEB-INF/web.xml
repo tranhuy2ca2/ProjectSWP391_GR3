@@ -92,6 +92,10 @@
         <servlet-name>UserManagement</servlet-name>
         <servlet-class>Controller.UserManagement</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ManagerTime</servlet-name>
+        <servlet-class>Controller.ManagerTime</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>HomePage</servlet-name>
         <url-pattern>/homepage</url-pattern>
@@ -183,5 +187,9 @@
     <servlet-mapping>
         <servlet-name>UserManagement</servlet-name>
         <url-pattern>/UserManagement</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ManagerTime</servlet-name>
+        <url-pattern>/ManagerTime</url-pattern>
     </servlet-mapping>
 </web-app>
