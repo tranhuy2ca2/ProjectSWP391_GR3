@@ -5,6 +5,7 @@ import java.util.List;
 import jdk.jfr.Timestamp;
 
 public class LandLots {
+
     private int landLotsID;
     private int sellerID;
     private String landLotName;

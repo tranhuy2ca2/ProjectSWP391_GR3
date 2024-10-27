@@ -81,7 +81,8 @@ public class WithDraw extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp)
+            throws ServletException, IOException {
         try {
             WithDrawMoney_DAO dao = new WithDrawMoney_DAO();
             String vnp_Version = "2.1.0";

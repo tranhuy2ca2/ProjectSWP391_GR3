@@ -4,10 +4,8 @@ import DAL.DBContext;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
-import jdk.jfr.Timestamp;
 import model.Auction;
 
 public class AuctionDAO {
@@ -177,11 +175,6 @@ public boolean updateAuction(Auction auction) {
     }
     return false;
 }
-
-
-
-
-
 
     // Method to delete an auction
     public boolean deleteAuction(int auctionID) {

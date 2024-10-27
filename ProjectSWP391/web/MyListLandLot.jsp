@@ -59,48 +59,22 @@
                                     <table class="table datatable">
                                         <thead>
                                             <tr>
-                                                <th></th>
-                                                <th>Tên đất</th>
-                                                <th>Mô Tả</th>
-                                                <th data-type="date" data-format="YYYY/DD/MM">Ngày Đăng</th>
-                                                <th>Trạng Thái</th>
+                                                <th class="col-1 text-center">STT</th>
+                                                <th class="col-3 text-center">Tiêu Đề</th>
+                                                <th class="col-3 text-center">Nội Dung</th>
+                                                <th class="col-3 text-center" data-type="date" data-format="YYYY/DD/MM">Ngày Đăng</th>
                                             </tr>
-                                        </thead>                                        
+                                        </thead>
                                         <tbody>
-                                        <c:forEach items="${manageland}" var="b">
+                                        <c:forEach items="${listfeedback}" var="b" varStatus="status">
                                             <tr>
-                                                <td style="width: 10%">
-                                                    <a style="margin-right: 10px" href="javascript:void(0);">
-                                                        <i class="material-icons" data-toggle="tooltip" title="Xóa Miếng Đất">&#xE872;</i>
-                                                    </a>
-                                                    <a style="margin-right: 10px" href="detailmylandlot?landlotid=${b.landLotsID}">
-                                                        <i class="material-icons" data-toggle="tooltip" title="Xem chi tiết">visibility</i>
-                                                    </a>
-                                                    <a href="updatelandlot?landlotid=${b.landLotsID}">
-                                                        <i class="material-icons" data-toggle="tooltip" title="Sửa Chi Tiết">&#xE254;</i>
-                                                    </a>
-                                                </td>
-                                                <td class="title">${b.landLotName} <br> 
-
-                                                </td>
-                                                <td class="detail">
-                                                    <div class="detail-content">
-                                                        <span class="short-detail">${b.description.substring(0, 100)}...</span>
-                                                        <span class="full-detail" style="display:none;">${b.description}</span>
-                                                    </div>
-                                                    <a href="javascript:void(0);" onclick="toggleDetail(this)" style="color: blue">Đọc thêm</a>
-                                                </td>
-                                                <td class="publishDate">${b.createdAt}</td>
-                                                <td class="publishDate">${b.status}</td>
+                                                <td class="col-1 text-center">${status.index + 1}</td>
+                                                <td class="col-3 text-center">${b.subject}</td>
+                                                <td class="col-3 text-center">${b.detail}</td>
+                                                <td class="col-3 text-center">${b.createAt}</td>
                                             </tr>
                                         </c:forEach>
-                                        <c:if test="${not empty successMessage}">
-                                        <script>
-                                            alert("${successMessage}");
-                                            <c:remove var="successMessage" scope="session"/>
-                                        </script>
-                                    </c:if>
-                                    </tbody>                                      
+                                    </tbody>
                                 </table>
                             </div>
                         </div>

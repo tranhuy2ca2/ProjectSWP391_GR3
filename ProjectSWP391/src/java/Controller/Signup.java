@@ -79,7 +79,7 @@ public class Signup extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession session = request.getSession();
+         HttpSession session = request.getSession();
 
         // Collect input
         String username = request.getParameter("username");
@@ -158,6 +158,13 @@ public class Signup extends HttpServlet {
         return matcher.matches();
     }
 
+    public boolean isValidStringUserName(String str) {
+        // Biểu thức chính quy để kiểm tra username từ 5 đến 15 ký tự
+        Pattern pattern = Pattern.compile("^[A-Za-z0-9]{5,15}$");
+        Matcher matcher = pattern.matcher(str);
+        return matcher.matches();
+    }
+
     // kiểm tra mật khẩu hợp lệ
     public boolean isValidString(String str) {
         // Sử dụng biểu thức chính quy để kiểm tra chuỗi
@@ -165,6 +172,7 @@ public class Signup extends HttpServlet {
         Matcher matcher = pattern.matcher(str);
         return matcher.matches();
     }
+    // kiem tra sdt
 
     public boolean isValidPhoneNumber(String phone) {
         // Biểu thức chính quy để kiểm tra số điện thoại bắt đầu bằng 0 và có đúng 10 chữ số

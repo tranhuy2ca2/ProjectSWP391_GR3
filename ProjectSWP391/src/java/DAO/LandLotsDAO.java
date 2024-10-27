@@ -10,7 +10,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import model.Auction;
 import model.Customer;
@@ -172,6 +171,7 @@ public class LandLotsDAO {
     }
 
     public List<LandLots> getLandLotsByUserID(int userID) {
+        List<LandLots> land = new ArrayList<LandLots>();
         List<LandLots> book = new ArrayList<LandLots>();
         String sql = """
                      select*from LandLots
@@ -538,6 +538,13 @@ public class LandLotsDAO {
             }
             ps = con.prepareStatement(sql);
             if (keyword != null && !keyword.trim().isEmpty()) {
+                sql += " and LandLotName like ?";
+            }
+            if (order != null) {
+                sql += " order by " + order;
+            }
+            ps = con.prepareStatement(sql);
+            if (keyword != null && !keyword.trim().isEmpty()) {
                 ps.setString(1, "%" + keyword + "%");
             }
             rs = ps.executeQuery();
@@ -600,6 +607,7 @@ public class LandLotsDAO {
 
     public static void main(String[] args) {
         LandLotsDAO dao = new LandLotsDAO();
-        System.out.println(dao.getLandLotsDetailByID(34));
+        System.out.println(dao.getLandLotsDetailByID(30));
     }
 }
+

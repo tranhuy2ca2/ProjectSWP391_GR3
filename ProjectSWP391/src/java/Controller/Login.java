@@ -77,7 +77,7 @@ public class Login extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         //processRequest(request, response);
-        CustomerDAO cusdao = new CustomerDAO();
+      CustomerDAO cusdao = new CustomerDAO();
         String username = request.getParameter("username");
         String password = request.getParameter("password");
         String remember = request.getParameter("rem");
@@ -142,3 +142,5 @@ public class Login extends HttpServlet {
     }// </editor-fold>
 
 }
+
+

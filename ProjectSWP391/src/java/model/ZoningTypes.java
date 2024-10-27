@@ -1,4 +1,5 @@
 package model;
+
 public class ZoningTypes {
     private int zoningID;
     private String zoningCode;
