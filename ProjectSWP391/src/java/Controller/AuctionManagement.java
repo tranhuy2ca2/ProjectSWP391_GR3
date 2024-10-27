@@ -48,48 +48,49 @@ public class AuctionManagement extends HttpServlet {
 
         if ("edit".equals(action)) {
             try {
-                // Lấy các tham số từ request
                 int auctionID = Integer.parseInt(request.getParameter("auctionID"));
                 String startTimeStr = request.getParameter("startTime");
                 String endTimeStr = request.getParameter("endTime");
                 String status = request.getParameter("status");
                 String winnerIDStr = request.getParameter("winnerID");
 
-                // Debugging: Log received parameters
-                System.out.println("Received auctionID: " + auctionID);
-                System.out.println("Received startTime: " + startTimeStr);
-                System.out.println("Received endTime: " + endTimeStr);
-                System.out.println("Received status: " + status);
-                System.out.println("Received winnerID: " + winnerIDStr);
-
-                // Chuyển đổi thời gian thành Timestamp
                 Timestamp startTime = Timestamp.valueOf(startTimeStr.replace("T", " ") + ":00");
                 Timestamp endTime = Timestamp.valueOf(endTimeStr.replace("T", " ") + ":00");
 
-                // Lấy Auction hiện tại từ DB
-                Auction currentAuction = auctionDAO.getAuctionById(auctionID);
+                // Time validation
+                if (startTime.after(endTime)) {
+                    request.setAttribute("message", "Start Time must be before End Time.");
+                    reloadAuctionList(request, response);
+                    return;
+                }
 
+                Auction currentAuction = auctionDAO.getAuctionById(auctionID);
                 if (currentAuction == null) {
                     request.setAttribute("message", "Auction not found!");
                     reloadAuctionList(request, response);
                     return;
                 }
 
-                // Cập nhật các trường thời gian, trạng thái và WinnerID
+                Integer winnerID = (winnerIDStr != null && !winnerIDStr.isEmpty()) ? Integer.parseInt(winnerIDStr) : null;
+
+                // Status validation based on winner presence
+                if (winnerID == null && !("Ongoing".equals(status) || "Cancelled".equals(status))) {
+                    request.setAttribute("message", "Invalid status. Only 'Ongoing' or 'Cancelled' allowed when there is no winner.");
+                    reloadAuctionList(request, response);
+                    return;
+                } else if (winnerID != null && !"Completed".equals(status)) {
+                    request.setAttribute("message", "Invalid status. Must be 'Completed' if there is a winner.");
+                    reloadAuctionList(request, response);
+                    return;
+                }
+
                 currentAuction.setStartTime(startTime);
                 currentAuction.setEndTime(endTime);
                 currentAuction.setStatus(status);
-
-                // Convert winnerID to integer or null
-                Integer winnerID = (winnerIDStr != null && !winnerIDStr.isEmpty()) ? Integer.parseInt(winnerIDStr) : null;
                 currentAuction.setWinnerID(winnerID);
 
-                // Gọi phương thức cập nhật đấu giá
                 boolean success = auctionDAO.updateAuction(currentAuction);
-                System.out.println("Update success: " + success); // Log kết quả cập nhật
                 request.setAttribute("message", success ? "Auction updated successfully!" : "Failed to update auction!");
-
-                // Reload lại danh sách đấu giá
                 reloadAuctionList(request, response);
             } catch (Exception e) {
                 e.printStackTrace();
@@ -140,6 +141,13 @@ public class AuctionManagement extends HttpServlet {
                 return;
             }
 
+            // Kiểm tra nếu đã có người tổ chức và người thắng cho lô đất
+            if (auctionDAO.isAuctionExistingForLandLot(landLotID)) {
+                request.setAttribute("message", "Mỗi lô đất chỉ được phép có một người tổ chức và một người thắng!");
+                reloadAuctionList(request, response);
+                return;
+            }
+
             // Check for auctioneer availability during the time range
             if (!auctionDAO.isAuctioneerAvailable(auctioneerID, startDate, endDate)) {
                 request.setAttribute("message", "Người đấu giá không có mặt trong thời gian này!");
@@ -159,9 +167,16 @@ public class AuctionManagement extends HttpServlet {
             }
 
             // If no winner, only "Ongoing" or "Cancelled" status is allowed
-            if (winnerName == null || winnerName.isEmpty()) {
+            if (winnerName == null || winnerName.isEmpty() || winnerName.equals("Chưa có")) {
                 if (!status.equals("Ongoing") && !status.equals("Cancelled")) {
-                    request.setAttribute("message", "Trạng thái không hợp lệ! Trạng thái phải là 'Đang diễn ra' hoặc 'Đã hủy' nếu không có người chiến thắng.");
+                    request.setAttribute("message", "Trạng thái phải là 'Đang diễn ra' hoặc 'Đã hủy' nếu không có người chiến thắng.");
+                    reloadAuctionList(request, response);
+                    return;
+                }
+            } else {
+                // If there is a winner, only "Completed" status is allowed
+                if (!status.equals("Completed")) {
+                    request.setAttribute("message", "Trạng thái phải là 'Hoàn tất' nếu có người chiến thắng.");
                     reloadAuctionList(request, response);
                     return;
                 }
