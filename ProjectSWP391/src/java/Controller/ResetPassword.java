@@ -48,6 +48,9 @@ public class ResetPassword extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         processRequest(request, response);
+        try (PrintWriter out = response.getWriter()) {
+            request.getRequestDispatcher("ResetPassword.jsp").forward(request, response);
+        }
     } 
 
     /** 
@@ -72,6 +75,8 @@ public class ResetPassword extends HttpServlet {
             EmailService.sendEmail(email, "Đặt lại mật khẩu", "Mật khẩu mới là : " + newpass);
             dao.UpdatePassword(customer.getUserID(), newpass);
             response.sendRedirect("homepage");
+            request.setAttribute("report", "New password is sent in your email");
+            request.getRequestDispatcher("sign_in.jsp").forward(request, response);
         }
     }
 

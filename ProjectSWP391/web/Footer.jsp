@@ -35,6 +35,7 @@
     </head>
     <body>
           <div class="site-footer">
+        <div class="site-footer">
             <div class="container">
                 <div class="row">
                     <div class="col-lg-4">
@@ -102,6 +103,5 @@
             </div>
             <!-- /.container -->
         </div>
-    </body>
     </body>
 </html>

@@ -22,7 +22,8 @@
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
         <link
             href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;600;700&display=swap"
-            rel="stylesheet"/>
+            rel="stylesheet"
+            />
 
         <link rel="stylesheet" href="fonts/icomoon/style.css" />
         <link rel="stylesheet" href="fonts/flaticon/font/flaticon.css" />
@@ -61,16 +62,15 @@
                             </c:if>  
                             <c:if test="${sessionScope.user.role == 1}">    
                                 <li class="has-children">
-                                    <a href="properties.html">Properties - Admin</a>
+                                    <a href="profile?uID=${sessionScope.user.userID}">Admin</a>
                                     <ul class="dropdown">
                                         <li><a href="#">Buy Property</a></li>
                                         <li><a href="#">Sell Property</a></li>
                                         <li class="has-children">
                                             <a href="#">Dropdown</a>
                                             <ul class="dropdown">
-                                                <li><a href="#">Quan li nguoi dung</a></li>
-                                                <li><a href="#">Sub Menu Two</a></li>
-                                                <li><a href="#">Sub Menu Three</a></li>
+                                                <li><a href="UserManagement">Quan li nguoi dung</a></li>
+                                                <li><a href="AuctionManagement">Quản lý auction</a></li>
                                             </ul>
                                         </li>
                                     </ul>
@@ -78,7 +78,7 @@
                             </c:if>
                             <c:if test="${sessionScope.user.role == 2}">    
                                 <li class="has-children">
-                                    <a href="properties.html">Properties - User</a>
+                                    <a href="profile?uID=${sessionScope.user.userID}">User</a>
                                     <ul class="dropdown">
                                         <li><a href="#">Buy Property</a></li>
                                         <li><a href="#">Sell Property</a></li>
@@ -86,15 +86,42 @@
                                             <a href="#">Dropdown</a>
                                             <ul class="dropdown">
                                                 <li><a href="#">Xem phien dau gia</a></li>
-                                                <li><a href="#">Sub Menu Two</a></li>
-                                                <li><a href="#">Sub Menu Three</a></li>
                                             </ul>
                                         </li>
                                     </ul>
                                 </li>
                             </c:if>
-                            
-                             <li><a href="#">Services</a></li>
+                             <c:if test="${sessionScope.user.role == 3}">    
+                                <li class="has-children">
+                                    <a href="profile?uID=${sessionScope.user.userID}"> Staff</a>
+                                    <ul class="dropdown">
+                                        <li><a href="#">Buy Property</a></li>
+                                        <li><a href="#">Sell Property</a></li>
+                                        <li class="has-children">
+                                            <a href="#">Dropdown</a>
+                                            <ul class="dropdown">
+                                                <li><a href="ManagerTime">Quản lí thời gian đấu giá</a></li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </c:if>
+                                  <c:if test="${sessionScope.user.role == 4}">    
+                                <li class="has-children">
+                                    <a href="profile?uID=${sessionScope.user.userID}"> Auctioneer</a>
+                                    <ul class="dropdown">
+                                        <li><a href="#">Buy Property</a></li>
+                                        <li><a href="#">Sell Property</a></li>
+                                        <li class="has-children">
+                                            <a href="#">Dropdown</a>
+                                            <ul class="dropdown">
+                                                <li><a href="#">Xem phien dau gia</a></li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </c:if>
+                            <li><a href="#">Services</a></li>
                             <li><a href="AboutUs.jsp">Giới Thiệu</a></li>
                             <li><a href="Contact.jsp">Liên Hệ</a></li>
                         </ul>

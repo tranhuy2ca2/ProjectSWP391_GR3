@@ -86,7 +86,94 @@
                     margin-left: 5px;
                 }
             </style>
+            <style>
+                .form-group {
+                    display: flex;
+                    align-items: center;
+                    margin-bottom: 15px;
+                }
 
+                .form-group label {
+                    font-weight: bold;
+                    margin-right: 15px;
+                }
+
+                #amount {
+                    width: 200px;
+                    padding: 8px;
+                    border: 1px solid #ced4da;
+                    border-radius: 4px;
+                    font-size: 16px;
+                    background-color: #f9f9f9;
+                    transition: border-color 0.3s;
+                }
+
+                #amount:focus {
+                    outline: none;
+                    border-color: #007bff;
+                    background-color: #ffffff;
+                }
+                
+                #amount1 {
+                    width: 200px;
+                    padding: 8px;
+                    border: 1px solid #ced4da;
+                    border-radius: 4px;
+                    font-size: 16px;
+                    background-color: #f9f9f9;
+                    transition: border-color 0.3s;
+                }
+
+                #amount1:focus {
+                    outline: none;
+                    border-color: #007bff;
+                    background-color: #ffffff;
+                }
+
+                #withdrawButton {
+                    background-color: #007bff;
+                    color: white;
+                    padding: 10px 20px;
+                    font-size: 16px;
+                    border: none;
+                    border-radius: 4px;
+                    cursor: pointer;
+                    transition: background-color 0.3s, box-shadow 0.3s;
+                }
+
+                #withdrawButton:hover {
+                    background-color: #0056b3;
+                    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+                }
+
+                .form-container {
+                    max-width: 100%;
+                    margin: 0 auto;
+                    padding: 20px;
+                    background-color: #f8f9fa;
+                    border: 1px solid #e0e0e0;
+                    border-radius: 8px;
+                    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+                }
+
+                .form-container h2 {
+                    text-align: center;
+                    margin-bottom: 20px;
+                    color: #333;
+                }
+                .recharge-form {
+                    padding: 20px;
+                    background-color: #f9f9f9; /* Màu nền nhẹ để tạo sự khác biệt */
+                    border-radius: 8px; /* Bo góc cho form */
+                    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Đổ bóng cho form */
+                }
+                .form-group label {
+                    font-weight: bold; /* Làm đậm nhãn */
+                }
+                .form-text {
+                    margin-top: 5px; /* Khoảng cách trên giữa nhãn và hướng dẫn */
+                }
+            </style>
             <main id="main" class="main" style="margin-top: 40px">
 
                 <div class="pagetitle">
@@ -115,11 +202,13 @@
 
                                     <li class="nav-item">
                                         <button class="nav-link active" data-bs-toggle="tab"
-                                                data-bs-target="#profile-overview">Chi Tiết Hồ Sơ Người Đọc</button>
+                                                data-bs-target="#profile-overview">
+                                            Chi Tiết Hồ Sơ Người Đọc</button>
                                     </li>
 
                                     <li class="nav-item">
-                                        <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-edit">Sửa Hồ Sơ Người Đọc</button>
+                                        <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-edit">
+                                            Sửa Hồ Sơ Người Đọc</button>
                                     </li>
 
                                     <li class="nav-item">
@@ -128,9 +217,13 @@
                                         </button>
                                     </li>
                                     <li class="nav-item">
-                                        <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-rechargemoney">Nạp tiền</button>
+                                        <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-rechargemoney">
+                                            Nạp tiền</button>
                                     </li>
-
+                                    <li class="nav-item">
+                                        <button class="nav-link" data-bs-toggle="tab" data-bs-target="#profile-withdrawmoney">
+                                            Rút tiền</button>
+                                    </li>
                                 </ul>
                                 <div class="tab-content pt-2">
                                     <div class="tab-pane fade show active profile-overview" id="profile-overview">
@@ -146,7 +239,17 @@
                                             <div class="col-lg-3 col-md-4 label">Số Điện Thoại</div>
                                             <div class="col-lg-9 col-md-8">${user.phone==null?"Chưa có số điện thoại":user.phone}</div>
                                         </div>
-
+                                        <div class="row">
+                                            <div class="col-lg-3 col-md-4 label">Số Dư</div>
+                                            <div class="col-lg-9 col-md-8">
+                                                <script>
+                                                    const userMoney = ${user.money};
+                                                    const formattedMoney = userMoney === null ?
+                                                            "Chưa có" : userMoney.toLocaleString('vi-VN', {style: 'currency', currency: 'VND'});
+                                                    document.write(formattedMoney);
+                                                </script>
+                                            </div>
+                                        </div>
                                     </div>
                                     <div class="tab-pane fade profile-edit pt-3" id="profile-edit">
                                         <!-- Profile Edit Form -->
@@ -173,7 +276,8 @@
                                                 <div class="col-md-8 col-lg-9">
                                                     <input name="email" type="email" class="form-control" id="email" 
                                                            value="${user.email==null?"Chưa có email":user.email}" required>
-                                                    <div class="invalid-feedback">Email không được để trống hoặc chỉ chứa khoảng trắng.</div>
+                                                    <div class="invalid-feedback">
+                                                        Email không được để trống hoặc chỉ chứa khoảng trắng.</div>
                                                 </div>
                                             </div>
                                             <div class="row mb-3">
@@ -181,7 +285,8 @@
                                                 <div class="col-md-8 col-lg-9">
                                                     <input name="address" type="text" class="form-control" id="address" 
                                                            value="${user.address==null?"Chưa có địa chỉ":user.address}">
-                                                    <div class="invalid-feedback">Địa chỉ không được để trống hoặc chỉ chứa khoảng trắng.</div>
+                                                    <div class="invalid-feedback">
+                                                        Địa chỉ không được để trống hoặc chỉ chứa khoảng trắng.</div>
                                                 </div>
                                             </div>
                                             <div class="row mb-3">
@@ -259,7 +364,8 @@
                                                 <label for="currentPassword" class="col-md-4 col-lg-3 col-form-label">Mật Khẩu Cũ</label>
                                                 <div class="col-md-8 col-lg-9">
                                                     <div class="password-container">
-                                                        <input class="form-control" type="password" id="currentPassword" name="oldpass" required>
+                                                        <input class="form-control" type="password" 
+                                                               id="currentPassword" name="oldpass" required>
                                                         <span id="toggleCurrentPassword" class="toggle-password">👁️</span>
                                                     </div>
                                                 </div>
@@ -274,12 +380,13 @@
                                                         <span id="toggleNewPassword" class="toggle-password">👁️</span>
                                                     </div>
                                                     (Mật khẩu từ 8 đến 20 kí tự bao gồm ít nhất chữ cái thường, 
-                                                        chữ hoa, số, và có 1 ký tự đặc biệt)
+                                                    chữ hoa, số, và có 1 ký tự đặc biệt)
                                                 </div>
                                             </div>
 
                                             <div class="row mb-3">
-                                                <label for="renewPassword" class="col-md-4 col-lg-3 col-form-label">Xác Nhận Lại Mật Khẩu</label>
+                                                <label for="renewPassword" class="col-md-4 col-lg-3 col-form-label">
+                                                    Xác Nhận Lại Mật Khẩu</label>
                                                 <div class="col-md-8 col-lg-9">
                                                     <div class="password-container">
                                                         <input class="form-control" type="password" id="confirmPassword" name="confirm" 
@@ -340,10 +447,12 @@
                                                     alert("Do not enter spaces.");
                                                     return false;
                                                 }
-                                                var passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+                                                var passwordPattern =
+                                                        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
 
                                                 if (!passwordPattern.test(newPassword)) {
-                                                    alert("Mật khẩu mới phải chứa ít nhất 1 chữ thường, 1 chữ hoa, 1 số, và 1 ký tự đặc biệt.");
+                                                    alert("Mật khẩu mới phải chứa ít nhất 1 chữ thường, \n\
+                                        1 chữ hoa, 1 số, và 1 ký tự đặc biệt.");
                                                     return false;
                                                 }
                                                 return true;
@@ -351,10 +460,73 @@
                                         </script>                                      
                                     </div>
                                     <div class="tab-pane fade pt-3" id="profile-rechargemoney">
-                                        <!-- Rechagre Money Form -->
-                                        <h3>Nạp tiền vào tài khoản</h3>                                       
-
+                                        <h3>Nạp tiền vào tài khoản (Số Dư: 
+                                            <fmt:formatNumber value="${user.money}" type="currency" currencySymbol="₫" />)
+                                        </h3>
+                                        <div class="table-responsive">
+                                            <form action="rechargemoney" id="frmCreateOrder1" method="post" class="recharge-form">
+                                                <div class="form-group">
+                                                    <label for="amount">Số tiền nạp:</label>
+                                                    <input data-val="true" 
+                                                           data-val-number="The field Amount must be a number." 
+                                                           data-val-required="The Amount field is required." 
+                                                           class="form-control" 
+                                                           id="amount" 
+                                                           max="10000000" 
+                                                           min="10000" 
+                                                           name="amount" 
+                                                           type="number" 
+                                                           step="10000" 
+                                                           value="10000" 
+                                                           required=""/> 
+                                                    <small class="form-text text-muted">Đơn vị: VNĐ</small>
+                                                </div>
+                                                <button style="margin-top:30px" type="submit" 
+                                                        class="btn btn-primary btn-lg">Thanh toán
+                                                </button>
+                                            </form>
+                                        </div>
                                     </div>
+                                    <div class="tab-pane fade pt-3" id="profile-withdrawmoney">
+                                        <!-- Rechagre Money Form -->                                      
+                                        <div class="form-container">
+                                            <h3>Rút tiền khỏi tài khoản (Số Dư: 
+                                                <fmt:formatNumber value="${user.money}" type="currency" currencySymbol="₫" />)
+                                            </h3>
+                                            <form action="withdraw" id="frmCreateOrder" method="post" onsubmit="return validateWithdraw()"> 
+                                                <div class="form-group">
+                                                    <label for="amount" style="margin-right: 10px">Số tiền muốn rút:</label>
+                                                    <input data-val="true" data-val-number="The field Amount must be a number." 
+                                                           data-val-required="The Amount field is required." style="border: none"
+                                                           id="amount1" max="10000000" min="10000" name="amount" step="10000" 
+                                                           type="number" value="10000" required=""/>VNĐ
+                                                </div>
+                                                <button id="withdrawButton" style="margin-top:10px" type="button" 
+                                                        class="btn btn-primary">Rút tiền</button>
+                                            </form>
+                                        </div>
+                                        <script>
+                                            function validateWithdraw() {
+                                                var amountInput = document.getElementById("amount1");
+                                                var amount = parseInt(amountInput.value);
+                                                var balance = ${user.money}; // Số dư trong tài khoản
+
+                                                if (amount > balance) {
+                                                    alert("Số dư trong tài khoản không đủ!");
+                                                    return false; // Ngăn form được gửi đi
+                                                }
+                                                // Nếu số dư đủ, đổi type của nút button từ 'button' thành 'submit' và gửi form
+                                                var withdrawButton = document.getElementById("withdrawButton");
+                                                withdrawButton.type = "submit";
+                                                // Gửi form
+                                                return true;
+                                            }
+                                            // Gắn hàm validateWithdraw vào sự kiện click của button
+                                            document.getElementById("withdrawButton").addEventListener("click", function () {
+                                                validateWithdraw();
+                                            });
+                                        </script>
+                                    </div>                       
                                     </tbody>                                      
                                 </div>
                             </div>
@@ -369,5 +541,53 @@
         <!-- Vendor JS Files -->
         <script src="assets/vendor/apexcharts/apexcharts.min.js"></script>
         <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <script type="text/javascript">
+                                            $("#frmCreateOrder").submit(function () {
+                                                var postData = $("#frmCreateOrder").serialize();
+                                                var submitUrl = $("#frmCreateOrder").attr("action");
+                                                $.ajax({
+                                                    type: "POST",
+                                                    url: submitUrl,
+                                                    data: postData,
+                                                    dataType: 'JSON',
+                                                    success: function (x) {
+                                                        if (x.code === '00') {
+                                                            if (window.vnpay) {
+                                                                vnpay.open({width: 768, height: 600, url: x.data});
+                                                            } else {
+                                                                location.href = x.data;
+                                                            }
+                                                            return false;
+                                                        } else {
+                                                            alert(x.Message);
+                                                        }
+                                                    }
+                                                });
+                                                return false;
+                                            });
+                                            $("#frmCreateOrder1").submit(function () {
+                                                var postData = $("#frmCreateOrder1").serialize();
+                                                var submitUrl = $("#frmCreateOrder1").attr("action");
+                                                $.ajax({
+                                                    type: "POST",
+                                                    url: submitUrl,
+                                                    data: postData,
+                                                    dataType: 'JSON',
+                                                    success: function (x) {
+                                                        if (x.code === '00') {
+                                                            if (window.vnpay) {
+                                                                vnpay.open({width: 768, height: 600, url: x.data});
+                                                            } else {
+                                                                location.href = x.data;
+                                                            }
+                                                            return false;
+                                                        } else {
+                                                            alert(x.Message);
+                                                        }
+                                                    }
+                                                });
+                                                return false;
+                                            });
+        </script>
     </body>
 </html>

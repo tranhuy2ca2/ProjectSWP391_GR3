@@ -171,6 +171,7 @@ public class LandLotsDAO {
 
     public List<LandLots> getLandLotsByUserID(int userID) {
         List<LandLots> land = new ArrayList<LandLots>();
+        List<LandLots> book = new ArrayList<LandLots>();
         String sql = """
                      select*from LandLots
                      where SellerID = ?""";
@@ -179,7 +180,7 @@ public class LandLotsDAO {
             ps.setInt(1, userID);
             rs = ps.executeQuery();
             while (rs.next()) {
-                land.add(new LandLots(
+                book.add(new LandLots(
                         rs.getInt(1),
                         rs.getInt(2),
                         rs.getString(3),
@@ -193,7 +194,7 @@ public class LandLotsDAO {
             }
         } catch (Exception e) {
         }
-        return land;
+        return book;
     }
 
     public List<LandLots> getLandLotsDetailByUserID(int userID) {
@@ -457,6 +458,13 @@ public class LandLotsDAO {
             }
             ps = con.prepareStatement(sql);
             if (keyword != null && !keyword.trim().isEmpty()) {
+                sql += " and LandLotName like ?";
+            }
+            if(order != null){
+                sql += " order by " + order;
+            }
+            ps = con.prepareStatement(sql);
+            if(keyword != null && !keyword.trim().isEmpty()){
                 ps.setString(1, "%" + keyword + "%");
             }
             rs = ps.executeQuery();
@@ -522,3 +530,4 @@ public class LandLotsDAO {
         System.out.println(dao.getLandLotsDetailByID(30));
     }
 }
+      

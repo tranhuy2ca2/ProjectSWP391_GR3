@@ -13,6 +13,8 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import model.Customer;
 
 /**
@@ -75,7 +77,7 @@ public class Login extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         //processRequest(request, response);
-        CustomerDAO cusdao = new CustomerDAO();
+      CustomerDAO cusdao = new CustomerDAO();
         String username = request.getParameter("username");
         String password = request.getParameter("password");
         String remember = request.getParameter("rem");
@@ -99,7 +101,9 @@ public class Login extends HttpServlet {
         response.addCookie(cu);
         response.addCookie(cp);
         response.addCookie(cr);
-        Customer u = cusdao.login(username, password);
+         String passwordMd5 = md5Hash(password);
+        Customer u = cusdao.login(username, passwordMd5);
+
         if (u != null) {
             HttpSession ses = request.getSession();
             ses.setAttribute("user", u);
@@ -111,7 +115,22 @@ public class Login extends HttpServlet {
         }
 
     }
+  // Utility method to hash the password using MD5
+    public String md5Hash(String input) {
+        try {
+            MessageDigest md = MessageDigest.getInstance("MD5");
+            byte[] messageDigest = md.digest(input.getBytes());
 
+            StringBuilder hexString = new StringBuilder();
+            for (byte b : messageDigest) {
+                hexString.append(String.format("%02x", b));
+            }
+            return hexString.toString();
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
     /**
      * Returns a short description of the servlet.
      *
@@ -123,3 +142,5 @@ public class Login extends HttpServlet {
     }// </editor-fold>
 
 }
+
+

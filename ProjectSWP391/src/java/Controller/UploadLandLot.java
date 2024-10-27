@@ -90,8 +90,6 @@ public class UploadLandLot extends HttpServlet {
     /**
      * Handles the HTTP <code>POST</code> method.
      *
-     * @param request servlet request
-     * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
@@ -143,6 +141,7 @@ public class UploadLandLot extends HttpServlet {
         } catch (Exception e) {
             e.printStackTrace();
             request.getRequestDispatcher("HomePage.jsp").forward(request, response);
+            request.getRequestDispatcher("sign_in.jsp").forward(request, response);
         }
     }
 

@@ -38,16 +38,16 @@
     <body>
         <jsp:include page="Header.jsp"></jsp:include>
 
-        <div
-            class="hero page-inner overlay"
-            style="background-image: url('images/hero_bg_3.jpg')"
-            >
-            <div class="container">
-                <div class="row justify-content-center align-items-center">
-                    <div class="col-lg-9 text-center mt-5">
+            <div
+                class="hero page-inner overlay"
+                style="background-image: url('images/hero_bg_3.jpg')"
+                >
+                <div class="container">
+                    <div class="row justify-content-center align-items-center">
+                        <div class="col-lg-9 text-center mt-5">
 
-                        <h1 class="heading" data-aos="fade-up">
-                            <!--5232 California AVE. 21BC-->
+                            <h1 class="heading" data-aos="fade-up">
+                                <!--5232 California AVE. 21BC-->
                             ${b.landLotName}
                         </h1>
 
@@ -125,8 +125,8 @@
                                     </li>
                                 </ul>
                             </div>
-                            <!--                            <button type="submit" class="btn btn-lg btn-primary">Đăng kí tham gia đấu giá</button>-->
-                            <a href="RegistAuction.jsp" class="btn btn-lg btn-primary">Đăng kí tham gia đấu giá</a>
+                            <!-- <button type="submit" class="btn btn-lg btn-primary">Đăng kí tham gia đấu giá</button>-->
+                            <a href="registauction?landlotid=${b.landLotsID}" class="btn btn-lg btn-primary">Đăng kí tham gia đấu giá</a>
                         </div>
                     </div>
                 </div>

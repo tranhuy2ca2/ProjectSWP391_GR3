@@ -34,11 +34,25 @@
                         <span>Profile</span>
                     </a>
                 </li><!-- End Profile Page Nav -->
+                <c:if test="${sessionScope.user != null && sessionScope.user.role == 1}">
+                    <li class="nav-item">
+                        <a class="nav-link collapsed" href="UserManagement">
+                            <i class="bi bi-book"></i>
+                            <span>Quản lý người dùng</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link collapsed" href="AuctionManagement">
+                            <i class="bi bi-book"></i>
+                            <span>Quản lý auction</span>
+                        </a>
+                    </li>
+                </c:if>
                 <c:if test="${sessionScope.user.role == 2}">
                     <li class="nav-item">
                         <a class="nav-link collapsed" href="uploadlandlot">
                             <i class="bi bi-upload"></i>
-                            <span>Ðăng Tin</span>
+                            <span>Ðăng Đất</span>
                         </a>
                     </li>
                     <li class="nav-item">
@@ -47,7 +61,48 @@
                             <span>Quản lí đất đai</span>
                         </a>
                     </li>
-                </c:if>        
+                    <li class="nav-item">
+                        <a class="nav-link collapsed" href="listuserfeedback">
+                            <i class="bi bi-list"></i>
+                            <span>Danh Sách Liên Hệ Đã Gửi</span>
+                        </a>
+                    </li>
+                </c:if> 
+                <c:if test="${sessionScope.user != null && sessionScope.user.role == 3}">
+                    <li class="nav-item">
+                        <a class="nav-link collapsed" href="ManagerTime">
+                            <i class="bi bi-book"></i>
+                            <span>Quản lí thời gian đấu giá</span>
+                        </a>
+                    </li>
+
+                </c:if>
+                <c:if test="${sessionScope.user != null && sessionScope.user.role == 4}">
+                    <li class="nav-item">
+                        <a class="nav-link collapsed" href="#">
+                            <i class="bi bi-book"></i>
+                            <span>Xem phien dau gia</span>
+                        </a>
+                    </li>
+
+                </c:if>
+                <c:if test="${sessionScope.user != null && sessionScope.user.role == 5}">
+                    <li class="nav-item">
+                        <a class="nav-link collapsed" href="#">
+                            <i class="bi bi-book"></i>
+                            <span>Xem phien dau gia</span>
+                        </a>
+                    </li>
+
+                </c:if>
+
+            </ul>
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="transactionhistory">
+                    <i class="bi bi-cash"></i>
+                    <span>Lịch Sử Giao Dịch</span>
+                </a>
+            </li>
         </aside>   
     </body>
 </html>

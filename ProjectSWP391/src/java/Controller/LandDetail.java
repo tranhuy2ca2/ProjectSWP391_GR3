@@ -11,8 +11,6 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
-import model.LandLots;
 
 /**
  *
@@ -32,10 +30,11 @@ public class LandDetail extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        response.setContentType("text/html;charset=UTF-8");
 
         LandLotsDAO landdao = new LandLotsDAO();
         int landlotID = Integer.parseInt(request.getParameter("landlotid"));
-        request.setAttribute("b",landdao.getLandLotsDetailByID(landlotID) );
+        request.setAttribute("b", landdao.getLandLotsDetailByID(landlotID));
         request.getRequestDispatcher("LandDetail.jsp").forward(request, response);
     }
 

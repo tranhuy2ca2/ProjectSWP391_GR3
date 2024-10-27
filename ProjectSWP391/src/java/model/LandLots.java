@@ -4,6 +4,7 @@ import java.sql.Date;
 import java.util.List;
 
 public class LandLots {
+
     private int landLotsID;
     private int sellerID;
     private String landLotName;
@@ -132,6 +133,7 @@ public class LandLots {
     public void setLandlotimage(List<LandLotImage> landlotimage) {
         this.landlotimage = landlotimage;
     }
+
     @Override
     public String toString() {
         return "LandLots{" + "landLotsID=" + landLotsID + ", sellerID=" + sellerID + ", landLotName=" + landLotName + ", location=" + location + ", area=" + area + ", description=" + description + ", startprice=" + startprice + ", createdAt=" + createdAt + ", status=" + status + ", zoningtype=" + zoningtype + ", landlotimage=" + landlotimage + '}';

@@ -4,20 +4,17 @@ package ultis;
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-
 import java.io.UnsupportedEncodingException;
 import javax.mail.*;
 import javax.mail.internet.*;
 import java.util.Properties;
 
-
-
 /**
  *
- *  
+ *
  */
 public class EmailService {
-    
+
     public static String getAlphaNumericString() {
         String AlphaNumericString = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
                 + "0123456789"
@@ -45,13 +42,13 @@ public class EmailService {
         Session session = Session.getInstance(properties, new Authenticator() {
             @Override
             protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication("kiennhhe163054@fpt.edu.vn","mojm wdpx vcmw sgkg");
+                return new PasswordAuthentication("quangbxhe130876@fpt.edu.vn", "lpsk hmur swfl mlkf");
                 // đăng nhập gmail
             }
         });
         try {
             Message message = new MimeMessage(session);
-            message.setFrom(new InternetAddress("kiennhhe163054@fpt.edu.vn"));
+            message.setFrom(new InternetAddress("quangbxhe130876@fpt.edu.vn"));
             message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to));
             message.setSubject(MimeUtility.encodeText(subject, "UTF-8", "B"));
             message.setContent(content, "text/html; charset=utf-8");
@@ -61,6 +58,6 @@ public class EmailService {
         } catch (MessagingException e) {
             e.printStackTrace();
         }
-        return result; 
+        return result;
     }
 }
