@@ -1,8 +1,4 @@
-<%-- 
-    Document   : HomePage
-    Created on : Sep 23, 2024, 4:16:00 PM
-    Author     : TTT
---%>
+
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
@@ -124,6 +120,21 @@
                                                     <h3 class="icon-timelapse me-2"></h3>
                                                     <h3 class="caption">${land.status1}</h3>
                                                 </div><br>
+                                                <c:if test="${not empty land.zoningtype}">
+                                                    <span class="d-block d-flex align-items-center">
+                                                        <span class="icon-book me-2"></span>
+                                                        <span class="caption">Loại Đất :
+                                                            <c:forEach var="zoning" items="${land.zoningtype}">
+                                                                <span class="caption">${zoning.zoningDescription}, </span>
+                                                            </c:forEach>   
+                                                        </span>
+                                                    </span>                                                      
+                                                </c:if>
+                                                <a href="landdetail?landlotid=${land.landLotsID}" 
+                                                   class="btn btn-primary py-2 px-3">Xem chi tiết</a>
+                                            </div>
+                                        </div>
+                                    </div>      
                                                 <div>
                                                     <span class="d-block mb-2 text-black-50">Vị Trí : ${land.location}</span>
                                                     <span class="city d-block mb-3">Tên Đất : ${land.landLotName}</span>

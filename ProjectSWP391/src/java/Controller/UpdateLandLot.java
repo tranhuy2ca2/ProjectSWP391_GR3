@@ -4,7 +4,6 @@
  */
 package Controller;
 
-import static Controller.UploadLandLot.UPLOAD_DIR;
 import DAO.LandLotsDAO;
 import java.io.IOException;
 import java.io.PrintWriter;

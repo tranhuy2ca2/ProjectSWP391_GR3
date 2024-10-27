@@ -34,6 +34,7 @@
         <title>JSP Page</title>
     </head>
     <body>
+          <div class="site-footer">
         <div class="site-footer">
             <div class="container">
                 <div class="row">

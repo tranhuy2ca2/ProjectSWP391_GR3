@@ -93,6 +93,12 @@
         <servlet-class>Controller.UserManagement</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>LandDetail</servlet-name>
+        <servlet-class>Controller.LandDetail</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>RegistAuction</servlet-name>
+        <servlet-class>Controller.RegistAuction</servlet-class>
         <servlet-name>ManagerTime</servlet-name>
         <servlet-class>Controller.ManagerTime</servlet-class>
     </servlet>
@@ -189,6 +195,12 @@
         <url-pattern>/UserManagement</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+        <servlet-name>LandDetail</servlet-name>
+        <url-pattern>/landdetail</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RegistAuction</servlet-name>
+        <url-pattern>/registauction</url-pattern>
         <servlet-name>ManagerTime</servlet-name>
         <url-pattern>/ManagerTime</url-pattern>
     </servlet-mapping>

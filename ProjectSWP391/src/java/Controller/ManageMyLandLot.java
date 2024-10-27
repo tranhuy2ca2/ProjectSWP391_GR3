@@ -30,7 +30,7 @@ public class ManageMyLandLot extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
+        response.setContentType("tet/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
@@ -56,7 +56,7 @@ public class ManageMyLandLot extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        try{
+       try{
             HttpSession ses = request.getSession();
             Customer u = (Customer) ses.getAttribute("user"); 
             LandLotsDAO cusdao = new LandLotsDAO();
@@ -64,9 +64,9 @@ public class ManageMyLandLot extends HttpServlet {
             request.getRequestDispatcher("MyListLandLot.jsp").forward(request, response);
         }catch(Exception e){
             request.getRequestDispatcher("sign_in.jsp").forward(request, response);
-        }        
-        
-    } 
+        }       
+        }                
+     
 
     /** 
      * Handles the HTTP <code>POST</code> method.
@@ -92,3 +92,4 @@ public class ManageMyLandLot extends HttpServlet {
     }// </editor-fold>
 
 }
+

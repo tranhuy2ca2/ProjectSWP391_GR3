@@ -46,7 +46,7 @@ public class Customer {
         this.rolename = rolename;
     }
 
-    public Customer(int userID, String userName, String password, String fullName, String email, String phone, 
+    public Customer(int userID, String userName, String password, String fullName, String email, String phone,
             String role, String address, Date createdAt, String rolename, int money) {
         this.userID = userID;
         this.userName = userName;
@@ -60,7 +60,6 @@ public class Customer {
         this.rolename = rolename;
         this.money = money;
     }
-    
 
     public int getUserID() {
         return userID;
