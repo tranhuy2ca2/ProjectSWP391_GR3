@@ -99,6 +99,8 @@
     <servlet>
         <servlet-name>RegistAuction</servlet-name>
         <servlet-class>Controller.RegistAuction</servlet-class>
+        <servlet-name>ManagerTime</servlet-name>
+        <servlet-class>Controller.ManagerTime</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>HomePage</servlet-name>
@@ -199,5 +201,7 @@
     <servlet-mapping>
         <servlet-name>RegistAuction</servlet-name>
         <url-pattern>/registauction</url-pattern>
+        <servlet-name>ManagerTime</servlet-name>
+        <url-pattern>/ManagerTime</url-pattern>
     </servlet-mapping>
 </web-app>

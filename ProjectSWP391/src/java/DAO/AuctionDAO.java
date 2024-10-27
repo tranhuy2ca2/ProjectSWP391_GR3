@@ -9,6 +9,21 @@ import java.util.List;
 import model.Auction;
 
 public class AuctionDAO {
+public void updateAuctionTime(int auctionID, java.sql.Timestamp startTime, java.sql.Timestamp endTime) {
+    String sql = "UPDATE Auctions SET StartTime = ?, EndTime = ? WHERE AuctionID = ?";
+    
+    try (Connection conn = new DBContext().getConnection();
+         PreparedStatement pstmt = conn.prepareStatement(sql)) {
+         
+        pstmt.setTimestamp(1, startTime);
+        pstmt.setTimestamp(2, endTime);
+        pstmt.setInt(3, auctionID);
+        pstmt.executeUpdate();
+        
+    } catch (Exception e) {
+            e.printStackTrace();
+        }
+}
 
     // Method to retrieve all auctions
     public List<Auction> getAllAuctions() {
