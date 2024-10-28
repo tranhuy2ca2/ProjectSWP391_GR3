@@ -2,7 +2,7 @@ package model;
 
 import java.sql.Date;
 import java.util.List;
-import jdk.jfr.Timestamp;
+import java.sql.Timestamp;
 
 public class LandLots {
 
@@ -17,13 +17,13 @@ public class LandLots {
     private String status;
     private List<ZoningTypes> zoningtype;
     private List<LandLotImage> landlotimage;
-    private Date startTime;
-    private Date endTime;
+    private Timestamp startTime; 
+    private Timestamp endTime;  
     private String status1;
     public LandLots() {
     }
 
-    public LandLots(int landLotsID, int sellerID, String landLotName, String location, float area, String description, long startprice, Date createdAt, String status, List<ZoningTypes> zoningtype, List<LandLotImage> landlotimage, Date startTime, Date endTime, String status1) {
+    public LandLots(int landLotsID, int sellerID, String landLotName, String location, float area, String description, long startprice, Date createdAt, String status, List<ZoningTypes> zoningtype, List<LandLotImage> landlotimage, Timestamp startTime, Timestamp endTime, String status1) {
         this.landLotsID = landLotsID;
         this.sellerID = sellerID;
         this.landLotName = landLotName;
@@ -38,22 +38,6 @@ public class LandLots {
         this.startTime = startTime;
         this.endTime = endTime;
         this.status1 = status1;
-    }
-
-    public LandLots(int landLotsID, int sellerID, String landLotName, String location, float area, String description, long startprice, Date createdAt, String status, List<ZoningTypes> zoningtype, List<LandLotImage> landlotimage, Date startTime, Date endTime) {
-        this.landLotsID = landLotsID;
-        this.sellerID = sellerID;
-        this.landLotName = landLotName;
-        this.location = location;
-        this.area = area;
-        this.description = description;
-        this.startprice = startprice;
-        this.createdAt = createdAt;
-        this.status = status;
-        this.zoningtype = zoningtype;
-        this.landlotimage = landlotimage;
-        this.startTime = startTime;
-        this.endTime = endTime;
     }
 
     public LandLots(int landLotsID, int sellerID, String landLotName, String location, float area, String description, long startprice, Date createdAt, String status) {
@@ -90,19 +74,19 @@ public class LandLots {
         this.status1 = status1;
     }
 
-    public Date getStartTime() {
+     public Timestamp getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(Date startTime) {
+    public void setStartTime(Timestamp startTime) {
         this.startTime = startTime;
     }
 
-    public Date getEndTime() {
+    public Timestamp getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(Date endTime) {
+    public void setEndTime(Timestamp endTime) {
         this.endTime = endTime;
     }
     

@@ -57,9 +57,8 @@ public class SearchLandLot extends HttpServlet {
             request.setAttribute("listlandlot", subList);
             request.setAttribute("totalPage", total);
             request.setAttribute("pageNum", pageNum);
-//            request.getRequestDispatcher("ListLandLot.jsp").include(request, response);
-            request.getRequestDispatcher("ViewAuction.jsp").forward(request, response);
-//   return;
+            request.getRequestDispatcher("ListLandLot.jsp").include(request, response);
+//            request.getRequestDispatcher("ViewAuction.jsp").forward(request, response);
         }
     }
 
