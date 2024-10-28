@@ -71,7 +71,7 @@
                 <h1>Danh Sách tất cả Lô Đất</h1>
             </div><!-- End Page Title -->
             <div class="mb-3">
-                <a href="HomePage.jsp" class="btn btn-success">
+                <a href="homepage" class="btn btn-success">
                     Trở về Trang Chủ
                 </a>
             </div>
@@ -130,12 +130,26 @@
                                                                                 <span class="city d-block mb-3">
                                                                                     Tên Đất : ${land.landLotName}
                                                                                 </span>
-
+                                                                                <div class="d-block d-flex align-items-center me-3">
+                                                                                    <h3 class="icon-timelapse me-2"></h3>
+                                                                                    <h3 class="caption">
+                                                                                        <c:choose>
+                                                                                            <c:when test="${land.status1 == 'Cancelled'}">đã huỷ</c:when>
+                                                                                            <c:when test="${land.status1 == 'Completed'}">đã hoàn thành</c:when>
+                                                                                            <c:when test="${land.status1 == 'Ongoing'}">đang diễn ra</c:when>
+                                                                                            <c:otherwise>${land.status1}</c:otherwise>
+                                                                                        </c:choose>
+                                                                                    </h3>
+                                                                                </div><br>
                                                                                 <div class="d-block d-flex align-items-center me-3">
                                                                                     <span class="icon-area-chart me-2"></span>
                                                                                     <span class="caption">Diện Tích : ${land.area} m&sup2;</span>
                                                                                 </div>
                                                                                 <br>
+                                                                                <div class="d-block d-flex align-items-center me-3">
+                                                                                    <span class="icon-timer me-2"></span>
+                                                                                    <span class="caption"> Ngày bắt đầu : ${land.startTime} <br> Ngày kết thúc : ${land.endTime}</span>
+                                                                                </div><br>
                                                                                 <c:if test="${not empty land.zoningtype}">
                                                                                     <span class="d-block d-flex align-items-center">
                                                                                         <span class="icon-book me-2"></span>

@@ -500,8 +500,8 @@ public class LandLotsDAO {
                         rs.getString("Status"),
                         zoningtypeList, // Truyền danh sách zoning types
                         landlotImages,
-                        rs.getDate(13),
-                        rs.getDate(14),// Truyền danh sách hình ảnh
+                        rs.getTimestamp(13),
+                        rs.getTimestamp(14),
                         rs.getString(15)
                 ));
             }
@@ -605,9 +605,21 @@ public class LandLotsDAO {
         return landlotList;
     }
 
+    public boolean saveAuction(int userId, int landLotId) {
+        String sql = "INSERT INTO FavoriteLandLots  (UserID, LandLotID) VALUES (?, ?)";
+        try (Connection conn = new DBContext().getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, userId);
+            ps.setInt(2, landLotId);
+            int rowAf = ps.executeUpdate();
+            return rowAf > 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
     public static void main(String[] args) {
-        LandLotsDAO dao = new LandLotsDAO();
-        System.out.println(dao.getLandLotsDetailByID(30));
+        LandLotsDAO ldao = new LandLotsDAO();
+        System.out.println(ldao.getLandLotsByUserID(6));
     }
 }
-

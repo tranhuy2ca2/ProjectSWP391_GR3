@@ -126,7 +126,7 @@
                                 </ul>
                             </div>
                             <!-- <button type="submit" class="btn btn-lg btn-primary">Đăng kí tham gia đấu giá</button>-->
-                            <a href="registauction?landlotid=${b.landLotsID}" class="btn btn-lg btn-primary">Đăng kí tham gia đấu giá</a>
+                            <a href="#" class="btn btn-lg btn-primary">Đăng kí tham gia đấu giá</a>
                         </div>
                     </div>
                 </div>

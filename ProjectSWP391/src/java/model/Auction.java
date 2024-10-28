@@ -10,10 +10,9 @@ public class Auction {
     private String auctionnerid;
     private String auctioneerName;
     private String winnerName;
-    private Integer winnerID; // Use Integer to allow null values
-
-    private Timestamp startTime; // Use Timestamp instead of Date
-    private Timestamp endTime;   // Use Timestamp instead of Date
+    private Integer winnerID; 
+    private Timestamp startTime; 
+    private Timestamp endTime;   
     private String status;
 
     // Constructor with both landLotID and landLotName

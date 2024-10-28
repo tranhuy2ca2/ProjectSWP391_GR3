@@ -11,15 +11,14 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.util.List;
-import java.util.stream.Collectors;
-import model.LandLots;
+import jakarta.servlet.http.HttpSession;
+import model.Customer;
 
 /**
  *
  * @author Administator
  */
-public class ViewAuction extends HttpServlet {
+public class SaveAuction extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,10 +37,10 @@ public class ViewAuction extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet ViewAuction</title>");
+            out.println("<title>Servlet SaveAuction</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet ViewAuction at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet SaveAuction at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -59,39 +58,7 @@ public class ViewAuction extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        // Get DAO for LandLots
-        LandLotsDAO landdao = new LandLotsDAO();
-
-        // Get all land lots
-        List<LandLots> listlandlot = landdao.getAllLandLotsDetail1();
-
-        // Pagination variables
-        int pageSize = 9;  // Number of land lots per page
-        int totalItems = listlandlot.size();
-        int totalPages = (int) Math.ceil((double) totalItems / pageSize);
-
-        // Get current page number from request, default is 1
-        int currentPage = 1;
-        if (request.getParameter("page") != null) {
-            currentPage = Integer.parseInt(request.getParameter("page"));
-        }
-
-        // Calculate start item for the current page
-        int startItem = (currentPage - 1) * pageSize;
-
-        // Create sublist for the current page
-        List<LandLots> pageList = listlandlot.stream()
-                .skip(startItem)
-                .limit(pageSize)
-                .collect(Collectors.toList());
-
-        // Set attributes for JSP
-        request.setAttribute("listlandlot", pageList);
-        request.setAttribute("currentPage", currentPage);
-        request.setAttribute("totalPages", totalPages);
-
-        // Forward to JSP
-        request.getRequestDispatcher("ViewAuction.jsp").forward(request, response);
+        processRequest(request, response);
     }
 
     /**
@@ -102,11 +69,38 @@ public class ViewAuction extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
+   @Override
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
+        throws ServletException, IOException {
+    String landLotID = request.getParameter("landLotID");
+    int landLotId = 0;
+
+    try {
+        landLotId = Integer.parseInt(landLotID);
+    } catch (NumberFormatException e) {
+        response.getWriter().write("{\"status\":\"fail\", \"message\":\"Invalid land lot ID\"}");
+        return;
     }
+    
+    HttpSession session = request.getSession();
+    Customer customer = (Customer) session.getAttribute("user");
+    if (customer == null) {
+        response.getWriter().write("{\"status\":\"fail\", \"message\":\"User not logged in\"}");
+        return;
+    }
+
+    LandLotsDAO ldao = new LandLotsDAO();
+    boolean success = ldao.saveAuction(customer.getUserID(), landLotId);
+
+    response.setContentType("application/json");
+    response.setCharacterEncoding("UTF-8");
+    if (success) {
+        response.getWriter().write("{\"status\":\"success\", \"message\":\"Đã lưu yêu thích\"}");
+    } else {
+        response.getWriter().write("{\"status\":\"fail\", \"message\":\"Không lưu thành công\"}");
+    }
+}
+
 
     /**
      * Returns a short description of the servlet.
@@ -115,7 +109,7 @@ public class ViewAuction extends HttpServlet {
      */
     @Override
     public String getServletInfo() {
-        return "Auction view servlet";
+        return "Short description";
     }// </editor-fold>
 
 }
