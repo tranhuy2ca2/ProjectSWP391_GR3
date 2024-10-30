@@ -12,16 +12,17 @@
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/FER-block5/project/main/ProjectSWP391_GR3/ProjectSWP391/src/java/DAO/CustomerDAO.java</file>
+            <file>file:/D:/FER-block5/project/main/ProjectSWP391_GR3/ProjectSWP391/web/list_save.jsp</file>
             <file>file:/D:/FER-block5/project/main/ProjectSWP391_GR3/ProjectSWP391/web/HomePage.jsp</file>
-            <file>file:/D:/FER-block5/project/main/ProjectSWP391_GR3/ProjectSWP391/web/MyListLandLot.jsp</file>
+            <file>file:/D:/FER-block5/project/main/ProjectSWP391_GR3/ProjectSWP391/web/sign_in.jsp</file>
             <file>file:/D:/FER-block5/project/main/ProjectSWP391_GR3/ProjectSWP391/src/java/Controller/SaveAuction.java</file>
             <file>file:/D:/FER-block5/project/main/ProjectSWP391_GR3/ProjectSWP391/web/WEB-INF/web.xml</file>
-            <file>file:/D:/FER-block5/project/main/ProjectSWP391_GR3/ProjectSWP391/src/java/Controller/Profile.java</file>
-            <file>file:/D:/FER-block5/project/main/ProjectSWP391_GR3/ProjectSWP391/src/java/model/FavoriteLandLots.java</file>
+            <file>file:/D:/FER-block5/project/main/ProjectSWP391_GR3/ProjectSWP391/src/java/Controller/ChangePassword.java</file>
+            <file>file:/D:/FER-block5/project/main/ProjectSWP391_GR3/ProjectSWP391/src/java/model/LandLots.java</file>
+            <file>file:/D:/FER-block5/project/main/ProjectSWP391_GR3/ProjectSWP391/web/Contact.jsp</file>
+            <file>file:/D:/FER-block5/project/main/ProjectSWP391_GR3/ProjectSWP391/web/SideBar.jsp</file>
             <file>file:/D:/FER-block5/project/main/ProjectSWP391_GR3/ProjectSWP391/src/java/DAO/LandLotsDAO.java</file>
-            <file>file:/D:/FER-block5/project/main/ProjectSWP391_GR3/ProjectSWP391/src/java/Controller/SearchLandLot.java</file>
-            <file>file:/D:/FER-block5/project/main/ProjectSWP391_GR3/ProjectSWP391/src/java/Controller/ManageMyLandLot.java</file>
+            <file>file:/D:/FER-block5/project/main/ProjectSWP391_GR3/ProjectSWP391/src/java/Controller/Login.java</file>
         </group>
     </open-files>
 </project-private>

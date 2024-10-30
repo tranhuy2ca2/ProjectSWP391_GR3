@@ -607,7 +607,8 @@ public class LandLotsDAO {
 
     public boolean saveAuction(int userId, int landLotId) {
         String sql = "INSERT INTO FavoriteLandLots  (UserID, LandLotID) VALUES (?, ?)";
-        try (Connection conn = new DBContext().getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
+        try (Connection conn = new DBContext().getConnection(); 
+            PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setInt(1, userId);
             ps.setInt(2, landLotId);
             int rowAf = ps.executeUpdate();
@@ -617,9 +618,58 @@ public class LandLotsDAO {
         }
         return false;
     }
+    public boolean deleteFavoriteLandLot(int userId, int landLotId) {
+    String sql = "DELETE FROM FavoriteLandLots WHERE userId = ? AND landLotId = ?";
+ try (Connection conn = new DBContext().getConnection(); 
+            PreparedStatement ps = conn.prepareStatement(sql)) {
+        ps.setInt(1, userId);
+        ps.setInt(2, landLotId);
+        return ps.executeUpdate() > 0;
+   } catch (Exception e) {
+            e.printStackTrace();
+        
+        return false;
+    }
+}
+
+  public List<LandLots> getSavedLandLotsByUser(int userId) {
+    List<LandLots> landLots = new ArrayList<>();
+    String sql = "SELECT LandLots.LandLotID, LandLots.LandLotName, LandLots.Location, LandLots.Area, "
+               + "LandLots.Description, LandLots.StartingPrice "
+               + "FROM LandLots INNER JOIN FavoriteLandLots ON LandLots.LandLotID = FavoriteLandLots.LandLotID "
+               + "WHERE FavoriteLandLots.UserID = ?";
+
+    try (Connection conn = new DBContext().getConnection();
+         PreparedStatement ps = conn.prepareStatement(sql)) {
+        
+        ps.setInt(1, userId);
+        
+        try (ResultSet rs = ps.executeQuery()) {
+            while (rs.next()) {
+                LandLots landLot = new LandLots();
+                landLot.setLandLotsID(rs.getInt("LandLotID"));
+                landLot.setLandLotName(rs.getString("LandLotName"));
+                landLot.setLocation(rs.getString("Location"));
+                landLot.setArea(rs.getFloat("Area"));
+                landLot.setDescription(rs.getString("Description"));
+                landLot.setStartprice(rs.getLong("StartingPrice"));
+
+                landLots.add(landLot);
+            }
+        }
+     } catch (Exception e) {
+            e.printStackTrace();
+        }
+    return landLots;
+}
+
+
+    
+
 
     public static void main(String[] args) {
         LandLotsDAO ldao = new LandLotsDAO();
-        System.out.println(ldao.getLandLotsByUserID(6));
+        ldao.getSavedLandLotsByUser(6);
+      
     }
 }
