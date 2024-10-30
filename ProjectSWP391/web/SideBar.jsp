@@ -50,7 +50,7 @@
                 </c:if>
                 <c:if test="${sessionScope.user.role == 2}">
                     <li class="nav-item">
-                        <a class="nav-link collapsed" href="SaveAuction">
+                        <a class="nav-link collapsed" href="list_save.jsp">
                             <i class="bi bi-bag"></i>
                             <span>Lưu trữ mảnh đất yêu thích</span>
                         </a>
