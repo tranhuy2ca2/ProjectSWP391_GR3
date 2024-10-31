@@ -20,7 +20,7 @@ import model.LandLots;
  *
  * @author Administator
  */
-public class SaveAuction extends HttpServlet {
+public class ListSaveAuction extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -39,14 +39,13 @@ public class SaveAuction extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet SaveAuction</title>");
+            out.println("<title>Servlet ListSaveAuction</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet SaveAuction at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet ListSaveAuction at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
-
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -61,7 +60,12 @@ public class SaveAuction extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-//        request.getRequestDispatcher("profile").forward(request, response);
+        LandLotsDAO ldao = new LandLotsDAO();
+        HttpSession session = request.getSession();
+        Customer customer = (Customer) session.getAttribute("user");
+        List<LandLots> savedLandLots = ldao.getSavedLandLotsByUser(customer.getUserID());
+        request.setAttribute("savedLandLots", savedLandLots);
+        request.getRequestDispatcher("list_save.jsp").forward(request, response);
     }
 
     /**
@@ -72,43 +76,11 @@ public class SaveAuction extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-@Override
-protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    response.setContentType("application/json"); // Set response type to JSON
-    PrintWriter out = response.getWriter();
-    try {
-        LandLotsDAO ldao = new LandLotsDAO();
-        String landLotID = request.getParameter("landLotID");
-        int landLotId = Integer.parseInt(landLotID);
-        HttpSession session = request.getSession();
-        Customer customer = (Customer) session.getAttribute("user");
-
-        if (customer == null) {
-            out.write("{\"status\":\"fail\", \"message\":\"User not logged in.\"}");
-        } else {
-            boolean isAlreadySaved = ldao.isLandLotFavorite(customer.getUserID(), landLotId); // Check if already saved
-
-            if (isAlreadySaved) {
-                // If already saved, return JSON response indicating it
-                out.write("{\"status\":\"fail\", \"message\":\"Mảnh đất này đã được lưu trước đó.\"}");
-            } else {
-                // Save auction if not already saved
-                boolean success = ldao.saveAuction(customer.getUserID(), landLotId);
-                if (success) {
-                    out.write("{\"status\":\"success\", \"message\":\"Mảnh đất đã được lưu thành công.\"}");
-                } else {
-                    out.write("{\"status\":\"fail\", \"message\":\"Đã xảy ra lỗi. Vui lòng thử lại.\"}");
-                }
-            }
-        }
-    } catch (Exception e) {
-        e.printStackTrace();
-        out.write("{\"status\":\"fail\", \"message\":\"Đã xảy ra lỗi hệ thống.\"}");
-    } finally {
-        out.flush();
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request, response);
     }
-}
-
 
     /**
      * Returns a short description of the servlet.

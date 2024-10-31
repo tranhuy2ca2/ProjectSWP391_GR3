@@ -105,12 +105,16 @@
         <servlet-class>Controller.ManagerTime</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>UnsaveAuction</servlet-name>
+        <servlet-class>Controller.UnsaveAuction</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>SaveAuction</servlet-name>
         <servlet-class>Controller.SaveAuction</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>UnsaveAuction</servlet-name>
-        <servlet-class>Controller.UnsaveAuction</servlet-class>
+        <servlet-name>ListSaveAuction</servlet-name>
+        <servlet-class>Controller.ListSaveAuction</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>HomePage</servlet-name>
@@ -217,11 +221,15 @@
         <url-pattern>/ManagerTime</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+        <servlet-name>UnsaveAuction</servlet-name>
+        <url-pattern>/UnsaveAuction</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>SaveAuction</servlet-name>
         <url-pattern>/SaveAuction</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>UnsaveAuction</servlet-name>
-        <url-pattern>/UnsaveAuction</url-pattern>
+        <servlet-name>ListSaveAuction</servlet-name>
+        <url-pattern>/listsaveauction</url-pattern>
     </servlet-mapping>
 </web-app>

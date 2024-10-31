@@ -154,15 +154,16 @@
                                                         </span>
                                                     </span>
                                                 </c:if>
-                                                <form id="saveAuctionForm_${land.landLotsID}" action="SaveAuction" method="post">
-                                                    <input type="hidden" name="landLotID" value="${land.landLotsID}" />
-                                                    <button type="submit" onclick="saveFavorite(event, '${land.landLotsID}')" class="btn btn-secondary py-2 px-3">Lưu yêu thích</button>
-                                                </form>
-
+                                                <c:if test="${sessionScope.user.role == 2}">
+                                                    <form action="SaveAuction" method="post" onsubmit="saveFavorite(event, ${land.landLotsID})">
+                                                        <input type="hidden" name="landLotID" value="${land.landLotsID}" />
+                                                        <button type="submit" class="btn btn-secondary py-2 px-3">Lưu yêu thích</button>
+                                                    </form>
+                                                </c:if> 
                                                 <br/>
                                                 <a href="landdetail?landlotid=${land.landLotsID}" 
                                                    class="btn btn-primary py-2 px-3">Xem chi tiết</a>
-                                            </div>
+                                            </div>  
                                         </div>
                                     </div>
                                 </c:forEach>
@@ -249,53 +250,46 @@
             </div>
         </section>
         <jsp:include page="Footer.jsp"></jsp:include>
-            <script src="js/bootstrap.bundle.min.js"></script>
-            <script src="js/tiny-slider.js"></script>
-            <script src="js/aos.js"></script>
-            <script src="js/navbar.js"></script>
-            <script src="js/counter.js"></script>
-            <script src="js/custom.js"></script>
+        <script src="js/bootstrap.bundle.min.js"></script>
+        <script src="js/tiny-slider.js"></script>
+        <script src="js/aos.js"></script>
+        <script src="js/navbar.js"></script>
+        <script src="js/counter.js"></script>
+        <script src="js/custom.js"></script>
 
-            <script>
-                                    function saveFavorite(event, landLotID) {
-    event.preventDefault(); // Prevent the default form submission
+        <script>
+                                                     function saveFavorite(event, landLotID) {
+                                                         event.preventDefault(); // Prevent default form submission
 
-    const form = event.target.closest('form'); // Get the form element
-    const formData = new FormData(form); // Get the form data
+                                                         const form = event.target.closest('form');
+                                                         const formData = new FormData(form);
 
-    formData.append('landLotID', landLotID); // Add landLotID to FormData
+                                                         $.ajax({
+                                                             url: form.action,
+                                                             type: 'POST',
+                                                             data: {landLotID: landLotID},
+                                                             success: function (response) {
+                                                                 if (typeof response === "string") {
+                                                                     response = JSON.parse(response); // Ensure response is parsed if returned as string
+                                                                 }
 
-    const data = {};
-    formData.forEach((value, key) => {
-        data[key] = value;
-    });
-
-    // AJAX request
-    $.ajax({
-        url: form.action,
-        type: 'POST',
-        data: data,
-        success: function(response) {
-            const result = JSON.parse(response);
-
-            if (result.status === "success") {
-                alert(result.message); // Display success message
-                const button = form.querySelector('button');
-                button.classList.remove('btn-secondary');
-                button.classList.add('btn-danger');
-                button.innerText = 'Bỏ lưu';
-            } else {
-                alert(result.message); // Display failure message if save failed
-            }
-        },
-        error: function(xhr, status, error) {
-            console.error('Error:', error);
-            alert("An error occurred while processing your request.");
-        }
-    });
-}
-
+                                                                 if (response.status === "success") {
+                                                                     alert(response.message); // Display success message
+                                                                     const button = form.querySelector('button');
+                                                                     button.classList.remove('btn-secondary');
+                                                                     button.classList.add('btn-danger');
+                                                                 } else {
+                                                                     alert(response.message); // Display failure message if save failed
+                                                                 }
+                                                             },
+                                                             error: function (xhr, status, error) {
+                                                                 console.error('Error:', error);
+                                                                 alert("An error occurred while processing your request.");
+                                                             }
+                                                         });
+                                                     }
         </script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 
