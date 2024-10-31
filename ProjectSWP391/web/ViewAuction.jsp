@@ -128,7 +128,7 @@
                                                                                     Vị Trí : ${land.location}
                                                                                 </span>
                                                                                 <span class="city d-block mb-3">
-                                                                                    Tên Đất : ${land.landLotName}
+                                                                                    Tên Đất : ${land.landLotName} 
                                                                                 </span>
                                                                                 <div class="d-block d-flex align-items-center me-3">
                                                                                     <h3 class="icon-timelapse me-2"></h3>
@@ -160,7 +160,13 @@
                                                                                         </span>
                                                                                     </span>                                                      
                                                                                 </c:if>
+                                                                                <c:if test="${sessionScope.user.role == 2}">
 
+                                                                                    <form action="SaveAuction" method="post" onsubmit="saveFavorite(event, ${land.landLotsID})">
+                                                                                        <input type="hidden" name="landLotID" value="${land.landLotsID}" />
+                                                                                        <button type="submit" class="btn btn-secondary py-2 px-3">Lưu yêu thích</button>
+                                                                                    </form>
+                                                                                </c:if>
                                                                                 <a href="#" class="btn btn-primary py-2 px-3">See details</a>
                                                                             </div>
                                                                         </div>
@@ -214,25 +220,58 @@
         <!-- Vendor JS Files -->
         <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
         <script>
-            // Hiển thị nút khi lướt xuống quá 100px
-            window.onscroll = function () {
-                scrollFunction()
-            };
+                                                                                    // Hiển thị nút khi lướt xuống quá 100px
+                                                                                    window.onscroll = function () {
+                                                                                        scrollFunction()
+                                                                                    };
 
-            function scrollFunction() {
-                var scrollBtn = document.getElementById("scrollToTopBtn");
-                if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
-                    scrollBtn.style.display = "block"; // Hiển thị nút
-                } else {
-                    scrollBtn.style.display = "none"; // Ẩn nút
-                }
-            }
+                                                                                    function scrollFunction() {
+                                                                                        var scrollBtn = document.getElementById("scrollToTopBtn");
+                                                                                        if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
+                                                                                            scrollBtn.style.display = "block"; // Hiển thị nút
+                                                                                        } else {
+                                                                                            scrollBtn.style.display = "none"; // Ẩn nút
+                                                                                        }
+                                                                                    }
 
-            // Hàm để cuộn về đầu trang
-            function scrollToTop() {
-                document.body.scrollTop = 0; // Dành cho Safari
-                document.documentElement.scrollTop = 0; // Dành cho Chrome, Firefox, IE và Opera
+                                                                                    // Hàm để cuộn về đầu trang
+                                                                                    function scrollToTop() {
+                                                                                        document.body.scrollTop = 0; // Dành cho Safari
+                                                                                        document.documentElement.scrollTop = 0; // Dành cho Chrome, Firefox, IE và Opera
+                                                                                    }
+        </script>
+        <script>
+            function saveFavorite(event, landLotID) {
+                event.preventDefault(); // Prevent default form submission
+
+                const form = event.target.closest('form');
+                const formData = new FormData(form);
+
+                $.ajax({
+                    url: form.action,
+                    type: 'POST',
+                    data: {landLotID: landLotID},
+                    success: function (response) {
+                        if (typeof response === "string") {
+                            response = JSON.parse(response); // Ensure response is parsed if returned as string
+                        }
+
+                        if (response.status === "success") {
+                            alert(response.message); // Display success message
+                            const button = form.querySelector('button');
+                            button.classList.remove('btn-secondary');
+                            button.classList.add('btn-danger');
+                        } else {
+                            alert(response.message); // Display failure message if save failed
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        console.error('Error:', error);
+                        alert("An error occurred while processing your request.");
+                    }
+                });
             }
         </script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     </body>
 </html>

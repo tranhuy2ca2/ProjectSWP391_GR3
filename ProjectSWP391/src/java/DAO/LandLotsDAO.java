@@ -604,20 +604,51 @@ public class LandLotsDAO {
 
         return landlotList;
     }
+public boolean saveAuction(int userId, int landLotId) {
+    String checkSql = "SELECT COUNT(*) FROM FavoriteLandLots WHERE UserID = ? AND LandLotID = ?";
+    String insertSql = "INSERT INTO FavoriteLandLots (UserID, LandLotID) VALUES (?, ?)";
 
-    public boolean saveAuction(int userId, int landLotId) {
-        String sql = "INSERT INTO FavoriteLandLots  (UserID, LandLotID) VALUES (?, ?)";
-        try (Connection conn = new DBContext().getConnection(); 
-            PreparedStatement ps = conn.prepareStatement(sql)) {
-            ps.setInt(1, userId);
-            ps.setInt(2, landLotId);
-            int rowAf = ps.executeUpdate();
-            return rowAf > 0;
-        } catch (Exception e) {
-            e.printStackTrace();
+    try (Connection conn = new DBContext().getConnection(); 
+         PreparedStatement checkStmt = conn.prepareStatement(checkSql);
+         PreparedStatement insertStmt = conn.prepareStatement(insertSql)) {
+        
+        // Check if the land lot is already saved
+        checkStmt.setInt(1, userId);
+        checkStmt.setInt(2, landLotId);
+        ResultSet rs = checkStmt.executeQuery();
+        
+        if (rs.next() && rs.getInt(1) > 0) {
+            // Land lot is already saved, so don't insert again
+            return false;
         }
-        return false;
+
+        // Insert the land lot into favorites if it does not exist
+        insertStmt.setInt(1, userId);
+        insertStmt.setInt(2, landLotId);
+        int rowAf = insertStmt.executeUpdate();
+        return rowAf > 0;
+
+    } catch (Exception e) {
+        e.printStackTrace();
     }
+    return false;
+}
+public boolean isLandLotFavorite(int userId, int landLotId) {
+    String sql = "SELECT COUNT(*) FROM FavoriteLandLots WHERE UserID = ? AND LandLotID = ?";
+    try (Connection conn = new DBContext().getConnection();
+         PreparedStatement ps = conn.prepareStatement(sql)) {
+        ps.setInt(1, userId);
+        ps.setInt(2, landLotId);
+        ResultSet rs = ps.executeQuery();
+        if (rs.next()) {
+            return rs.getInt(1) > 0;
+        }
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+    return false;
+}
+
     public boolean deleteFavoriteLandLot(int userId, int landLotId) {
     String sql = "DELETE FROM FavoriteLandLots WHERE userId = ? AND landLotId = ?";
  try (Connection conn = new DBContext().getConnection(); 
@@ -670,6 +701,7 @@ public class LandLotsDAO {
     public static void main(String[] args) {
         LandLotsDAO ldao = new LandLotsDAO();
         ldao.getSavedLandLotsByUser(6);
-      
+        ldao.saveAuction(6, 31);
+        System.out.println(ldao.getLandLotsDetailByID(26));
     }
 }
