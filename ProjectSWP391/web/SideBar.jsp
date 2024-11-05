@@ -53,6 +53,12 @@
                             <span>Quản lý bài đăng</span>
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link collapsed" href="contactManager">
+                            <i class="bi bi-book"></i>
+                            <span>Quản lí phản hồi</span>
+                        </a>
+                    </li>
                 </c:if>
                 <c:if test="${sessionScope.user.role == 2}">
                     <li class="nav-item">
