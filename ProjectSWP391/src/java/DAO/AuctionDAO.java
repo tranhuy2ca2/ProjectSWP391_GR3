@@ -281,5 +281,34 @@ public class AuctionDAO {
 
         return false;  // Trả về false nếu có lỗi xảy ra
     }
+    
+    public void createAuction(Auction auction){
+        String sql = "INSERT INTO [dbo].[Auctions]\n" +
+                                "           ([LandLotID]\n" +
+                                "           ,[AuctioneerID]\n" +
+                                "           ,[StartTime]\n" +
+                                "           ,[EndTime]\n" +
+                                "           ,[Status])\n" +
+                                "     VALUES\n" +
+                                "           (?\n" +
+                                "           ,?\n" +
+                                "           ,?\n" +
+                                "           ,?\n" +
+                                "           ,?)";
+        
+            try (Connection con = new DBContext().getConnection(); 
+                    PreparedStatement ps = con.prepareStatement(sql)) {
+
+               ps.setInt(1, auction.getLandLotID());
+               ps.setString(2, auction.getAuctionnerid());
+               ps.setTimestamp(3, auction.getStartTime());
+               ps.setTimestamp(4, auction.getEndTime());
+               ps.setString(5, auction.getStatus());
+               
+               ps.executeUpdate();
+           } catch (Exception e) {
+               e.printStackTrace();
+           }            
+    }
 
 }

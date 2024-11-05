@@ -47,6 +47,12 @@
                             <span>Quản lý auction</span>
                         </a>
                     </li>
+                     <li class="nav-item">
+                        <a class="nav-link collapsed" href="PostManagement">
+                            <i class="bi bi-book"></i>
+                            <span>Quản lý bài đăng</span>
+                        </a>
+                    </li>
                 </c:if>
                 <c:if test="${sessionScope.user.role == 2}">
                     <li class="nav-item">

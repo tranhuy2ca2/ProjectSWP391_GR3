@@ -432,7 +432,7 @@ public class LandLotsDAO {
 
         return landlotList;
     }
-
+    
     public List<LandLots> getAllLandLotsDetail1() {
         List<LandLots> landlotList = new ArrayList<>();
 
@@ -695,7 +695,21 @@ public boolean isLandLotFavorite(int userId, int landLotId) {
 }
 
 
-    
+    public  void updateStatusLandLots(int id, String status){
+        String sql = "UPDATE [dbo].[LandLots]\n" +
+                            "   SET [Status] = ?\n" +
+                            " WHERE LandLotID = ?";
+        try (Connection conn = new DBContext().getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            
+            ps.setString(1, status);
+            ps.setInt(2, id);
+            
+            ps.executeUpdate();
+         } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
 
 
     public static void main(String[] args) {
