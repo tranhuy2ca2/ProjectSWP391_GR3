@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import model.Contact;
 import model.Customer;
+import java.sql.SQLException;
 
 /**
  *
@@ -82,15 +83,65 @@ public class ContactDAO {
                         rs.getString(4),
                         rs.getString(5),
                         rs.getString(6),
-                        rs.getDate(7)
+                        rs.getDate(7),
+                        rs.getString(8),
+                        rs.getInt(9)
                 ));
             }
         } catch (Exception e) {
         }
         return contact;
     }
+    
+    public List<Contact> getListContact(){
+        List<Contact> contacts = new ArrayList<Contact>();
+        String sql ="select * from Contact";
+        try {
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+             while (rs.next()) {
+                contacts.add(new Contact(
+                        rs.getInt(1),
+                        rs.getInt(2),
+                        rs.getString(3),
+                        rs.getString(4),
+                        rs.getString(5),
+                        rs.getString(6),
+                        rs.getDate(7),
+                        rs.getString(8),
+                         rs.getInt(9)
+                ));
+            }
+        } catch (Exception e) {
+        }
+        return contacts;
+    }
+    public void updateContactResponse(int contactID, String responseText) {
+    String sql = "UPDATE [dbo].[Contact] SET [response] = ?, [status] = 3 WHERE [ContactID] = ?";
+
+    try {
+        // Use the existing connection object 'con' to prepare the statement
+        ps = con.prepareStatement(sql);
+
+        // Set the response text and contact ID in the prepared statement
+        ps.setString(1, responseText);
+        ps.setInt(2, contactID);
+
+        // Execute the update
+        int rowsAffected = ps.executeUpdate();
+        if (rowsAffected > 0) {
+            System.out.println("Contact updated successfully.");
+        } else {
+            System.out.println("No contact found with the provided ID.");
+        }
+
+    } catch (SQLException e) {
+        e.printStackTrace();
+        System.out.println("An error occurred while updating the contact.");
+    }
+}
     public static void main(String[] args) {
         ContactDAO dao = new ContactDAO();
-        System.out.println(dao.getContactByUserID(4));
+      //  System.out.println(dao.getListContact(4));
     }
 }

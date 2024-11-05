@@ -10,11 +10,12 @@ public class Contact {
     private String subject;
     private String detail;
     private Date createAt;
-
+    private String response;
+    private int status;
     public Contact() {
     }
 
-    public Contact(int contactID, int userID, String userName, String email, String subject, String detail, Date createAt) {
+    public Contact(int contactID, int userID, String userName, String email, String subject, String detail, Date createAt,String response ,int status) {
         this.contactID = contactID;
         this.userID = userID;
         this.userName = userName;
@@ -22,6 +23,8 @@ public class Contact {
         this.subject = subject;
         this.detail = detail;
         this.createAt = createAt;
+        this.status = status;
+        this.response = response;
     }
 
     public int getContactID() {
@@ -34,6 +37,22 @@ public class Contact {
 
     public int getUserID() {
         return userID;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public String getResponse() {
+        return response;
+    }
+
+    public void setResponse(String response) {
+        this.response = response;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
     }
 
     public void setUserID(int userID) {
