@@ -87,26 +87,33 @@ public class PostManagement extends HttpServlet {
         LandLotsDAO lldao = new LandLotsDAO();
         AuctionDAO adao = new AuctionDAO();
         try{
-                     int landLotsID = Integer.parseInt(request.getParameter("landLotsID"));
-                     String timeCre = request.getParameter("timeCre");
-                    //change status landlot
-                    lldao.updateStatusLandLots(landLotsID, "Available");
-         
-                    LandLots landLots = lldao.getLandLotsDetailByID(landLotsID);
-                    //insert in to aution
-                    Auction auction = new Auction();
-                    auction.setLandLotID(landLotsID);
-                    auction.setAuctionnerid("1");
-                     Timestamp timeCreate = new Timestamp(landLots.getCreatedAt().getTime());
-                    auction.setStartTime(timeCreate);
-                    //end sau 5 ngay
-                    Calendar calendar = Calendar.getInstance();
-                    calendar.setTimeInMillis(timeCreate.getTime()); 
-                    calendar.add(Calendar.DAY_OF_MONTH, 5); 
-                    Timestamp endTime = new Timestamp(calendar.getTimeInMillis());
-                    auction.setEndTime(endTime);
-                    auction.setStatus("Ongoing");
-                    adao.createAuction(auction);
+                    String  action = request.getParameter("action");
+                    int landLotsID = Integer.parseInt(request.getParameter("landLotsID"));
+                    if(action.equals("accept")){
+                         String timeCre = request.getParameter("timeCre");
+                        //change status landlot
+                        lldao.updateStatusLandLots(landLotsID, "Available");
+
+                        LandLots landLots = lldao.getLandLotsDetailByID(landLotsID);
+                        //insert in to aution
+                        Auction auction = new Auction();
+                        auction.setLandLotID(landLotsID);
+                        auction.setAuctionnerid("1");
+                         Timestamp timeCreate = new Timestamp(landLots.getCreatedAt().getTime());
+                        auction.setStartTime(timeCreate);
+                        //end sau 5 ngay
+                        Calendar calendar = Calendar.getInstance();
+                        calendar.setTimeInMillis(timeCreate.getTime()); 
+                        calendar.add(Calendar.DAY_OF_MONTH, 5); 
+                        Timestamp endTime = new Timestamp(calendar.getTimeInMillis());
+                        auction.setEndTime(endTime);
+                        auction.setStatus("Ongoing");
+                        adao.createAuction(auction);
+                    }else if(action.equals("reject")){
+                          lldao.updateStatusLandLots(landLotsID, "Reject");
+                    }
+                    
+                  
         }catch(Exception e){
             System.out.println(e.toString());
         }

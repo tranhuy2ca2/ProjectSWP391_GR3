@@ -92,10 +92,10 @@
                                                             <div   class="d-flex align-items-center justify-content-between">
                                                                 <div >
                                                                            <select class="form-control me-2" name="order">
-                                                                             <option value="StartingPrice" ${requestScope.order == '1' ? 'selected' : ''}>Price Ascending</option>
-                                                                             <option value="StartingPrice desc" ${requestScope.order == '2' ? 'selected' : ''}>Price Descending</option>
-                                                                             <option value="Area" ${requestScope.order == '3' ? 'selected' : ''}>Area Ascending </option>
-                                                                             <option value="Area desc" ${requestScope.order == '4' ? 'selected' : ''}>Area Descending</option>
+                                                                             <option value="StartingPrice" ${requestScope.order == '1' ? 'selected' : ''}>Giá tăng dần</option>
+                                                                             <option value="StartingPrice desc" ${requestScope.order == '2' ? 'selected' : ''}>Giá giảm dần</option>
+                                                                             <option value="Area" ${requestScope.order == '3' ? 'selected' : ''}>Diện tích tăng dần</option>
+                                                                             <option value="Area desc" ${requestScope.order == '4' ? 'selected' : ''}>Diện tích giảm dần</option>
                                                                          </select>
                                                                      </div>
                                                                     <div class="w-75">

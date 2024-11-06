@@ -77,15 +77,27 @@
                                                                         <td><fmt:formatDate value="${land.createdAt}" pattern="yyyy-MM-dd"/></td>
                                                                         <td>${land.status}</td>
                                                                         <td >
-                                                                            <c:if  test="${land.status != 'Available'}">
+                                                                            <c:if  test="${land.status != 'Available' && land.status != 'Reject'}">
                                                                                 <form action="PostManagement" method="post" style="display: inline-block;" 
                                                                                       onsubmit="return confirm('Bạn chắc chắn accept bài post này?');">
                                                                                     <input type="hidden" name="landLotsID" value="${land.landLotsID}">
                                                                                     <input type="hidden" name="timeCre" value="${land.createdAt}">
+                                                                                     <input type="hidden" name="action" value="accept">
                                                                                     <button type="submit" class="btn btn-success btn-sm">
                                                                                         <i class="fas fa-edit"></i> Accept
                                                                                     </button>
                                                                                 </form>
+                                                                                <form action="PostManagement" method="post" style="display: inline-block; margin-top: 20px" 
+                                                                                      onsubmit="return confirm('Bạn chắc chắn reject bài post này?');">
+                                                                                    <input type="hidden" name="landLotsID" value="${land.landLotsID}">
+                                                                                    <input type="hidden" name="timeCre" value="${land.createdAt}">
+                                                                                     <input type="hidden" name="action" value="reject">
+                                                                                    <button type="submit" class="btn btn-warning btn-sm">
+                                                                                        <i class="fas fa-edit"></i> Reject
+                                                                                    </button>
+                                                                                </form>
+                                                                                                                                                                     
+
                                                                             </c:if>
                                                                             
                                                                         </td>
