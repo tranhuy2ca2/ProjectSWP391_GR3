@@ -88,15 +88,23 @@
                                                 <div class="row">
                                                     <div class="container">
                                                         <!-- Unified Search and Filter Form -->
-                                                        <form action="SearchLandLot"  class="d-flex align-items-center">
-                                                            <input type="text" name="keyword" class="form-control me-2" placeholder="Search by ZIP code or City..." value="${requestScope.keyword}">
-                                                            <select class="form-control me-2" name="order">
-                                                                <option value="StartingPrice" ${requestScope.order == '1' ? 'selected' : ''}>Price Ascending</option>
-                                                                <option value="StartingPrice desc" ${requestScope.order == '2' ? 'selected' : ''}>Price Descending</option>
-                                                                <option value="Area" ${requestScope.order == '3' ? 'selected' : ''}>Area Ascending</option>
-                                                                <option value="Area desc" ${requestScope.order == '4' ? 'selected' : ''}>Area Descending</option>
-                                                            </select>
-                                                            <button type="submit" class="btn btn-primary">Search & Filter</button>
+                                                        <form action="SearchLandLot">
+                                                            <div   class="d-flex align-items-center justify-content-between">
+                                                                <div >
+                                                                           <select class="form-control me-2" name="order">
+                                                                             <option value="StartingPrice" ${requestScope.order == '1' ? 'selected' : ''}>Giá tăng dần</option>
+                                                                             <option value="StartingPrice desc" ${requestScope.order == '2' ? 'selected' : ''}>Giá giảm dần</option>
+                                                                             <option value="Area" ${requestScope.order == '3' ? 'selected' : ''}>Diện tích tăng dần</option>
+                                                                             <option value="Area desc" ${requestScope.order == '4' ? 'selected' : ''}>Diện tích giảm dần</option>
+                                                                         </select>
+                                                                     </div>
+                                                                    <div class="w-75">
+                                                                            <input type="text" name="keyword" class="form-control me-2" placeholder="Search by name or land lots" value="${requestScope.keyword}">
+                                                                     </div>
+                                                                     <div>
+                                                                         <button type="submit" class="btn btn-primary">Search & Filter</button>
+                                                                     </div>
+                                                            </div>
                                                         </form>
                                                         <div class="row mt-4">
                                                             <c:forEach var="land" items="${listlandlot}">
@@ -104,8 +112,7 @@
                                                                     <div class="property-item">
                                                                         <a href="#" class="img">
                                                                             <c:if test="${not empty land.landlotimage}">
-                                                                                <img src="${land.landlotimage[0].imageURL}" alt="Image" class="img-fluid" />
-
+                                                                                <img  src="${land.landlotimage[0].imageURL}" alt="Image" class="img-fluid" style="  height: 350px" />
                                                                             </c:if>
                                                                             <c:if test="${empty land.landlotimage}">
                                                                                 <img width="100%" 
@@ -167,7 +174,7 @@
                                                                                         <button type="submit" class="btn btn-secondary py-2 px-3">Lưu yêu thích</button>
                                                                                     </form>
                                                                                 </c:if>
-                                                                                <a href="#" class="btn btn-primary py-2 px-3">See details</a>
+                                                                                <a href="landdetail?landlotid=${land.landLotsID}"  class="btn btn-primary py-2 px-3">See details</a>
                                                                             </div>
                                                                         </div>
                                                                     </div>

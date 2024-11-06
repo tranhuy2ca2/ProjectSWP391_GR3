@@ -432,7 +432,7 @@ public class LandLotsDAO {
 
         return landlotList;
     }
-
+    
     public List<LandLots> getAllLandLotsDetail1() {
         List<LandLots> landlotList = new ArrayList<>();
 
@@ -516,7 +516,7 @@ public class LandLotsDAO {
         List<LandLots> landlotList = new ArrayList<>();
 
         // Truy vấn chính để lấy thông tin LandLots
-        String sql = "SELECT * FROM LandLots where 1=1";
+        String sql = "SELECT * FROM LandLots where 1=1 ";
 
         // Truy vấn để lấy loại zoning của LandLots
         String zonetypeSql = """
@@ -530,13 +530,6 @@ public class LandLotsDAO {
                       WHERE li.LandLotID = ?""";
 
         try {
-            if (keyword != null && !keyword.trim().isEmpty()) {
-                sql += " and LandLotName like ?";
-            }
-            if (order != null) {
-                sql += " order by " + order;
-            }
-            ps = con.prepareStatement(sql);
             if (keyword != null && !keyword.trim().isEmpty()) {
                 sql += " and LandLotName like ?";
             }
@@ -695,7 +688,21 @@ public boolean isLandLotFavorite(int userId, int landLotId) {
 }
 
 
-    
+    public  void updateStatusLandLots(int id, String status){
+        String sql = "UPDATE [dbo].[LandLots]\n" +
+                            "   SET [Status] = ?\n" +
+                            " WHERE LandLotID = ?";
+        try (Connection conn = new DBContext().getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            
+            ps.setString(1, status);
+            ps.setInt(2, id);
+            
+            ps.executeUpdate();
+         } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
 
 
     public static void main(String[] args) {

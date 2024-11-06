@@ -101,7 +101,7 @@ public class Login extends HttpServlet {
         response.addCookie(cu);
         response.addCookie(cp);
         response.addCookie(cr);
-         String passwordMd5 = md5Hash(password);
+        String passwordMd5 = md5Hash(password);
         Customer u = cusdao.login(username, passwordMd5);
 
         if (u != null) {
