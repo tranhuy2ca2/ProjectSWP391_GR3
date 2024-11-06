@@ -10,6 +10,7 @@
         <link href="./assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
         <link href="./assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
         <link href="./assets/css/style.css" rel="stylesheet">
+        <title>Đăng tin </title>
         <style>
             label {
                 margin-right: 30px;

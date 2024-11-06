@@ -67,10 +67,7 @@ public class UserManagement extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        // Lấy danh sách người dùng từ DAO
         List<Customer> users = userDAO.getAllUsers();
-
-        // Gán danh sách vào attribute của request
         request.setAttribute("usersr", users);
         request.getRequestDispatcher("list_user.jsp").forward(request, response);
     }

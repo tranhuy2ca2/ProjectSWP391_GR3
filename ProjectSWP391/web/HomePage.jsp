@@ -32,7 +32,7 @@
         <link rel="stylesheet" href="css/tiny-slider.css" />
         <link rel="stylesheet" href="css/aos.css" />
         <link rel="stylesheet" href="css/style.css" />
-        <title>JSP Page</title>
+        <title>Trang chủ đấu giá đất</title>
     </head>
     <body>
         <jsp:include page="Header.jsp"></jsp:include>
@@ -57,7 +57,7 @@
                     <div class="row justify-content-center align-items-center">
                         <div class="col-lg-9 text-center">
                             <h1 class="heading" data-aos="fade-up">
-                                Easiest way to find your dream home
+                                Easiest way to find your dream your land
                             </h1>
                             <form
                                 action="SearchLandLot"
@@ -83,7 +83,7 @@
                     <div class="row mb-5 align-items-center">
                         <div class="col-lg-6">
                             <h2 class="font-weight-bold text-primary heading">
-                                Popular Properties
+                                Cuộc đấu giá
                             </h2>
 
                         </div>
@@ -91,7 +91,7 @@
                             <p>
                                 <a href="ViewAuction"
                                    class="btn btn-primary text-white py-3 px-4"
-                                   >View all properties</a
+                                   >Tất cả cuộc đấu giá</a
                                 >
                             </p>
                         </div>

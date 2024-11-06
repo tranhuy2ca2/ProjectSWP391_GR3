@@ -22,6 +22,7 @@
         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        <title>Quản lí người dùng</title>
 
         <style>
             .profile .profile-card img {
@@ -60,27 +61,34 @@
                                             <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#userManagement">Danh Sách Người Dùng</button>
                                         </li>
                                     </ul>
-                                    <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addUserModal">
-                                        <i class="fas fa-plus"></i> Thêm Người Dùng
-                                    </button>
+                                <% String message = (String) request.getAttribute("message"); %>
+                                <% if (message != null) { %>
+                                <div style="color: <%= message.contains("thành công") ? "green" : "red" %>;">
+                                    <%= message %>
+                                </div>
+                                <% } %>
 
-                                    <div class="tab-content pt-2">
-                                        <div class="tab-pane fade show active" id="userManagement">
-                                            <div class="row">
-                                                <div class="col-md-12">
-                                                    <table class="table table-striped table-bordered">
-                                                        <thead>
-                                                            <tr>
-                                                                <th>ID</th>
-                                                                <th>Tên Hiển Thị</th>
-                                                                <th>Email</th>
-                                                                <th>Địa Chỉ</th>
-                                                                <th>Số Điện Thoại</th>
-                                                                <th>Chức vụ</th>                                                                
-                                                                <th>Hành Động</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
+                                <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addUserModal">
+                                    <i class="fas fa-plus"></i> Thêm Người Dùng
+                                </button>
+
+                                <div class="tab-content pt-2">
+                                    <div class="tab-pane fade show active" id="userManagement">
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <table class="table table-striped table-bordered">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>ID</th>
+                                                            <th>Tên Hiển Thị</th>
+                                                            <th>Email</th>
+                                                            <th>Địa Chỉ</th>
+                                                            <th>Số Điện Thoại</th>
+                                                            <th>Chức vụ</th>                                                                
+                                                            <th>Hành Động</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
                                                         <c:forEach var="user" items="${usersr}">
                                                             <tr>
                                                                 <td>${user.userID}</td>
@@ -95,12 +103,19 @@
                                                                         <c:when test="${user.role == 3}">Nhân viên</c:when>
                                                                         <c:when test="${user.role == 4}">Nhà đấu giá</c:when>
                                                                         <c:when test="${user.role == 5}">Khách</c:when>
-                                                                        
+
                                                                         <c:otherwise>Vai trò không xác định</c:otherwise>
                                                                     </c:choose>
                                                                 </td>
                                                                 <td>
-                                                                    <button class="btn btn-primary btn-sm btn-edit" data-user-id="${user.userID}" data-user-name="${user.userName}" data-email="${user.email}" data-address="${user.address}" data-phone="${user.phone}" data-role="${user.role}">
+                                                                    <button class="btn btn-primary btn-sm btn-edit" 
+                                                                            data-user-id="${user.userID}" 
+                                                                            data-full-name="${user.fullName}" 
+                                                                            data-user-name="${user.userName}"  
+                                                                            data-email="${user.email}" 
+                                                                            data-address="${user.address}" 
+                                                                            data-phone="${user.phone}" 
+                                                                            data-role="${user.role}">
                                                                         <i class="fas fa-edit"></i> Sửa
                                                                     </button>
                                                                     <form action="UserManagement" method="post" style="display: inline-block;" 
@@ -189,23 +204,25 @@
         </div>
 
         <!-- Add User Modal -->
-        <div class="modal fade" id="addUserModal" tabindex="-1" aria-labelledby="addUserModalLabel" aria-hidden="true">
+        <div class="modal fade" id="editUserModal" tabindex="-1" aria-labelledby="editUserModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="addUserModalLabel">Thêm Người Dùng</h5>
+                        <h5 class="modal-title" id="editUserModalLabel">Chỉnh Sửa Người Dùng</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <form id="addUserForm" action="UserManagement" method="post">
-                            <input type="hidden" name="action" value="add">
+                        <form id="editUserForm" action="UserManagement" method="post">
+                            <input type="hidden" name="action" value="edit">
+                            <input type="hidden" name="userID" id="userID">
+
                             <div class="mb-3">
-                                <label for="newUserName" class="form-label">Tên Hiển Thị</label>
-                                <input type="text" class="form-control" name="userName" id="newUserName" required>
+                                <label for="userName" class="form-label">Tên Hiển Thị</label>
+                                <input type="text" class="form-control" name="userName" id="userName" required>
                             </div>
                             <div class="mb-3">
-                                <label for="newFullName" class="form-label">Họ và Tên</label>
-                                <input type="text" class="form-control" name="fullName" id="newFullName" required>
+                                <label for="fullName" class="form-label">Họ và Tên</label>
+                                <input type="text" class="form-control" name="fullName" id="fullName" required>
                             </div>
                             <div class="mb-3">
                                 <label for="newEmail" class="form-label">Email</label>
@@ -249,25 +266,27 @@
         <script src="assets/vendor/apexcharts/apexcharts.min.js"></script>
         <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
         <script>
-          $(document).ready(function () {
-              $('.btn-edit').on('click', function () {
-                  const userID = $(this).data('user-id');
-                  const userName = $(this).data('user-name');
-                  const email = $(this).data('email');
-                  const address = $(this).data('address');
-                  const phone = $(this).data('phone');
-                  const role = $(this).data('role');
+                                                                              $(document).ready(function () {
+                                                                                  $('.btn-edit').on('click', function () {
+                                                                                      const userID = $(this).data('user-id');
+                                                                                      const userName = $(this).data('user-name');
+                                                                                      const fullName = $(this).data('full-name');
+                                                                                      const email = $(this).data('email');
+                                                                                      const address = $(this).data('address');
+                                                                                      const phone = $(this).data('phone');
+                                                                                      const role = $(this).data('role');
 
-                  $('#userID').val(userID);
-                  $('#userName').val(userName);
-                  $('#email').val(email);
-                  $('#address').val(address);
-                  $('#phone').val(phone);
-                  $('#role').val(role);
+                                                                                      $('#userID').val(userID);
+                                                                                      $('#userName').val(userName);
+                                                                                      $('#fullName').val(fullName);
+                                                                                      $('#email').val(email);
+                                                                                      $('#phone').val(phone);
+                                                                                      $('#role').val(role);
+                                                                                      $('#address').val(address);
 
-                  $('#editUserModal').modal('show');
-              });
-          });
+                                                                                      $('#editUserModal').modal('show');
+                                                                                  });
+                                                                              });
         </script>
 
     </body>

@@ -31,7 +31,7 @@
         <link rel="stylesheet" href="css/style.css" />
 
         <title>
-            Property &mdash; Free Bootstrap 5 Website Template by Untree.co
+            Thông tin về chúng tôi
         </title>
     </head>
     <body>
