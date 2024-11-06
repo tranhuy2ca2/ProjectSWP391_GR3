@@ -13,7 +13,9 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.util.List;
+import ultis.Notify;
 
 /**
  *
@@ -41,9 +43,10 @@ public class ContactManager extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-   
         ContactDAO condao = new ContactDAO();
         List<model.Contact> contacts = condao.getListContact();
+        
+         Notify.updateReadStatus(request, 0, "1");
         request.setAttribute("listContacts", contacts);
         request.getRequestDispatcher("ListContact.jsp").forward(request, response);
     } 

@@ -14,6 +14,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import model.Customer;
+import ultis.Notify;
 
 /**
  *
@@ -63,6 +64,7 @@ public class Profile extends HttpServlet {
             Customer u = (Customer) ses.getAttribute("user"); 
             if (u != null) {
                 request.setAttribute("user", cusdao.getUserDetailByUserID(u.getUserID()));
+                Notify.getNotify(request, u);
                 request.getRequestDispatcher("Profile.jsp").forward(request, response);
             } else {
                 request.getRequestDispatcher("sign_in.jsp").forward(request, response);

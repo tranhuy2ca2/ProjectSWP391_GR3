@@ -4,15 +4,20 @@
  */
 package Controller;
 
+import DAO.ContactDAO;
 import DAO.LandLotsDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.util.List;
+import model.Customer;
 import model.LandLots;
+import ultis.Notify;
 
 /**
  *
@@ -61,6 +66,12 @@ public class HomePage extends HttpServlet {
         //processRequest(request, response);
         LandLotsDAO landdao = new LandLotsDAO();
         List<LandLots> listlandlot = landdao.getAllLandLotsDetail1();
+       HttpSession ses = request.getSession();
+       Customer cus = (Customer)ses.getAttribute("user");
+      
+      if(cus != null){
+          Notify.getNotify(request, cus);
+      }
         request.setAttribute("listlandlot", listlandlot);
         request.getRequestDispatcher("HomePage.jsp").forward(request, response);
     }

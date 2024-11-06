@@ -24,7 +24,6 @@
     <body>
         <jsp:include page="Header.jsp"></jsp:include>
         <jsp:include page="SideBar.jsp"></jsp:include>
-
             <style>
 
                 .badge.bg-danger {
@@ -60,18 +59,25 @@
                                         <thead>
                                             <tr>
                                                 <th class="col-1 text-center">STT</th>
-                                                <th class="col-3 text-center">Tiêu Đề</th>
-                                                <th class="col-3 text-center">Nội Dung</th>
-                                                <th class="col-3 text-center" data-type="date" data-format="YYYY/DD/MM">Ngày Đăng</th>
+                                                <th class="col-2 text-center">Tiêu Đề</th>
+                                                <th class="col-5 text-center">Nội Dung</th>
+                                                <th class="col-2 text-center" data-type="date" data-format="YYYY/DD/MM">Ngày Đăng</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                         <c:forEach items="${listfeedback}" var="b" varStatus="status">
                                             <tr>
                                                 <td class="col-1 text-center">${status.index + 1}</td>
-                                                <td class="col-3 text-center">${b.subject}</td>
-                                                <td class="col-3 text-center">${b.detail}</td>
-                                                <td class="col-3 text-center">${b.createAt}</td>
+                                                <td class="col-2 text-center">${b.subject}</td>
+                                                <td class="col-5 text-center">
+                                                    ${b.detail}
+                                                    <c:if test="${b.response != null}">
+                                                        <h6 style="color: green">
+                                                           Response: ${b.response}
+                                                        </h6>
+                                                    </c:if>
+                                                </td>
+                                                <td class="col-2 text-center">${b.createAt}</td>
                                             </tr>
                                         </c:forEach>
                                     </tbody>

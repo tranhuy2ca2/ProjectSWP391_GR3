@@ -83,14 +83,14 @@ public class Contact extends HttpServlet {
             String email = request.getParameter("email");
             String subject = request.getParameter("subject");
             String detail = request.getParameter("detail");
-            condao.SendContact(userID, username, email, subject, detail);
+            condao.SendContact(userID, username, email, subject, detail,1);
             response.sendRedirect("contact?status=success"); // Thêm trạng thái success
         } else {
             String username = request.getParameter("username");
             String email = request.getParameter("email");
             String subject = request.getParameter("subject");
             String detail = request.getParameter("detail");
-            condao.SendContact1(username, email, subject, detail);
+            condao.SendContact1(username, email, subject, detail,1);
             response.sendRedirect("contact?status=success"); // Thêm trạng thái success
         }
     }
