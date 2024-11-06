@@ -29,10 +29,10 @@ public class RegistAuction extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-//        LandLotsDAO landao = new LandLotsDAO();
-//        int lanlotID = Integer.parseInt(request.getParameter("lanlotid"));
-//        request.setAttribute("b", landao.getLandLotsDetailByID(lanlotID));
-//        request.getRequestDispatcher("RegistAuction.jsp").forward(request, response);
+        LandLotsDAO landdao = new LandLotsDAO();
+        int landlotID = Integer.parseInt(request.getParameter("landlotid"));
+        request.setAttribute("b", landdao.getLandLotsDetailByID(landlotID));
+        request.getRequestDispatcher("RegistAuction.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
