@@ -516,7 +516,7 @@ public class LandLotsDAO {
         List<LandLots> landlotList = new ArrayList<>();
 
         // Truy vấn chính để lấy thông tin LandLots
-        String sql = "SELECT * FROM LandLots where 1=1";
+        String sql = "SELECT * FROM LandLots where 1=1 ";
 
         // Truy vấn để lấy loại zoning của LandLots
         String zonetypeSql = """
@@ -530,13 +530,6 @@ public class LandLotsDAO {
                       WHERE li.LandLotID = ?""";
 
         try {
-            if (keyword != null && !keyword.trim().isEmpty()) {
-                sql += " and LandLotName like ?";
-            }
-            if (order != null) {
-                sql += " order by " + order;
-            }
-            ps = con.prepareStatement(sql);
             if (keyword != null && !keyword.trim().isEmpty()) {
                 sql += " and LandLotName like ?";
             }
