@@ -65,48 +65,48 @@ public class RegistAuction extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         // processRequest(request, response);
-        String landLotId = request.getParameter("landLotId");
-
-        // Check if landLotId is not null or empty
-        if (landLotId == null || landLotId.isEmpty()) {
-            // Redirect to error page or back to the form with an error message
-            response.sendRedirect("dangkythamgia.jsp?error=landLotId_missing");
-            return;
-        }
-
-        boolean agreeRules = request.getParameter("agreeRules") != null;
-        boolean waiveInterest = request.getParameter("waiveInterest") != null;
-        boolean understandAsset = request.getParameter("understandAsset") != null;
-
-        // Check if all checkboxes are checked
-        if (agreeRules && waiveInterest && understandAsset) {
-            try {
-                // Create an AuctionLogs object
-                AuctionLogs log = new AuctionLogs();
-                log.setAuctionID(Integer.parseInt(landLotId)); // Parse landLotId safely now
-                log.setUserID((Integer) request.getSession().getAttribute("userID")); // Assuming userID is stored in session
-                log.setAction("User confirmed participation"); // Set action message
-                log.setLogTime(new java.sql.Timestamp(System.currentTimeMillis())); // Set current time
-
-                // Use AuctionLogsDAO to save the log
-                AuctionLogsDAO auctionLogsDAO = new AuctionLogsDAO();
-                boolean isLogged = auctionLogsDAO.addLog(log);
-
-                if (isLogged) {
-                    // Redirect to success page with success message
-                    response.sendRedirect("ManageRegistForm.jsp?success=true");
-                } else {
-                    // Redirect to error page if saving failed
-                    response.sendRedirect("ManageRegistForm.jsp?error=saving_failed");
-                }
-            } catch (NumberFormatException e) {
-                // Handle case where landLotId is not a valid integer
-                response.sendRedirect("ManageRegistForm.jsp?error=invalid_landLotId");
-            }
-        } else {
-            // If not all checkboxes are checked, redirect to error page
-            response.sendRedirect("ManageRegistForm.jsp?error=missing_fields");
-        }
+//        String landLotId = request.getParameter("landLotId");
+//
+//        // Check if landLotId is not null or empty
+//        if (landLotId == null || landLotId.isEmpty()) {
+//            // Redirect to error page or back to the form with an error message
+//            response.sendRedirect("dangkythamgia.jsp?error=landLotId_missing");
+//            return;
+//        }
+//
+//        boolean agreeRules = request.getParameter("agreeRules") != null;
+//        boolean waiveInterest = request.getParameter("waiveInterest") != null;
+//        boolean understandAsset = request.getParameter("understandAsset") != null;
+//
+//        // Check if all checkboxes are checked
+//        if (agreeRules && waiveInterest && understandAsset) {
+//            try {
+//                // Create an AuctionLogs object
+//                AuctionLogs log = new AuctionLogs();
+//                log.setAuctionID(Integer.parseInt(landLotId)); // Parse landLotId safely now
+//                log.setUserID((Integer) request.getSession().getAttribute("userID")); // Assuming userID is stored in session
+//                log.setAction("User confirmed participation"); // Set action message
+//                log.setLogTime(new java.sql.Timestamp(System.currentTimeMillis())); // Set current time
+//
+//                // Use AuctionLogsDAO to save the log
+//                AuctionLogsDAO auctionLogsDAO = new AuctionLogsDAO();
+//                boolean isLogged = auctionLogsDAO.addLog(log);
+//
+//                if (isLogged) {
+//                    // Redirect to success page with success message
+//                    response.sendRedirect("ManageRegistForm.jsp?success=true");
+//                } else {
+//                    // Redirect to error page if saving failed
+//                    response.sendRedirect("ManageRegistForm.jsp?error=saving_failed");
+//                }
+//            } catch (NumberFormatException e) {
+//                // Handle case where landLotId is not a valid integer
+//                response.sendRedirect("ManageRegistForm.jsp?error=invalid_landLotId");
+//            }
+//        } else {
+//            // If not all checkboxes are checked, redirect to error page
+//            response.sendRedirect("ManageRegistForm.jsp?error=missing_fields");
+//        }
     }
 
     /**
