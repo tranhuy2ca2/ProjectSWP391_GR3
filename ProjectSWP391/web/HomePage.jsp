@@ -1,4 +1,8 @@
-
+<%-- 
+    Document   : HomePage
+    Created on : Sep 23, 2024, 4:16:00 PM
+    Author     : TTT
+--%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
@@ -65,7 +69,7 @@
                                     type="text"
                                     name="keyword"
                                     class="form-control px-4"
-                                    placeholder="Your ZIP code or City. e.g. New York"
+                                    placeholder="Enter your title"
                                     />
                                 <button type="submit" class="btn btn-primary">Search</button>
                             </form>
@@ -81,7 +85,7 @@
                             <h2 class="font-weight-bold text-primary heading">
                                 Popular Properties
                             </h2>
-                            
+
                         </div>
                         <div class="col-lg-6 text-lg-end">
                             <p>
@@ -97,72 +101,71 @@
                             <div class="property-slider-wrap">
                                 <div class="property-slider">
                                 <c:forEach var="land" items="${listlandlot}">
-                                        <div class="property-item">
-                                            <a href="#" class="img">
-                                                <c:if test="${not empty land.landlotimage}">
-                                                    <img width="100%" style="margin-bottom: 100px" 
-                                                         src="${land.landlotimage[0].imageURL}" alt="Image" class="img-fluid" />
-                                                </c:if>
-                                                <c:if test="${empty land.landlotimage}">
-                                                    <img width="100%" style="margin-bottom: 100px" 
-                                                         src="default-image-url.jpg" alt="No Image Available" class="img-fluid" />
-                                                </c:if>
-                                            </a>
+                                    <div class="property-item">
+                                        <a href="#" class="img">
+                                            <c:if test="${not empty land.landlotimage}">
+                                                <img width="100%" style="margin-bottom: 100px; height: 260px" 
+                                                     src="${land.landlotimage[0].imageURL}" alt="Image" class="img-fluid" />
+                                            </c:if>
+                                            <c:if test="${empty land.landlotimage}">
+                                                <img width="100%" style="margin-bottom: 100px; height: 260px" 
+                                                     src="default-image-url.jpg" alt="No Image Available" class="img-fluid" />
+                                            </c:if>
+                                        </a>
 
-                                            <div class="property-content">
-                                                <div class="price mb-2">
-                                                    <span>Giá Khởi Điểm - 
-                                                        <fmt:formatNumber value="${land.startprice}" type="currency" 
-                                                                          currencySymbol="₫" groupingUsed="true" />
-                                                    </span>
-                                                </div>
+                                        <div class="property-content">
+                                            <div class="price mb-2">
+                                                <span>Giá Khởi Điểm - 
+                                                    <fmt:formatNumber value="${land.startprice}" type="currency" 
+                                                                      currencySymbol="₫" groupingUsed="true" />
+                                                </span>
+                                            </div>
+                                            <div class="d-block d-flex align-items-center me-3">
+                                                <h3 class="icon-timelapse me-2"></h3>
+                                                <h3 class="caption">
+                                                    <c:choose>
+                                                        <c:when test="${land.status1 == 'Cancelled'}">đã huỷ</c:when>
+                                                        <c:when test="${land.status1 == 'Completed'}">đã hoàn thành</c:when>
+                                                        <c:when test="${land.status1 == 'Ongoing'}">đang diễn ra</c:when>
+                                                        <c:otherwise>${land.status1}</c:otherwise>
+                                                    </c:choose>
+                                                </h3>
+                                            </div><br>
+                                            <div>
+                                                <span class="d-block mb-2 text-black-50">Vị Trí : ${land.location}</span>
+                                                <span class="city d-block mb-3">Tên Đất : ${land.landLotName}</span>
+
                                                 <div class="d-block d-flex align-items-center me-3">
-                                                    <h3 class="icon-timelapse me-2"></h3>
-                                                    <h3 class="caption">${land.status1}</h3>
+                                                    <span class="icon-area-chart me-2"></span>
+                                                    <span class="caption"> Diện Tích : ${land.area} m&sup2;</span>
                                                 </div><br>
+                                                <div class="d-block d-flex align-items-center me-3">
+                                                    <span class="icon-timer me-2"></span>
+                                                    <span class="alert-light"> Ngày bắt đầu : ${land.startTime} <br> Ngày kết thúc : ${land.endTime}</span>
+                                                </div><br>
+
                                                 <c:if test="${not empty land.zoningtype}">
-                                                    <span class="d-block d-flex align-items-center">
+                                                    <span class="d-block d-flex align-items-center" style="height: 40px">
                                                         <span class="icon-book me-2"></span>
                                                         <span class="caption">Loại Đất :
                                                             <c:forEach var="zoning" items="${land.zoningtype}">
                                                                 <span class="caption">${zoning.zoningDescription}, </span>
-                                                            </c:forEach>   
+                                                            </c:forEach>
                                                         </span>
-                                                    </span>                                                      
+                                                    </span>
                                                 </c:if>
+                                                <c:if test="${sessionScope.user.role == 2}">
+                                                    <form action="SaveAuction" method="post" onsubmit="saveFavorite(event, ${land.landLotsID})">
+                                                        <input type="hidden" name="landLotID" value="${land.landLotsID}" />
+                                                        <button type="submit" class="btn btn-secondary py-2 px-3">Lưu yêu thích</button>
+                                                    </form>
+                                                </c:if> 
+                                                <br/>
                                                 <a href="landdetail?landlotid=${land.landLotsID}" 
                                                    class="btn btn-primary py-2 px-3">Xem chi tiết</a>
-                                            </div>
+                                            </div>  
                                         </div>
-                                    </div>      
-                                                <div>
-                                                    <span class="d-block mb-2 text-black-50">Vị Trí : ${land.location}</span>
-                                                    <span class="city d-block mb-3">Tên Đất : ${land.landLotName}</span>
-
-                                                    <div class="d-block d-flex align-items-center me-3">
-                                                        <span class="icon-area-chart me-2"></span>
-                                                        <span class="caption"> Diện Tích : ${land.area} m&sup2;</span>
-                                                    </div><br>
-                                                    <div class="d-block d-flex align-items-center me-3">
-                                                        <span class="icon-timer me-2"></span>
-                                                        <span class="caption"> Ngày bắt đầu : ${land.startTime} <br> Ngày kết thúc : ${land.endTime}</span>
-                                                    </div><br>
-
-                                                    <c:if test="${not empty land.zoningtype}">
-                                                        <span class="d-block d-flex align-items-center">
-                                                            <span class="icon-book me-2"></span>
-                                                            <span class="caption">Loại Đất :
-                                                                <c:forEach var="zoning" items="${land.zoningtype}">
-                                                                    <span class="caption">${zoning.zoningDescription}, </span>
-                                                                </c:forEach>
-                                                            </span>
-                                                        </span>
-                                                    </c:if>
-
-                                                    <a href="#" class="btn btn-primary py-2 px-3">See details</a>
-                                                </div>
-                                            </div>
-                                        </div>
+                                    </div>
                                 </c:forEach>
 
                             </div>
@@ -189,11 +192,12 @@
                                 >
                             </div>
                         </div>
-                            
+
                     </div>
                 </div>
             </div>
         </div>
+
 
         <section class="features-1">
             <div class="container">
@@ -252,5 +256,42 @@
         <script src="js/navbar.js"></script>
         <script src="js/counter.js"></script>
         <script src="js/custom.js"></script>
+
+        <script>
+                                                     function saveFavorite(event, landLotID) {
+                                                         event.preventDefault(); // Prevent default form submission
+
+                                                         const form = event.target.closest('form');
+                                                         const formData = new FormData(form);
+
+                                                         $.ajax({
+                                                             url: form.action,
+                                                             type: 'POST',
+                                                             data: {landLotID: landLotID},
+                                                             success: function (response) {
+                                                                 if (typeof response === "string") {
+                                                                     response = JSON.parse(response); // Ensure response is parsed if returned as string
+                                                                 }
+
+                                                                 if (response.status === "success") {
+                                                                     alert(response.message); // Display success message
+                                                                     const button = form.querySelector('button');
+                                                                     button.classList.remove('btn-secondary');
+                                                                     button.classList.add('btn-danger');
+                                                                 } else {
+                                                                     alert(response.message); // Display failure message if save failed
+                                                                 }
+                                                             },
+                                                             error: function (xhr, status, error) {
+                                                                 console.error('Error:', error);
+                                                                 alert("An error occurred while processing your request.");
+                                                             }
+                                                         });
+                                                     }
+        </script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
     </body>
 </html>

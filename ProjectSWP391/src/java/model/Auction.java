@@ -1,6 +1,6 @@
 package model;
 
-import java.util.Date;
+import java.sql.Timestamp;
 
 public class Auction {
 
@@ -10,14 +10,13 @@ public class Auction {
     private String auctionnerid;
     private String auctioneerName;
     private String winnerName;
-    private Integer winnerID; // Change from int to Integer
-
-    private Date startTime;
-    private Date endTime;
+    private Integer winnerID; 
+    private Timestamp startTime; 
+    private Timestamp endTime;   
     private String status;
 
     // Constructor with both landLotID and landLotName
-    public Auction(int auctionID, int landLotID, String landLotName, String auctioneerName, String winnerName, Date startTime, Date endTime, String status) {
+    public Auction(int auctionID, int landLotID, String landLotName, String auctioneerName, String winnerName, Timestamp startTime, Timestamp endTime, String status) {
         this.auctionID = auctionID;
         this.landLotID = landLotID;
         this.landLotName = landLotName;
@@ -29,7 +28,7 @@ public class Auction {
         this.winnerID = null;  // Default to null if no winner is assigned
     }
 
-    public Auction(int auctionID, int landLotID, String auctionnerid, Integer winnerID, Date startTime, Date endTime, String status) {
+    public Auction(int auctionID, int landLotID, String auctionnerid, Integer winnerID, Timestamp startTime, Timestamp endTime, String status) {
         this.auctionID = auctionID;
         this.landLotID = landLotID;
         this.auctionnerid = auctionnerid;
@@ -39,7 +38,6 @@ public class Auction {
         this.status = status;
     }
     
-
     public Auction() {
     }
 
@@ -50,8 +48,6 @@ public class Auction {
     public void setAuctionnerid(String auctionnerid) {
         this.auctionnerid = auctionnerid;
     }
-    
-    
 
     public int getAuctionID() {
         return auctionID;
@@ -93,27 +89,27 @@ public class Auction {
         this.winnerName = winnerName;
     }
 
-    public Integer getWinnerID() {  // Getter for winnerID now returns Integer
+    public Integer getWinnerID() {
         return winnerID;
     }
 
-    public void setWinnerID(Integer winnerID) {  // Setter for winnerID accepts Integer
+    public void setWinnerID(Integer winnerID) {
         this.winnerID = winnerID;
     }
 
-    public Date getStartTime() {
+    public Timestamp getStartTime() {
         return startTime;
     }
 
-    public void setStartTime(Date startTime) {
+    public void setStartTime(Timestamp startTime) {
         this.startTime = startTime;
     }
 
-    public Date getEndTime() {
+    public Timestamp getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(Date endTime) {
+    public void setEndTime(Timestamp endTime) {
         this.endTime = endTime;
     }
 
@@ -127,6 +123,16 @@ public class Auction {
 
     @Override
     public String toString() {
-        return "Auction{" + "auctionID=" + auctionID + ", landLotID=" + landLotID + ", landLotName=" + landLotName + ", auctioneerName=" + auctioneerName + ", winnerName=" + winnerName + ", winnerID=" + winnerID + ", startTime=" + startTime + ", endTime=" + endTime + ", status=" + status + '}';
+        return "Auction{" + 
+               "auctionID=" + auctionID + 
+               ", landLotID=" + landLotID + 
+               ", landLotName=" + landLotName + 
+               ", auctioneerName=" + auctioneerName + 
+               ", winnerName=" + winnerName + 
+               ", winnerID=" + winnerID + 
+               ", startTime=" + startTime + 
+               ", endTime=" + endTime + 
+               ", status=" + status + 
+               '}';
     }
 }

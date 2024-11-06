@@ -11,15 +11,16 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.util.List;
-import java.util.stream.Collectors;
+import model.Customer;
 import model.LandLots;
 
 /**
  *
  * @author Administator
  */
-public class ViewAuction extends HttpServlet {
+public class SaveAuction extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,13 +39,14 @@ public class ViewAuction extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet ViewAuction</title>");
+            out.println("<title>Servlet SaveAuction</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet ViewAuction at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet SaveAuction at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -59,39 +61,7 @@ public class ViewAuction extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        // Get DAO for LandLots
-        LandLotsDAO landdao = new LandLotsDAO();
-
-        // Get all land lots
-        List<LandLots> listlandlot = landdao.getAllLandLotsDetail1();
-
-        // Pagination variables
-        int pageSize = 9;  // Number of land lots per page
-        int totalItems = listlandlot.size();
-        int totalPages = (int) Math.ceil((double) totalItems / pageSize);
-
-        // Get current page number from request, default is 1
-        int currentPage = 1;
-        if (request.getParameter("page") != null) {
-            currentPage = Integer.parseInt(request.getParameter("page"));
-        }
-
-        // Calculate start item for the current page
-        int startItem = (currentPage - 1) * pageSize;
-
-        // Create sublist for the current page
-        List<LandLots> pageList = listlandlot.stream()
-                .skip(startItem)
-                .limit(pageSize)
-                .collect(Collectors.toList());
-
-        // Set attributes for JSP
-        request.setAttribute("listlandlot", pageList);
-        request.setAttribute("currentPage", currentPage);
-        request.setAttribute("totalPages", totalPages);
-
-        // Forward to JSP
-        request.getRequestDispatcher("ViewAuction.jsp").forward(request, response);
+//        request.getRequestDispatcher("profile").forward(request, response);
     }
 
     /**
@@ -102,11 +72,43 @@ public class ViewAuction extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
+@Override
+protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    response.setContentType("application/json"); // Set response type to JSON
+    PrintWriter out = response.getWriter();
+    try {
+        LandLotsDAO ldao = new LandLotsDAO();
+        String landLotID = request.getParameter("landLotID");
+        int landLotId = Integer.parseInt(landLotID);
+        HttpSession session = request.getSession();
+        Customer customer = (Customer) session.getAttribute("user");
+
+        if (customer == null) {
+            out.write("{\"status\":\"fail\", \"message\":\"User not logged in.\"}");
+        } else {
+            boolean isAlreadySaved = ldao.isLandLotFavorite(customer.getUserID(), landLotId); // Check if already saved
+
+            if (isAlreadySaved) {
+                // If already saved, return JSON response indicating it
+                out.write("{\"status\":\"fail\", \"message\":\"Mảnh đất này đã được lưu trước đó.\"}");
+            } else {
+                // Save auction if not already saved
+                boolean success = ldao.saveAuction(customer.getUserID(), landLotId);
+                if (success) {
+                    out.write("{\"status\":\"success\", \"message\":\"Mảnh đất đã được lưu thành công.\"}");
+                } else {
+                    out.write("{\"status\":\"fail\", \"message\":\"Đã xảy ra lỗi. Vui lòng thử lại.\"}");
+                }
+            }
+        }
+    } catch (Exception e) {
+        e.printStackTrace();
+        out.write("{\"status\":\"fail\", \"message\":\"Đã xảy ra lỗi hệ thống.\"}");
+    } finally {
+        out.flush();
     }
+}
+
 
     /**
      * Returns a short description of the servlet.
@@ -115,7 +117,7 @@ public class ViewAuction extends HttpServlet {
      */
     @Override
     public String getServletInfo() {
-        return "Auction view servlet";
+        return "Short description";
     }// </editor-fold>
 
 }

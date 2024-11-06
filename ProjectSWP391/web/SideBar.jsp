@@ -47,8 +47,29 @@
                             <span>Quản lý auction</span>
                         </a>
                     </li>
+                     <li class="nav-item">
+                        <a class="nav-link collapsed" href="PostManagement">
+                            <i class="bi bi-book"></i>
+                            <span>Quản lý bài đăng</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link collapsed" href="contactManager"  style="position: relative;">
+                            <i class="bi bi-book"></i>
+                            <span>Quản lí phản hồi</span>
+                               <c:if test="${sessionScope.notify == 'true'}">
+                                <i class="bi bi-bell-fill" style="color: red; position: absolute; top: 5; right: 0; transform: translate(50%, -50%);"></i>
+                            </c:if>
+                        </a>
+                    </li>
                 </c:if>
                 <c:if test="${sessionScope.user.role == 2}">
+                    <li class="nav-item">
+                        <a class="nav-link collapsed" href="listsaveauction">
+                            <i class="bi bi-bag"></i>
+                            <span>Lưu trữ mảnh đất yêu thích</span>
+                        </a>
+                    </li>
                     <li class="nav-item">
                         <a class="nav-link collapsed" href="uploadlandlot">
                             <i class="bi bi-upload"></i>
@@ -62,9 +83,13 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link collapsed" href="listuserfeedback">
+                        <a class="nav-link collapsed" href="listuserfeedback"  style="position: relative;">
                             <i class="bi bi-list"></i>
                             <span>Danh Sách Liên Hệ Đã Gửi</span>
+                            <c:if test="${sessionScope.notify == 'true'}">
+                                <i class="bi bi-bell-fill" style="color: red; position: absolute; top: 5; right: 0; transform: translate(50%, -50%);"></i>
+                            </c:if>
+                            
                         </a>
                     </li>
                 </c:if> 
@@ -93,9 +118,7 @@
                             <span>Xem phien dau gia</span>
                         </a>
                     </li>
-
                 </c:if>
-
             </ul>
             <li class="nav-item">
                 <a class="nav-link collapsed" href="transactionhistory">

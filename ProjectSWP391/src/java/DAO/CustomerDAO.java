@@ -56,7 +56,7 @@ public class CustomerDAO {
         String query = """
                        select*from [Users] u join Roles ur
                        on u.[role] = ur.RoleID
-                       join Wallet w on u.userID = w.UserID
+                       Left join Wallet w on u.userID = w.UserID
                        where u.userID = ?""";
         try {
             ps = con.prepareStatement(query);
@@ -365,6 +365,6 @@ public class CustomerDAO {
 
     public static void main(String[] args) {
         CustomerDAO dao = new CustomerDAO();
-        System.out.println(dao.getUserDetailByEmail("tranhuy2ca2@gmail.com"));
+        System.out.println(dao.getUserDetailByUserID(6));
     }
 }

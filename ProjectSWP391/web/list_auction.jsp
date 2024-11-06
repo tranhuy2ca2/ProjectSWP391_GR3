@@ -277,7 +277,22 @@
                 });
             });
         </script>
+<script>
+    document.getElementById('editWinnerID').addEventListener('input', function () {
+        const statusField = document.getElementById('editStatus');
+        const winnerID = this.value.trim();
 
+        statusField.innerHTML = ''; // Clear options
+        if (winnerID) {
+            statusField.innerHTML = '<option value="Completed">Hoàn tất</option>';
+        } else {
+            statusField.innerHTML = `
+                <option value="Ongoing">Đang diễn ra</option>
+                <option value="Cancelled">Đã hủy</option>
+            `;
+        }
+    });
+</script>
 
         <!-- Vendor JS Files -->
         <script src="assets/vendor/apexcharts/apexcharts.min.js"></script>

@@ -71,7 +71,7 @@
                 <h1>Danh Sách tất cả Lô Đất</h1>
             </div><!-- End Page Title -->
             <div class="mb-3">
-                <a href="HomePage.jsp" class="btn btn-success">
+                <a href="homepage" class="btn btn-success">
                     Trở về Trang Chủ
                 </a>
             </div>
@@ -88,15 +88,23 @@
                                                 <div class="row">
                                                     <div class="container">
                                                         <!-- Unified Search and Filter Form -->
-                                                        <form action="SearchLandLot"  class="d-flex align-items-center">
-                                                            <input type="text" name="keyword" class="form-control me-2" placeholder="Search by ZIP code or City..." value="${requestScope.keyword}">
-                                                            <select class="form-control me-2" name="order">
-                                                                <option value="StartingPrice" ${requestScope.order == '1' ? 'selected' : ''}>Price Ascending</option>
-                                                                <option value="StartingPrice desc" ${requestScope.order == '2' ? 'selected' : ''}>Price Descending</option>
-                                                                <option value="Area" ${requestScope.order == '3' ? 'selected' : ''}>Area Ascending</option>
-                                                                <option value="Area desc" ${requestScope.order == '4' ? 'selected' : ''}>Area Descending</option>
-                                                            </select>
-                                                            <button type="submit" class="btn btn-primary">Search & Filter</button>
+                                                        <form action="SearchLandLot">
+                                                            <div   class="d-flex align-items-center justify-content-between">
+                                                                <div >
+                                                                           <select class="form-control me-2" name="order">
+                                                                             <option value="StartingPrice" ${requestScope.order == '1' ? 'selected' : ''}>Giá tăng dần</option>
+                                                                             <option value="StartingPrice desc" ${requestScope.order == '2' ? 'selected' : ''}>Giá giảm dần</option>
+                                                                             <option value="Area" ${requestScope.order == '3' ? 'selected' : ''}>Diện tích tăng dần</option>
+                                                                             <option value="Area desc" ${requestScope.order == '4' ? 'selected' : ''}>Diện tích giảm dần</option>
+                                                                         </select>
+                                                                     </div>
+                                                                    <div class="w-75">
+                                                                            <input type="text" name="keyword" class="form-control me-2" placeholder="Search by name or land lots" value="${requestScope.keyword}">
+                                                                     </div>
+                                                                     <div>
+                                                                         <button type="submit" class="btn btn-primary">Search & Filter</button>
+                                                                     </div>
+                                                            </div>
                                                         </form>
                                                         <div class="row mt-4">
                                                             <c:forEach var="land" items="${listlandlot}">
@@ -104,8 +112,7 @@
                                                                     <div class="property-item">
                                                                         <a href="#" class="img">
                                                                             <c:if test="${not empty land.landlotimage}">
-                                                                                <img src="${land.landlotimage[0].imageURL}" alt="Image" class="img-fluid" />
-
+                                                                                <img  src="${land.landlotimage[0].imageURL}" alt="Image" class="img-fluid" style="  height: 350px" />
                                                                             </c:if>
                                                                             <c:if test="${empty land.landlotimage}">
                                                                                 <img width="100%" 
@@ -128,14 +135,28 @@
                                                                                     Vị Trí : ${land.location}
                                                                                 </span>
                                                                                 <span class="city d-block mb-3">
-                                                                                    Tên Đất : ${land.landLotName}
+                                                                                    Tên Đất : ${land.landLotName} 
                                                                                 </span>
-
+                                                                                <div class="d-block d-flex align-items-center me-3">
+                                                                                    <h3 class="icon-timelapse me-2"></h3>
+                                                                                    <h3 class="caption">
+                                                                                        <c:choose>
+                                                                                            <c:when test="${land.status1 == 'Cancelled'}">đã huỷ</c:when>
+                                                                                            <c:when test="${land.status1 == 'Completed'}">đã hoàn thành</c:when>
+                                                                                            <c:when test="${land.status1 == 'Ongoing'}">đang diễn ra</c:when>
+                                                                                            <c:otherwise>${land.status1}</c:otherwise>
+                                                                                        </c:choose>
+                                                                                    </h3>
+                                                                                </div><br>
                                                                                 <div class="d-block d-flex align-items-center me-3">
                                                                                     <span class="icon-area-chart me-2"></span>
                                                                                     <span class="caption">Diện Tích : ${land.area} m&sup2;</span>
                                                                                 </div>
                                                                                 <br>
+                                                                                <div class="d-block d-flex align-items-center me-3">
+                                                                                    <span class="icon-timer me-2"></span>
+                                                                                    <span class="caption"> Ngày bắt đầu : ${land.startTime} <br> Ngày kết thúc : ${land.endTime}</span>
+                                                                                </div><br>
                                                                                 <c:if test="${not empty land.zoningtype}">
                                                                                     <span class="d-block d-flex align-items-center">
                                                                                         <span class="icon-book me-2"></span>
@@ -146,8 +167,14 @@
                                                                                         </span>
                                                                                     </span>                                                      
                                                                                 </c:if>
+                                                                                <c:if test="${sessionScope.user.role == 2}">
 
-                                                                                <a href="#" class="btn btn-primary py-2 px-3">See details</a>
+                                                                                    <form action="SaveAuction" method="post" onsubmit="saveFavorite(event, ${land.landLotsID})">
+                                                                                        <input type="hidden" name="landLotID" value="${land.landLotsID}" />
+                                                                                        <button type="submit" class="btn btn-secondary py-2 px-3">Lưu yêu thích</button>
+                                                                                    </form>
+                                                                                </c:if>
+                                                                                <a href="landdetail?landlotid=${land.landLotsID}"  class="btn btn-primary py-2 px-3">See details</a>
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -200,25 +227,58 @@
         <!-- Vendor JS Files -->
         <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
         <script>
-            // Hiển thị nút khi lướt xuống quá 100px
-            window.onscroll = function () {
-                scrollFunction()
-            };
+                                                                                    // Hiển thị nút khi lướt xuống quá 100px
+                                                                                    window.onscroll = function () {
+                                                                                        scrollFunction()
+                                                                                    };
 
-            function scrollFunction() {
-                var scrollBtn = document.getElementById("scrollToTopBtn");
-                if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
-                    scrollBtn.style.display = "block"; // Hiển thị nút
-                } else {
-                    scrollBtn.style.display = "none"; // Ẩn nút
-                }
-            }
+                                                                                    function scrollFunction() {
+                                                                                        var scrollBtn = document.getElementById("scrollToTopBtn");
+                                                                                        if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
+                                                                                            scrollBtn.style.display = "block"; // Hiển thị nút
+                                                                                        } else {
+                                                                                            scrollBtn.style.display = "none"; // Ẩn nút
+                                                                                        }
+                                                                                    }
 
-            // Hàm để cuộn về đầu trang
-            function scrollToTop() {
-                document.body.scrollTop = 0; // Dành cho Safari
-                document.documentElement.scrollTop = 0; // Dành cho Chrome, Firefox, IE và Opera
+                                                                                    // Hàm để cuộn về đầu trang
+                                                                                    function scrollToTop() {
+                                                                                        document.body.scrollTop = 0; // Dành cho Safari
+                                                                                        document.documentElement.scrollTop = 0; // Dành cho Chrome, Firefox, IE và Opera
+                                                                                    }
+        </script>
+        <script>
+            function saveFavorite(event, landLotID) {
+                event.preventDefault(); // Prevent default form submission
+
+                const form = event.target.closest('form');
+                const formData = new FormData(form);
+
+                $.ajax({
+                    url: form.action,
+                    type: 'POST',
+                    data: {landLotID: landLotID},
+                    success: function (response) {
+                        if (typeof response === "string") {
+                            response = JSON.parse(response); // Ensure response is parsed if returned as string
+                        }
+
+                        if (response.status === "success") {
+                            alert(response.message); // Display success message
+                            const button = form.querySelector('button');
+                            button.classList.remove('btn-secondary');
+                            button.classList.add('btn-danger');
+                        } else {
+                            alert(response.message); // Display failure message if save failed
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        console.error('Error:', error);
+                        alert("An error occurred while processing your request.");
+                    }
+                });
             }
         </script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     </body>
 </html>

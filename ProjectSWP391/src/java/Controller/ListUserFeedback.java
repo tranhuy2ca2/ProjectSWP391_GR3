@@ -16,6 +16,7 @@ import jakarta.servlet.http.HttpSession;
 import java.util.List;
 import model.Customer;
 import model.Contact;
+import ultis.Notify;
 
 /**
  *
@@ -64,9 +65,11 @@ public class ListUserFeedback extends HttpServlet {
         //processRequest(request, response);
         ContactDAO condao = new ContactDAO();
         HttpSession ses = request.getSession();
-        CustomerDAO cusdao = new CustomerDAO();
         Customer u = (Customer) ses.getAttribute("user");
         List<Contact> listfeedback = condao.getContactByUserID(u.getUserID());
+        
+        Notify.updateReadStatus(request, u.getUserID(), u.getRole());
+        
         request.setAttribute("listfeedback", listfeedback);
         request.getRequestDispatcher("ListUserFeedBack.jsp").forward(request, response);
     }
