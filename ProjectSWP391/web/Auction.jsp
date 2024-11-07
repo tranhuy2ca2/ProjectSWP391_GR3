@@ -53,11 +53,11 @@
                 font-size: 1.25rem;
             }
             .auction-info .bid-time {
-                color: #dc3545;
+                color: white;
                 font-size: 1.25rem;
             }
             .auction-info .bid-status {
-                color: #dc3545;
+                color: white;
                 font-size: 1.25rem;
             }
             .auction-info .bid-input {
@@ -91,58 +91,57 @@
             <jsp:include page="Header.jsp"></jsp:include>
             </header>
             <div class="container mt-3">
-<!--                <nav aria-label="breadcrumb">
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item">
-                            <a href="homepage">
-                                Trang chủ
-                            </a>
-                        </li>
-                        <li class="breadcrumb-item">
-                            <a href="#">
-                                Tài sản đặc sắc
-                            </a>
-                        </li>
-                        <li aria-current="page" class="breadcrumb-item active">
-                            Phòng Đấu Giá
-                        </li>
-                    </ol>
-                </nav>-->
+                <!--                <nav aria-label="breadcrumb">
+                                    <ol class="breadcrumb">
+                                        <li class="breadcrumb-item">
+                                            <a href="homepage">
+                                                Trang chủ
+                                            </a>
+                                        </li>
+                                        <li class="breadcrumb-item">
+                                            <a href="#">
+                                                Tài sản đặc sắc
+                                            </a>
+                                        </li>
+                                        <li aria-current="page" class="breadcrumb-item active">
+                                            Phòng Đấu Giá
+                                        </li>
+                                    </ol>
+                                </nav>-->
                 <div class="row">
                     <div class="col-md-7">
-                        <img alt="Front view of an orange ISUZU car" class="product-image mb-3" id="mainImage" height="400" src="https://storage.googleapis.com/a1aa/image/ikeevty1mSiOzk0f0oqzsZWYaq0nJR23O4LRv9wW3WXtk7bnA.jpg" width="600"/>
-                        <img alt="Thumbnail of an orange ISUZU car" class="product-thumbnail" height="100" onclick="changeImage('https://storage.googleapis.com/a1aa/image/ikeevty1mSiOzk0f0oqzsZWYaq0nJR23O4LRv9wW3WXtk7bnA.jpg')" src="https://storage.googleapis.com/a1aa/image/ikeevty1mSiOzk0f0oqzsZWYaq0nJR23O4LRv9wW3WXtk7bnA.jpg" width="100"/>
-                        <img alt="Thumbnail of an orange ISUZU car" class="product-thumbnail" height="100" onclick="changeImage('https://storage.googleapis.com/a1aa/image/VmdxOZExGAaZLherHAbars5cAYiGdegYoN00XEifmIfiJ33OB.jpg')" src="https://storage.googleapis.com/a1aa/image/VmdxOZExGAaZLherHAbars5cAYiGdegYoN00XEifmIfiJ33OB.jpg" width="100"/>
+                        <div class="image-gallery">
+                            <img src="${landlots.landlotimage[0].imageURL}" width="600" class="main-image" alt="Main Image"/>
+                        <div class="thumbnail-container">
+                            <c:forEach var="image" items="${landlots.landlotimage}">
+                                <img src="${image.imageURL}" class="thumbnail" alt="Thumbnail" width="200"/>
+                            </c:forEach>
+                        </div>
                     </div>
-                    <div class="col-md-5 auction-info">
-                        <h5>
-                            Đấu giá ${b.landLotName}
+                </div>
+                <div class="col-md-5 auction-info">
+                    <h5>
+                        Đấu giá ${landlots.landLotName}
                     </h5>
                     <p>
-                        Mã tài sản: ${b.landLotsID}
+                        Mã tài sản: ${landlots.landLotsID}
                     </p>
                     <p>
                         <strong>
-                            Giá khởi điểm: ${b.startprice} VNĐ
+                            Giá khởi điểm: ${landlots.startprice} VNĐ
                         </strong>
-                    </p>
-                    <p>
-                        550.000.000 VND
-                    </p>
-                    <p>
-                        5 triệu VND
                     </p>
                     <p>
                         Thời gian bắt đầu đấu giá
                     </p>
                     <p>
-                        05/04/2020 7:31 pm
+                        ${auction.startTime}
                     </p>
                     <p>
                         Thời gian kết thúc đấu giá
                     </p>
                     <p>
-                        11/11/2020 12:00 am
+                        ${auction.endTime}
                     </p>
                     <div class="d-flex align-items-center mb-3">
                         <img alt="Profile picture of auctioneer Huynh Phuong" class="rounded-circle me-2" height="50" src="https://storage.googleapis.com/a1aa/image/jQADNqYO4DarK5c27pkJ5IEq3zbTbJjHYvk1fhLf8zjZy9tTA.jpg" width="50"/>
@@ -156,44 +155,49 @@
                         </div>
                     </div>
                     <div class="bg-danger text-white p-3 mb-3">
-                        <p class="mb-0">
-                            Đấu giá sẽ kết thúc sau
-                        </p>
-                        <p class="bid-time">
-                            138 ngày 8 giờ 13 phút 13 giây
+                        <p class="bid-time"  id="countdown">
+
                         </p>
                         <div class="divider"></div>
                         <p class="mb-0">
                             Lượt đặt giá cuối của bạn
                         </p>
                         <p class="bid-status">
-                            Chưa có
+                            <c:if test="${requestScope.mymaxbids != null}">
+                                ${mymaxbids}
+                            </c:if> 
+                            <c:if test="${requestScope.mymaxbids == null}">
+                                0
+                            </c:if>
                         </p>
                     </div>
                     <p class="current-bid">
                         Giá hiện tại
                     </p>
                     <p class="current-bid">
-                        550.000.000 VND
+                        <c:if test="${requestScope.maxAuction != null}">
+                            ${maxAuction}
+                        </c:if> 
+                        <c:if test="${requestScope.maxAuction == null}">
+                            0
+                        </c:if>
                     </p>
-                    <p class="next-bid">
-                        Giá thấp nhất tiếp theo
-                    </p>
-                    <p class="next-bid">
-                        555.000.000 VND
-                    </p>
-                    <div class="mb-3">
-                        <label class="form-label" for="bidAmount">
-                            GIÁ CỦA BẠN
-                        </label>
-                        <input class="form-control bid-input" id="bidAmount" type="text" value="555.000.000 vnd"/>
-                    </div>
-                    <button class="btn bid-button">
-                        Đặt giá
-                    </button>
-                    <button class="btn btn-secondary w-100 mt-2">
+                    <form action="Auction" method="post" >
+                        <input type="hidden" name="auctionId" value="${auction.auctionID}" />
+                        <input type="hidden" name="landLotsID" value="${landlots.landLotsID}" />
+                        <div class="mb-3">
+                            <label class="form-label" for="bidAmount">
+                                GIÁ CỦA BẠN
+                            </label>
+                            <input class="form-control bid-input" name="bidAmount"  id="bidAmount" type="number" />
+                        </div>
+                        <button class="btn bid-button">
+                            Đặt giá
+                        </button>
+                    </form>
+                    <a href="URL_cua_trang_dich" class="btn btn-secondary w-100 mt-2">
                         Rời phòng đấu giá
-                    </button>
+                    </a>
                 </div>
             </div>
             <ul class="nav nav-tabs mt-3">
@@ -223,6 +227,32 @@
             function changeImage(src) {
                 document.getElementById('mainImage').src = src;
             }
+        </script>
+        <script>
+            const auctionEndTime = new Date("${auction.endTime}").getTime();
+
+            function updateCountdown() {
+                const now = new Date().getTime();
+                const timeLeft = auctionEndTime - now;
+
+                if (timeLeft > 0) {
+                    // Calculate days, hours, minutes, and seconds
+                    const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+                    const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+                    const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+
+                    // Display the countdown in the HTML
+                    document.getElementById("countdown").innerHTML =
+                            `Đấu giá sẽ kết thúc sau: ` + days + ` ngày ` + hours + ` giờ ` + minutes + ` phút ` + seconds + ` giây`;
+                } else {
+                    // When the countdown ends
+                    document.getElementById("countdown").innerHTML = "Đấu giá đã kết thúc.";
+                }
+            }
+
+            // Update the countdown every 1 second
+            setInterval(updateCountdown, 1000);
         </script>
         <jsp:include page="Footer.jsp"></jsp:include>    
     </body>

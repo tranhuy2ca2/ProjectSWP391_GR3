@@ -1,12 +1,11 @@
 <%-- 
-    Document   : list_auction
-    Created on : Jan 19, 2024, 8:31:14 PM
+    Document   : HistoryBid
+    Created on : Nov 8, 2024, 2:07:41 AM
     Author     : ADMIN
 --%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -62,7 +61,7 @@
 
         <main id="main" class="main" style="margin-top: 40px">
             <div class="pagetitle">
-                <h1>Danh Sách Đấu Giá</h1>
+                <h1>Danh Sách Đấu Giá ${requestScope.bids.size()}</h1>
             </div><!-- End Page Title -->
 
             <section class="section profile" style="padding-top: 0rem">
@@ -80,39 +79,25 @@
                                                     <table class="table table-striped table-bordered">
                                                         <thead>
                                                             <tr>
-                                                                <th style="width: 150px">Tên Mảnh Đất</th>
-                           
-                                                                <th>Địa Điểm</th>
-                                                                <th>Bắt Đầu</th>
-                                                                <th>Kết Thúc</th>
-                                                                <th style="width: 250px">Trạng Thái</th>
-                                                                <th>ID Người Thắng</th>
-                                                    
-                                                                <th style="width: 150px">Tham Gia</th>
+                                                                <th style="width: 200px">Tên Mảnh Đất</th>
+                                                                <th style="width: 200px">Địa Chỉ</th>
+                                                                <th style="width: 220px">Diện Tích</th>
+                                                                <th style="width: 250px">Số Tiền Đấu Giá</th>
+                                                                <th style="width: 250px">Ngày Đấu Giá</th>
                                                             </tr>
                                                         </thead>
                                                         <tbody>
                                                             <!-- Loop through the listContacts collection and display each contact's information -->
-                                                            <c:forEach var="aution" items="${autions}">
+                                                            <c:forEach var="bid" items="${bids}" >
                                                                 <tr>
-                                                                    <td>${aution.landLots.landLotName}</td>
-                                                  
-                                                                    <td>${aution.landLots.location}</td>
-                                                                    <td>${aution.startTime}</td>
-                                                                    <td>${aution.endTime}</td>
-                                                                    <td>${aution.status}</td>
-                                                                    <td>${aution.winnerID}</td>
-                                     
-                                                                    <td>
-                                                                        <!-- Phản Hồi Button -->
-                                                                       
-                                                                        <button onclick="AuctionHandler(${aution.landLots.landLotsID})" type="button"  class="btn btn-primary btn-sm btn-respond" >
-                                                                            Đấu Giá
-                                                                        </button>
-                                                    
-                                                                        
-                                                                    </td>
+                                                                    <td>${bid.auction.landLots.landLotName}</td>
+                                                            <td>${bid.auction.landLots.location}</td>
+                                                            <td>${bid.auction.landLots.area}</td>
+                                                            <td>${bid.getBidAmount()}</td>
+                                                            <td>${bid.getBidTime()}</td>
+                                                            <td></td>
                                                                 </tr>
+                              
                                                             </c:forEach>
                                                         </tbody>
                                                     </table>
