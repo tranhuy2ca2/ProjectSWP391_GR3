@@ -47,6 +47,12 @@
                             <span>Quản lý auction</span>
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link collapsed" href="PostManagement">
+                            <i class="bi bi-book"></i>
+                            <span>Quản lý Bài Đăng</span>
+                        </a>
+                    </li>
                     
                 </c:if>
                 <c:if test="${sessionScope.user.role == 2}">
@@ -72,6 +78,12 @@
                         <a class="nav-link collapsed" href="ManageRegistForm.jsp">
                             <i class="fas fa-history"></i>
                             <span> Đơn xác nhận đấu giá</span>
+                        </a>
+                    </li>
+                     <li class="nav-item">
+                        <a class="nav-link collapsed" href="myAution">
+                            <i class="bi bi-book"></i>
+                            <span>Danh Sách Đã Tham Gia</span>
                         </a>
                     </li>
                     <li class="nav-item">
