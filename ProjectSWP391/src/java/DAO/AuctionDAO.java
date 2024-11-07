@@ -354,5 +354,28 @@ public class AuctionDAO {
     }
     return auctions;
 }
-
+      // Method to get auction by Land Lots ID
+    public Auction getAuctionByLandLotId(int llid) {
+        String query = "SELECT * FROM Auctions WHERE LandLotID = ?";
+        try (Connection con = new DBContext().getConnection(); PreparedStatement ps = con.prepareStatement(query)) {
+            ps.setInt(1, llid);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    return new Auction(
+                            rs.getInt("AuctionID"),
+                            rs.getInt("LandLotID"),
+                            rs.getString("AuctioneerID"),
+                            rs.getInt("WinnerID"),
+                            rs.getTimestamp("StartTime"),
+                            rs.getTimestamp("EndTime"),
+                            rs.getString("Status")
+                    );
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+    
 }

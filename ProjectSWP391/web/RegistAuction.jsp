@@ -241,9 +241,9 @@
                     <div class="col-md-7">
                         <!-- Image Gallery -->
                         <div class="image-gallery">
-                            <img src="${b.landlotimage[0].imageURL}" class="main-image" alt="Main Image"/>
+                            <img src="${landlots.landlotimage[0].imageURL}" class="main-image" alt="Main Image"/>
                         <div class="thumbnail-container">
-                            <c:forEach var="image" items="${b.landlotimage}">
+                            <c:forEach var="image" items="${landlots.landlotimage}">
                                 <img src="${image.imageURL}" class="thumbnail" alt="Thumbnail"/>
                             </c:forEach>
                         </div>
@@ -253,6 +253,9 @@
                     <!-- Countdown Timer -->
                     <div class="countdown-timer">
                         <div class="countdown-title">Thời gian đếm ngược bắt đầu trả giá:</div>
+                        <p class="bid-time"  id="countdown">
+                            
+                        </p>
                         <div class="countdown-grid">
                             <div class="countdown-item">
                                 <div class="countdown-number" id="days">12</div>
@@ -277,11 +280,11 @@
                         <div class="auction-details">
                             <dl>
                                 <dt>Giá khởi điểm:</dt>
-                                <dd>${b.startprice} VNĐ</dd>
+                                <dd>${landlots.startprice} VNĐ</dd>
                             </dl>
                             <dl>
                                 <dt>Mã tài sản:</dt>
-                                <dd>${b.landLotsID}</dd>
+                                <dd>${landlots.landLotsID}</dd>
                             </dl>
 <!--                            <dl>
                                 <dt>Thời gian mở đăng ký:</dt>
@@ -293,7 +296,7 @@
                             </dl>-->
                             <dl>
                                 <dt>Phí đăng ký tham gia đấu giá:</dt>
-                                <dd>500.000 VNĐ</dd>
+                                <dd>1.000.000 VNĐ</dd>
                             </dl>
 
                             <!--                            <dl>
@@ -318,12 +321,12 @@
                             </dl>
                             <dl>
                                 <dt>Thời gian xem tài sản:</dt>
-                                <dd>${b.createdAt}</dd>
+                                <dd>${landlots.createdAt}</dd>
                             </dl>
                         </div>
 
-                        <form id="auctionForm" action="registauction" method="POST">
-                            <input type="hidden" name="landLotId" value="${landLot.landLotsID}">
+                            <form id="auctionForm" action="RegisterAuction" method="post">
+                            <input type="hidden" name="landLotId" value="${landlots.landLotsID}">
                             <div class="form-check mb-3">
                                 <input class="form-check-input" type="checkbox" id="agreeRules" name="agreeRules" required>
                                 <label class="form-check-label" for="agreeRules">
@@ -345,12 +348,36 @@
                             <button type="submit" class="btn btn-lg btn-primary">Xác nhận tham gia đấu giá</button>
                         </form>
                     </div>
-
-
                 </div>
             </div>
         </div>
         <br><br>
-        <jsp:include page="Footer.jsp"></jsp:include>        
+        <jsp:include page="Footer.jsp"></jsp:include>     
+           <script>
+            const auctionEndTime = new Date("${landlots.createdAt}").getTime();
+            function updateCountdown() {
+                const now = new Date().getTime();
+                const timeLeft = auctionEndTime - now;
+
+                if (timeLeft > 0) {
+                    const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+                    const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+                    const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+
+                    document.getElementById("days").innerHTML = days;
+                    document.getElementById("hours").innerHTML = hours;
+                    document.getElementById("minutes").innerHTML = minutes;
+                    document.getElementById("seconds").innerHTML = seconds;
+                } else {
+                    document.getElementById("days").innerHTML = "0";
+                    document.getElementById("hours").innerHTML = "0";
+                    document.getElementById("minutes").innerHTML = "0";
+                    document.getElementById("seconds").innerHTML = "0";
+                }
+            }
+
+            setInterval(updateCountdown, 1000);
+        </script>
     </body>
 </html>
