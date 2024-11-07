@@ -15,23 +15,17 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.util.List;
-import model.Auction;
+import model.Bids;
 import model.Customer;
 
 /**
  *
  * @author ADMIN
  */
-@WebServlet(name="MyAution", urlPatterns={"/myAution"})
-public class MyAution extends HttpServlet {
+@WebServlet(name="HistoryBid", urlPatterns={"/HistoryBid"})
+public class HistoryBid extends HttpServlet {
    
-    /** 
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
+
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /** 
@@ -44,16 +38,17 @@ public class MyAution extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        AuctionDAO aution = new AuctionDAO();
-      HttpSession session = request.getSession();
-        Customer customer = (Customer) session.getAttribute("user");
-       if(customer != null){
-            int userID = customer.getUserID();
-        List<Auction> actions = aution.getListAuctionByUser(userID);
-        request.setAttribute("autions", actions);
-        request.getRequestDispatcher("ManageRegistForm.jsp").forward(request, response);
-       }
-       
+     
+       //  HttpSession session = request.getSession();
+      //  Customer customer = (Customer) session.getAttribute("user");
+       // if(customer != null){
+   //   int userID = customer.getUserID();
+    AuctionDAO auctionDAO = new AuctionDAO();
+
+    List<Bids> auctions = auctionDAO.getListHistoryBitsByUser(3);
+        request.setAttribute("bids", auctions);
+      request.getRequestDispatcher("HistoryBid.jsp").forward(request, response);
+     //   }
     } 
 
     /** 
@@ -66,8 +61,16 @@ public class MyAution extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        
+     
     }
 
+    /** 
+     * Returns a short description of the servlet.
+     * @return a String containing servlet description
+     */
+    @Override
+    public String getServletInfo() {
+        return "Short description";
+    }// </editor-fold>
 
 }

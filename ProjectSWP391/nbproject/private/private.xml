@@ -1,36 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
-    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="1">
-        <file>
-            <url>src/java/DAO/AuctionDAO.java</url>
-            <bookmark id="1">
-                <name/>
-                <line>60</line>
-                <key/>
-            </bookmark>
-        </file>
-    </editor-bookmarks>
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Asus/Downloads/ProjectSWP391_GR3/ProjectSWP391/src/java/model/Auction.java</file>
-            <file>file:/C:/Users/Asus/Downloads/ProjectSWP391_GR3/ProjectSWP391/web/Header.jsp</file>
-            <file>file:/C:/Users/Asus/Downloads/ProjectSWP391_GR3/ProjectSWP391/src/java/DAO/ContactDAO.java</file>
-            <file>file:/C:/Users/Asus/Downloads/ProjectSWP391_GR3/ProjectSWP391/src/java/model/AuctionLogs.java</file>
-            <file>file:/C:/Users/Asus/Downloads/ProjectSWP391_GR3/ProjectSWP391/src/java/DAO/BidsDAO.java</file>
-            <file>file:/C:/Users/Asus/Downloads/ProjectSWP391_GR3/ProjectSWP391/web/DetailMyLandLot.jsp</file>
-            <file>file:/C:/Users/Asus/Downloads/ProjectSWP391_GR3/ProjectSWP391/src/java/model/Bids.java</file>
-            <file>file:/C:/Users/Asus/Downloads/ProjectSWP391_GR3/ProjectSWP391/web/SideBar.jsp</file>
-            <file>file:/C:/Users/Asus/Downloads/ProjectSWP391_GR3/ProjectSWP391/src/java/Controller/ManageMyLandLot.java</file>
-            <file>file:/C:/Users/Asus/Downloads/ProjectSWP391_GR3/ProjectSWP391/src/java/model/LandLots.java</file>
-            <file>file:/C:/Users/Asus/Downloads/ProjectSWP391_GR3/ProjectSWP391/src/java/DAO/LandLotsDAO.java</file>
-            <file>file:/C:/Users/Asus/Downloads/ProjectSWP391_GR3/ProjectSWP391/src/java/DAO/AuctionDAO.java</file>
-            <file>file:/C:/Users/Asus/Downloads/ProjectSWP391_GR3/ProjectSWP391/src/java/model/Contact.java</file>
-            <file>file:/C:/Users/Asus/Downloads/ProjectSWP391_GR3/ProjectSWP391/src/java/Controller/PostManagement.java</file>
-            <file>file:/C:/Users/Asus/Downloads/ProjectSWP391_GR3/ProjectSWP391/src/java/DAO/CustomerDAO.java</file>
-            <file>file:/C:/Users/Asus/Downloads/ProjectSWP391_GR3/ProjectSWP391/web/RegistAuction.jsp</file>
-            <file>file:/C:/Users/Asus/Downloads/ProjectSWP391_GR3/ProjectSWP391/web/HomePage.jsp</file>
-            <file>file:/C:/Users/Asus/Downloads/ProjectSWP391_GR3/ProjectSWP391/src/java/Controller/AuctionManagement.java</file>
-            <file>file:/C:/Users/Asus/Downloads/ProjectSWP391_GR3/ProjectSWP391/web/LandDetail.jsp</file>
+            <file>file:/D:/SWP_PROJECT/ProjectSWP391_GR3/ProjectSWP391/src/java/model/Customer.java</file>
+            <file>file:/D:/SWP_PROJECT/ProjectSWP391_GR3/ProjectSWP391/src/java/DAO/AuctionDAO.java</file>
+            <file>file:/D:/SWP_PROJECT/ProjectSWP391_GR3/ProjectSWP391/src/java/model/Bids.java</file>
+            <file>file:/D:/SWP_PROJECT/ProjectSWP391_GR3/ProjectSWP391/web/HistoryBid.jsp</file>
+            <file>file:/D:/SWP_PROJECT/ProjectSWP391_GR3/ProjectSWP391/web/ManageRegistForm.jsp</file>
+            <file>file:/D:/SWP_PROJECT/ProjectSWP391_GR3/ProjectSWP391/src/java/model/LandLots.java</file>
+            <file>file:/D:/SWP_PROJECT/ProjectSWP391_GR3/ProjectSWP391/src/java/Controller/HistoryBid.java</file>
+            <file>file:/D:/SWP_PROJECT/ProjectSWP391_GR3/ProjectSWP391/src/java/model/Auction.java</file>
+            <file>file:/D:/SWP_PROJECT/ProjectSWP391_GR3/ProjectSWP391/src/java/Controller/MyAution.java</file>
         </group>
     </open-files>
 </project-private>

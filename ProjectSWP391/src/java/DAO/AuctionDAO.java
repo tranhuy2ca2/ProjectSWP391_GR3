@@ -9,6 +9,8 @@ import java.util.List;
 import model.Auction;
 import model.LandLots;
 import java.sql.Timestamp;
+import model.Bids;
+import model.Customer;
 
 public class AuctionDAO {
 
@@ -203,10 +205,10 @@ public List<Auction> getAllAuctions1() {
 
     AuctionDAO auctionDAO = new AuctionDAO();
 
-    List<Auction> auctions = auctionDAO.getListAuctionByUser(3);
+    List<Bids> auctions = auctionDAO.getListHistoryBitsByUser(3);
 
-    for (Auction auction : auctions) {
-        System.out.println(auction.getLandLots().getLandLotName());
+    for (Bids auction : auctions) {
+        System.out.println(auction.toString());
     }
 }
 
@@ -351,11 +353,35 @@ public List<Auction> getAllAuctions1() {
     
        public List<Auction> getListAuctionByUser(int bidderId) {
     List<Auction> auctions = new ArrayList<>();
-    String query = "SELECT LandLots.LandLotName, LandLots.Location, Auctions.StartTime, Auctions.EndTime, Auctions.Status, Auctions.WinnerID, LandLots.LandLotID, Auctions.AuctionID, Bids.BidID \n" +
-"                   FROM Auctions \n" +
-"                   JOIN Bids ON Auctions.AuctionID = Bids.AuctionID \n" +
-"                   JOIN LandLots ON Auctions.LandLotID = LandLots.LandLotID \n" +
-"                   WHERE Bids.BidderID = ?";
+    String query = "WITH RankedLandLots AS (\n" +
+"    SELECT \n" +
+"        LandLots.LandLotName, \n" +
+"        LandLots.Location, \n" +
+"        Auctions.StartTime, \n" +
+"        Auctions.EndTime, \n" +
+"        Auctions.Status, \n" +
+"        Auctions.WinnerID, \n" +
+"        LandLots.LandLotID, \n" +
+"        Auctions.AuctionID, \n" +
+"        Bids.BidID,\n" +
+"        ROW_NUMBER() OVER (PARTITION BY LandLots.LandLotID ORDER BY Auctions.StartTime) AS row_num\n" +
+"    FROM Auctions \n" +
+"    JOIN Bids ON Auctions.AuctionID = Bids.AuctionID \n" +
+"    JOIN LandLots ON Auctions.LandLotID = LandLots.LandLotID \n" +
+"    WHERE Bids.BidderID = ?\n" +
+")\n" +
+"SELECT \n" +
+"    LandLotName, \n" +
+"    Location, \n" +
+"    StartTime, \n" +
+"    EndTime, \n" +
+"    Status, \n" +
+"    WinnerID, \n" +
+"    LandLotID, \n" +
+"    AuctionID, \n" +
+"    BidID\n" +
+"FROM RankedLandLots\n" +
+"WHERE row_num = 1;";
 
     try (Connection con = new DBContext().getConnection();
          PreparedStatement ps = con.prepareStatement(query)) {
@@ -384,6 +410,51 @@ public List<Auction> getAllAuctions1() {
         e.printStackTrace();
     }
     return auctions;
+}
+        public List<Bids> getListHistoryBitsByUser(int bidderId) {
+    List<Bids> bidses = new ArrayList<>();
+    String query = "select Users.userID, Bids.BidID, Auctions.AuctionID, LandLots.LandLotID, LandLots.LandLotName, LandLots.Location, LandLots.Area, Bids.BidAmount, Bids.BidTime from Bids\n" +
+"join Users \n" +
+"on Bids.BidderID = Users.userID\n" +
+"join Auctions\n" +
+"on Auctions.AuctionID = Bids.AuctionID\n" +
+"join LandLots\n" +
+"on Auctions.LandLotID = LandLots.LandLotID\n" +
+"where Bids.BidderID = ?";
+
+    try (Connection con = new DBContext().getConnection();
+         PreparedStatement ps = con.prepareStatement(query)) {
+
+        ps.setInt(1, bidderId);  // This binds the parameter correctly
+
+        try (ResultSet rs = ps.executeQuery()) {
+            while (rs.next()) {
+                // Create LandLots object from query result
+                LandLots landLots = new LandLots();
+                landLots.setLandLotsID(rs.getInt("LandLotID"));
+                landLots.setLandLotName(rs.getString("LandLotName"));
+                landLots.setLocation(rs.getString("Location"));
+                landLots.setArea(rs.getFloat("Area"));
+
+                // Create Auction object and set its properties
+                Auction auction = new Auction();
+                auction.setLandLots(landLots);
+                auction.setAuctionID(rs.getInt("AuctionID"));
+                
+                Customer cus = new Customer();
+                cus.setUserID(rs.getInt("userID"));
+                Bids bid = new Bids();
+                bid.setAuction(auction);
+                bid.setUser(cus);
+                bid.setBidAmount(rs.getBigDecimal("BidAmount"));
+                 bid.setBidTime(rs.getTimestamp("BidTime") );
+                bidses.add(bid);
+            }
+        }
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+    return bidses;
 }
       // Method to get auction by Land Lots ID
     public Auction getAuctionByLandLotId(int llid) {
