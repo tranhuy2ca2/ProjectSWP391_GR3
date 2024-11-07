@@ -5,23 +5,17 @@
             <url>src/java/DAO/AuctionDAO.java</url>
             <bookmark id="1">
                 <name/>
-                <line>60</line>
+                <line>90</line>
                 <key/>
             </bookmark>
         </file>
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Asus/Downloads/ProjectSWP391_GR3/ProjectSWP391/src/java/model/Auction.java</file>
-            <file>file:/C:/Users/Asus/Downloads/ProjectSWP391_GR3/ProjectSWP391/web/Header.jsp</file>
-            <file>file:/C:/Users/Asus/Downloads/ProjectSWP391_GR3/ProjectSWP391/src/java/DAO/BidsDAO.java</file>
-            <file>file:/C:/Users/Asus/Downloads/ProjectSWP391_GR3/ProjectSWP391/web/RegistAuction.jsp</file>
-            <file>file:/C:/Users/Asus/Downloads/ProjectSWP391_GR3/ProjectSWP391/web/SideBar.jsp</file>
-            <file>file:/C:/Users/Asus/Downloads/ProjectSWP391_GR3/ProjectSWP391/web/Auction.jsp</file>
-            <file>file:/C:/Users/Asus/Downloads/ProjectSWP391_GR3/ProjectSWP391/src/java/Controller/AuctionManagement.java</file>
-            <file>file:/C:/Users/Asus/Downloads/ProjectSWP391_GR3/ProjectSWP391/src/java/DAO/AuctionDAO.java</file>
-            <file>file:/C:/Users/Asus/Downloads/ProjectSWP391_GR3/ProjectSWP391/src/java/Controller/MyAution.java</file>
-            <file>file:/C:/Users/Asus/Downloads/ProjectSWP391_GR3/ProjectSWP391/src/java/Controller/AuctionCtl.java</file>
+            <file>file:/D:/FER-block5/swp/main/ProjectSWP391_GR3/ProjectSWP391/src/java/DAO/CustomerDAO.java</file>
+            <file>file:/D:/FER-block5/swp/main/ProjectSWP391_GR3/ProjectSWP391/web/list_user.jsp</file>
+            <file>file:/D:/FER-block5/swp/main/ProjectSWP391_GR3/ProjectSWP391/src/java/Controller/SaveAuction.java</file>
+            <file>file:/D:/FER-block5/swp/main/ProjectSWP391_GR3/ProjectSWP391/src/java/Controller/UserManagement.java</file>
         </group>
     </open-files>
 </project-private>

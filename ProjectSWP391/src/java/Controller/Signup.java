@@ -110,8 +110,8 @@ public class Signup extends HttpServlet {
         } else {
             String passwordMd5 = md5Hash(password);
             // Mặc định role là 2 (khách hàng)
-            int role = 1; // Default role for customer
-
+            int role = 2; // Default role for customer
+ 
             Customer newCustomer = new Customer(0, username, passwordMd5, fullname, email, phone, String.valueOf(role), address, null, null);
 
             // Call the signup method in DAO to save the user

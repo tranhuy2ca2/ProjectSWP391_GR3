@@ -47,21 +47,7 @@
                             <span>Quản lý auction</span>
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link collapsed" href="PostManagement">
-                            <i class="bi bi-book"></i>
-                            <span>Quản lý bài đăng</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link collapsed" href="contactManager"  style="position: relative;">
-                            <i class="bi bi-book"></i>
-                            <span>Quản lí phản hồi</span>
-                            <c:if test="${sessionScope.notify == 'true'}">
-                                <i class="bi bi-bell-fill" style="color: red; position: absolute; top: 5; right: 0; transform: translate(50%, -50%);"></i>
-                            </c:if>
-                        </a>
-                    </li>
+                    
                 </c:if>
                 <c:if test="${sessionScope.user.role == 2}">
                     <li class="nav-item">
@@ -100,13 +86,33 @@
                     </li>
                 </c:if> 
                 <c:if test="${sessionScope.user != null && sessionScope.user.role == 3}">
-                    <li class="nav-item">
+<!--                    <li class="nav-item">
                         <a class="nav-link collapsed" href="myAution">
                             <i class="bi bi-book"></i>
                             <span>Quản lí thời gian đấu giá</span>
                         </a>
+                    </li>-->
+                    <li class="nav-item">
+                        <a class="nav-link collapsed" href="ManagerTime">
+                            <i class="bi bi-book"></i>
+                            <span>Quản lí thời gian đấu giá</span>
+                        </a>
                     </li>
-
+                    <li class="nav-item">
+                        <a class="nav-link collapsed" href="PostManagement">
+                            <i class="bi bi-book"></i>
+                            <span>Quản lý bài đăng</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link collapsed" href="contactManager"  style="position: relative;">
+                            <i class="bi bi-book"></i>
+                            <span>Quản lí phản hồi</span>
+                            <c:if test="${sessionScope.notify == 'true'}">
+                                <i class="bi bi-bell-fill" style="color: red; position: absolute; top: 5; right: 0; transform: translate(50%, -50%);"></i>
+                            </c:if>
+                        </a>
+                    </li>
                 </c:if>
                 <c:if test="${sessionScope.user != null && sessionScope.user.role == 4}">
                     <li class="nav-item">

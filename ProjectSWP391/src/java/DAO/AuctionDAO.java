@@ -57,6 +57,36 @@ public class AuctionDAO {
         }
         return auctions;
     }
+public List<Auction> getAllAuctions1() {
+    List<Auction> auctions = new ArrayList<>();
+    String query = "SELECT LL.LandLotID, LL.LandLotName, A.auctionID, A.startTime, A.endTime, A.status, "
+            + "U1.userName AS AuctioneerName, U2.userName AS WinnerName,LL.Status "
+            + "FROM Auctions A "
+            + "JOIN LandLots LL ON A.landLotID = LL.landLotID "
+            + "JOIN Users U1 ON A.auctioneerID = U1.userID "
+            + "LEFT JOIN Users U2 ON A.winnerID = U2.userID "
+            + "WHERE LL.status = 'Available'";  // Only retrieve auctions with status "Available"
+
+    try (Connection con = new DBContext().getConnection(); PreparedStatement ps = con.prepareStatement(query); ResultSet rs = ps.executeQuery()) {
+
+        while (rs.next()) {
+            Auction auction = new Auction(
+                    rs.getInt("auctionID"),
+                    rs.getInt("LandLotID"),
+                    rs.getString("LandLotName"),
+                    rs.getString("AuctioneerName"),
+                    rs.getString("WinnerName"),
+                    rs.getTimestamp("startTime"),
+                    rs.getTimestamp("endTime"),
+                    rs.getString("status")
+            );
+            auctions.add(auction);
+        }
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+    return auctions;
+}
 
 // Method to retrieve all Land Lot names
     public List<String> getAllLandLotNames() {
