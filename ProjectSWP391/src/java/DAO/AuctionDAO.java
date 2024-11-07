@@ -7,6 +7,8 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 import model.Auction;
+import model.LandLots;
+import java.sql.Timestamp;
 
 public class AuctionDAO {
 
@@ -168,9 +170,15 @@ public class AuctionDAO {
     }
 
     public static void main(String[] args) {
-        Auction auction = new AuctionDAO().getAuctionById(9);
-        System.out.println(auction.toString());
+
+    AuctionDAO auctionDAO = new AuctionDAO();
+
+    List<Auction> auctions = auctionDAO.getListAuctionByUser(3);
+
+    for (Auction auction : auctions) {
+        System.out.println(auction.getLandLots().getLandLotName());
     }
+}
 
     // Method to delete an auction
     public boolean deleteAuction(int auctionID) {
@@ -310,5 +318,65 @@ public class AuctionDAO {
                e.printStackTrace();
            }            
     }
+    
+       public List<Auction> getListAuctionByUser(int bidderId) {
+    List<Auction> auctions = new ArrayList<>();
+    String query = "SELECT LandLots.LandLotName, LandLots.Location, Auctions.StartTime, Auctions.EndTime, Auctions.Status, Auctions.WinnerID, LandLots.LandLotID, Auctions.AuctionID, Bids.BidID \n" +
+"                   FROM Auctions \n" +
+"                   JOIN Bids ON Auctions.AuctionID = Bids.AuctionID \n" +
+"                   JOIN LandLots ON Auctions.LandLotID = LandLots.LandLotID \n" +
+"                   WHERE Bids.BidderID = ?";
 
+    try (Connection con = new DBContext().getConnection();
+         PreparedStatement ps = con.prepareStatement(query)) {
+
+        ps.setInt(1, bidderId);  // This binds the parameter correctly
+
+        try (ResultSet rs = ps.executeQuery()) {
+            while (rs.next()) {
+                // Create LandLots object from query result
+                LandLots landLots = new LandLots();
+                landLots.setLandLotsID(rs.getInt("LandLotID"));
+                landLots.setLandLotName(rs.getString("LandLotName"));
+                landLots.setLocation(rs.getString("Location"));
+
+                // Create Auction object and set its properties
+                Auction auction = new Auction();
+                auction.setLandLots(landLots);
+                auction.setStartTime(new Timestamp(rs.getDate("StartTime").getTime()));
+                auction.setEndTime(new Timestamp(rs.getDate("EndTime").getTime()));
+                auction.setStatus(rs.getString("Status"));
+                auction.setWinnerID(rs.getInt("WinnerID"));
+                auctions.add(auction);
+            }
+        }
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+    return auctions;
+}
+      // Method to get auction by Land Lots ID
+    public Auction getAuctionByLandLotId(int llid) {
+        String query = "SELECT * FROM Auctions WHERE LandLotID = ?";
+        try (Connection con = new DBContext().getConnection(); PreparedStatement ps = con.prepareStatement(query)) {
+            ps.setInt(1, llid);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    return new Auction(
+                            rs.getInt("AuctionID"),
+                            rs.getInt("LandLotID"),
+                            rs.getString("AuctioneerID"),
+                            rs.getInt("WinnerID"),
+                            rs.getTimestamp("StartTime"),
+                            rs.getTimestamp("EndTime"),
+                            rs.getString("Status")
+                    );
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+    
 }
