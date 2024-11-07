@@ -12,18 +12,14 @@
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Asus/Downloads/ProjectSWP391_GR3/ProjectSWP391/src/java/DAO/ContactDAO.java</file>
-            <file>file:/C:/Users/Asus/Downloads/ProjectSWP391_GR3/ProjectSWP391/src/java/DAO/BidsDAO.java</file>
-            <file>file:/C:/Users/Asus/Downloads/ProjectSWP391_GR3/ProjectSWP391/web/RegistAuction.jsp</file>
-            <file>file:/C:/Users/Asus/Downloads/ProjectSWP391_GR3/ProjectSWP391/src/java/ultis/Notify.java</file>
-            <file>file:/C:/Users/Asus/Downloads/ProjectSWP391_GR3/ProjectSWP391/src/java/Controller/Login.java</file>
-            <file>file:/C:/Users/Asus/Downloads/ProjectSWP391_GR3/ProjectSWP391/src/java/Controller/RegisterAuction.java</file>
-            <file>file:/C:/Users/Asus/Downloads/ProjectSWP391_GR3/ProjectSWP391/src/java/Controller/ContactManager.java</file>
-            <file>file:/C:/Users/Asus/Downloads/ProjectSWP391_GR3/ProjectSWP391/src/java/model/LandLots.java</file>
-            <file>file:/C:/Users/Asus/Downloads/ProjectSWP391_GR3/ProjectSWP391/web/Auction.jsp</file>
-            <file>file:/C:/Users/Asus/Downloads/ProjectSWP391_GR3/ProjectSWP391/src/java/DAO/LandLotsDAO.java</file>
-            <file>file:/C:/Users/Asus/Downloads/ProjectSWP391_GR3/ProjectSWP391/src/java/DAO/AuctionDAO.java</file>
-            <file>file:/C:/Users/Asus/Downloads/ProjectSWP391_GR3/ProjectSWP391/src/java/Controller/AuctionCtl.java</file>
+            <file>file:/D:/SWP_PROJECT/ProjectSWP391_GR3/ProjectSWP391/src/java/Controller/HomePage.java</file>
+            <file>file:/D:/SWP_PROJECT/ProjectSWP391_GR3/ProjectSWP391/src/java/DAO/AuctionDAO.java</file>
+            <file>file:/D:/SWP_PROJECT/ProjectSWP391_GR3/ProjectSWP391/src/java/Controller/ListSaveAuction.java</file>
+            <file>file:/D:/SWP_PROJECT/ProjectSWP391_GR3/ProjectSWP391/web/ManageRegistForm.jsp</file>
+            <file>file:/D:/SWP_PROJECT/ProjectSWP391_GR3/ProjectSWP391/src/java/Controller/Contact.java</file>
+            <file>file:/D:/SWP_PROJECT/ProjectSWP391_GR3/ProjectSWP391/src/java/Controller/DetailMyLandLot.java</file>
+            <file>file:/D:/SWP_PROJECT/ProjectSWP391_GR3/ProjectSWP391/src/java/Controller/FinalPay.java</file>
+            <file>file:/D:/SWP_PROJECT/ProjectSWP391_GR3/ProjectSWP391/src/java/Controller/ChangePassword.java</file>
         </group>
     </open-files>
 </project-private>

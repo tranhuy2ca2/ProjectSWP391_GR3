@@ -101,7 +101,7 @@
                 </c:if> 
                 <c:if test="${sessionScope.user != null && sessionScope.user.role == 3}">
                     <li class="nav-item">
-                        <a class="nav-link collapsed" href="ManagerTime">
+                        <a class="nav-link collapsed" href="myAution">
                             <i class="bi bi-book"></i>
                             <span>Quản lí thời gian đấu giá</span>
                         </a>
