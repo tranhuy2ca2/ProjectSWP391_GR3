@@ -62,7 +62,7 @@
 
         <main id="main" class="main" style="margin-top: 40px">
             <div class="pagetitle">
-                <h1>Danh Sách FeedBack</h1>
+                <h1>Danh Sách Đấu Giá</h1>
             </div><!-- End Page Title -->
 
             <section class="section profile" style="padding-top: 0rem">
@@ -106,7 +106,7 @@
                                                                     <td>
                                                                         <!-- Phản Hồi Button -->
                                                                        
-                                                                            <button type="button" class="btn btn-primary btn-sm btn-respond" >
+                                                                        <button onclick="AuctionHandler(${aution.landLots.landLotsID})" type="button"  class="btn btn-primary btn-sm btn-respond" >
                                                                             Đấu Giá
                                                                         </button>
                                                     
@@ -133,7 +133,12 @@
         </div>
 
     
-
+        <script>
+           function AuctionHandler(id) {
+                window.location.href = "Auction?landLotId=" + id;
+            }
+            
+        </script>
         <!-- Vendor JS Files -->
         <script src="assets/vendor/apexcharts/apexcharts.min.js"></script>
         <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>

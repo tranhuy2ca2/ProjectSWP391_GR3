@@ -336,6 +336,7 @@ public class AuctionDAO {
             while (rs.next()) {
                 // Create LandLots object from query result
                 LandLots landLots = new LandLots();
+                landLots.setLandLotsID(rs.getInt("LandLotID"));
                 landLots.setLandLotName(rs.getString("LandLotName"));
                 landLots.setLocation(rs.getString("Location"));
 
