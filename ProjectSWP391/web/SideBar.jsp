@@ -95,6 +95,12 @@
                             <span>Danh Sách Đã Tham Gia</span>
                         </a>
                     </li>
+                     <li class="nav-item">
+                        <a class="nav-link collapsed" href="HistoryBid">
+                            <i class="bi bi-book"></i>
+                            <span>Lịch Sử Đấu Giá</span>
+                        </a>
+                    </li>
                     <li class="nav-item">
                         <a class="nav-link collapsed" href="listuserfeedback"  style="position: relative;">
                             <i class="bi bi-list"></i>
