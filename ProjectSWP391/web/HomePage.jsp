@@ -69,7 +69,7 @@
                                     type="text"
                                     name="keyword"
                                     class="form-control px-4"
-                                    placeholder="Your ZIP code or City. e.g. New York"
+                                    placeholder="Enter your title"
                                     />
                                 <button type="submit" class="btn btn-primary">Search</button>
                             </form>
@@ -104,11 +104,11 @@
                                     <div class="property-item">
                                         <a href="#" class="img">
                                             <c:if test="${not empty land.landlotimage}">
-                                                <img width="100%" style="margin-bottom: 100px" 
+                                                <img width="100%" style="margin-bottom: 100px; height: 260px" 
                                                      src="${land.landlotimage[0].imageURL}" alt="Image" class="img-fluid" />
                                             </c:if>
                                             <c:if test="${empty land.landlotimage}">
-                                                <img width="100%" style="margin-bottom: 100px" 
+                                                <img width="100%" style="margin-bottom: 100px; height: 260px" 
                                                      src="default-image-url.jpg" alt="No Image Available" class="img-fluid" />
                                             </c:if>
                                         </a>
@@ -145,7 +145,7 @@
                                                 </div><br>
 
                                                 <c:if test="${not empty land.zoningtype}">
-                                                    <span class="d-block d-flex align-items-center">
+                                                    <span class="d-block d-flex align-items-center" style="height: 40px">
                                                         <span class="icon-book me-2"></span>
                                                         <span class="caption">Loại Đất :
                                                             <c:forEach var="zoning" items="${land.zoningtype}">
