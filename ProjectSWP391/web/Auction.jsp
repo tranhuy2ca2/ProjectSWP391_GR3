@@ -128,7 +128,8 @@
                     </p>
                     <p>
                         <strong>
-                            Giá khởi điểm: ${landlots.startprice} VNĐ
+                            <fmt:formatNumber value="${landlots.startprice}" type="currency" 
+                                                                      currencySymbol="₫" groupingUsed="true" />
                         </strong>
                     </p>
                     <p>
@@ -164,7 +165,8 @@
                         </p>
                         <p class="bid-status">
                             <c:if test="${requestScope.mymaxbids != null}">
-                                ${mymaxbids}
+                                <fmt:formatNumber value=" ${mymaxbids}" type="currency" 
+                                                                      currencySymbol="₫" groupingUsed="true" />
                             </c:if> 
                             <c:if test="${requestScope.mymaxbids == null}">
                                 0
@@ -176,7 +178,8 @@
                     </p>
                     <p class="current-bid">
                         <c:if test="${requestScope.maxAuction != null}">
-                            ${maxAuction}
+                            <fmt:formatNumber value=" ${maxAuction}" type="currency" 
+                                                                      currencySymbol="₫" groupingUsed="true" />
                         </c:if> 
                         <c:if test="${requestScope.maxAuction == null}">
                             0
@@ -189,9 +192,9 @@
                             <label class="form-label" for="bidAmount">
                                 GIÁ CỦA BẠN
                             </label>
-                            <input class="form-control bid-input" name="bidAmount"  id="bidAmount" type="number" />
+                            <input class="form-control bid-input" name="bidAmount"  id="bidAmount" type="number" min="${mymaxbids}" />
                         </div>
-                        <button class="btn bid-button">
+                        <button class="btn bid-button" id="bidButton">
                             Đặt giá
                         </button>
                     </form>
@@ -248,6 +251,17 @@
                 } else {
                     // When the countdown ends
                     document.getElementById("countdown").innerHTML = "Đấu giá đã kết thúc.";
+                    //herre
+                    var inputvalue =  document.getElementById("bidAmount");
+                     var btn =  document.getElementById("bidButton");
+                     
+                     inputvalue.disabled = true;
+                     inputvalue.style.backgroundColor = "#f8f9fa";
+                     inputvalue.style.borderColor ="#c5c6c6";
+                     btn.disabled = false;
+                     btn.style.backgroundColor = "gray"
+             
+                     
                 }
             }
 

@@ -321,7 +321,7 @@
                             </dl>
                             <dl>
                                 <dt>Thời gian xem tài sản:</dt>
-                                <dd>${landlots.createdAt}</dd>
+                                <dd>${auction.startTime}</dd>
                             </dl>
                         </div>
 
@@ -354,7 +354,7 @@
         <br><br>
         <jsp:include page="Footer.jsp"></jsp:include>     
            <script>
-            const auctionEndTime = new Date("${landlots.createdAt}").getTime();
+            const auctionEndTime = new Date("${auction.startTime}").getTime();
             function updateCountdown() {
                 const now = new Date().getTime();
                 const timeLeft = auctionEndTime - now;

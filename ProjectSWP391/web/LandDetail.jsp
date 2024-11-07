@@ -132,8 +132,9 @@
                                     <button type="submit" class="btn btn-secondary py-2 px-3">Lưu yêu thích</button>
                                 </form>
                             </c:if>
-                            <!-- <button type="submit" class="btn btn-lg btn-primary">Đăng kí tham gia đấu giá</button>-->
-                            <a href="RegisterAuction?landlotid=${b.landLotsID}" class="btn btn-lg btn-primary">Đăng kí tham gia đấu giá</a>
+                            <c:if test="${sessionScope.user.role == 2}">
+                                <a href="RegisterAuction?landlotid=${b.landLotsID}" class="btn btn-lg btn-primary">Đăng kí tham gia đấu giá</a>
+                            </c:if>
                         </div>
                     </div>
                 </div>

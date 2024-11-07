@@ -66,8 +66,10 @@ public class RegisterAuction extends HttpServlet {
     throws ServletException, IOException {
         String landlotid = request.getParameter("landlotid");
         LandLotsDAO lldao = new LandLotsDAO();
+        AuctionDAO adao = new AuctionDAO();
         LandLots landlots = lldao.getLandLotsDetailByID( Integer.parseInt(landlotid) );
-        
+        Auction auction = adao.getAuctionByLandLotId(Integer.parseInt(landlotid) );
+          request.setAttribute("auction", auction);
         request.setAttribute("landlots", landlots);
         request.getRequestDispatcher("RegistAuction.jsp").forward(request, response);
     } 
@@ -95,7 +97,11 @@ public class RegisterAuction extends HttpServlet {
             b.setAuctionID(a.getAuctionID());
             b.setBidderID(cus.getUserID());
             b.setBidAmount(BigDecimal.valueOf(1000000));
-             bidsdao.InsertBids(b);
+            
+            boolean check = bidsdao.checkExist(a.getAuctionID(), cus.getUserID());
+            if (!check) {
+                bidsdao.InsertBids(b);
+            }
             
             response.sendRedirect("Auction?landLotId=" + landlots.getLandLotsID());
         }catch( Exception e){
