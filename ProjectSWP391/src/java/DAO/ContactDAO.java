@@ -174,12 +174,12 @@ public class ContactDAO {
         
      public void UpdateStatusNotify( int uid, String  role){
          String sqlUser = "UPDATE [dbo].[Contact]\n" +
-                            "   SET [status] = 4\n" +
-                            " WHERE [UserID] = ? And status = 3 ";
+                            "   SET [status] = 2\n" +
+                            " WHERE [UserID] = ? And status = 1 ";
          
          String sqlAdmin = "UPDATE [dbo].[Contact]\n" +
-                            "   SET [status] = 2\n" +
-                            " WHERE [status] = 1";
+                            "   SET [status] = 4\n" +
+                            " WHERE [status] = 3";
             try {
                 if(role.equals("1")){
                      ps = con.prepareStatement(sqlAdmin);

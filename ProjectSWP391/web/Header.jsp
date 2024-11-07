@@ -85,7 +85,7 @@
                                         <li class="has-children">
                                             <a href="#">Dropdown</a>
                                             <ul class="dropdown">
-                                                <li><a href="Auction.jsp">Xem phien dau gia</a></li>
+                                                <li><a href="#">Xem phien dau gia</a></li>
                                             </ul>
                                         </li>
                                     </ul>

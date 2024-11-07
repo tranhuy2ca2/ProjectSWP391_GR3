@@ -1,6 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -10,343 +9,100 @@
         <script src="js/bootstrap.min.js"></script>
         <script src="js/jquery.min.js"></script>
         <link href="css/style.css" rel="stylesheet" type="text/css"/>
-        <style>
-            .countdown-timer {
-                background: #fff;
-                padding: 20px;
-                margin-bottom: 20px;
-            }
 
-            .countdown-title {
-                color: #666;
-                margin-bottom: 15px;
-                font-size: 16px;
-            }
-
-            .countdown-grid {
-                display: grid;
-                grid-template-columns: repeat(4, 1fr);
-                gap: 10px;
-                text-align: center;
-            }
-
-            .countdown-item {
-                padding: 10px;
-                background: #fff;
-                border: 1px solid #eee;
-            }
-
-            .countdown-number {
-                font-size: 24px;
-                font-weight: bold;
-                color: #333;
-                margin-bottom: 5px;
-            }
-
-            .countdown-label {
-                font-size: 12px;
-                color: #666;
-                text-transform: uppercase;
-            }
-
-            .auction-details {
-                margin: 0;
-                padding: 20px;
-                background: #fff;
-            }
-
-            .auction-details dl {
-                display: flex;
-                justify-content: space-between;
-                align-items: baseline;
-                padding: 12px 0;
-                border-bottom: 1px solid #eee;
-                margin: 0;
-            }
-
-            .auction-details dt {
-                color: #666;
-                font-size: 15px;
-                font-weight: normal;
-            }
-
-            .auction-details dd {
-                color: #dc3545;
-                font-weight: 500;
-                text-align: right;
-                margin: 0;
-            }
-
-            .register-button {
-                display: block;
-                width: 100%;
-                padding: 15px;
-                background: #c81e1e;
-                color: white;
-                text-align: center;
-                border: none;
-                border-radius: 5px;
-                font-weight: bold;
-                margin-top: 20px;
-                cursor: pointer;
-            }
-
-            .register-button:hover {
-                background: #a61818;
-            }
-
-            .image-gallery {
-                margin-bottom: 20px;
-            }
-
-            .main-image {
-                width: 100%;
-                height: auto;
-                margin-bottom: 10px;
-            }
-
-            .thumbnail-container {
-                display: flex;
-                gap: 10px;
-            }
-
-            .thumbnail {
-                width: 80px;
-                height: 80px;
-                object-fit: cover;
-                cursor: pointer;
-                border: 2px solid transparent;
-            }
-
-            .thumbnail:hover {
-                border-color: #dc3545;
-            }
-
-            /* Slider Styles */
-            .slider-container {
-                position: relative;
-                margin-bottom: 20px;
-            }
-
-            .main-slider {
-                position: relative;
-                width: 100%;
-                height: 400px;
-                overflow: hidden;
-                border-radius: 8px;
-                margin-bottom: 10px;
-            }
-
-            .slide {
-                position: absolute;
-                width: 100%;
-                height: 100%;
-                opacity: 0;
-                transition: opacity 0.5s ease-in-out;
-            }
-
-            .slide.active {
-                opacity: 1;
-            }
-
-            .slide img {
-                width: 100%;
-                height: 100%;
-                object-fit: cover;
-            }
-
-            /* Navigation Buttons */
-            .slider-nav {
-                position: absolute;
-                top: 50%;
-                transform: translateY(-50%);
-                width: 40px;
-                height: 40px;
-                background: rgba(255, 255, 255, 0.7);
-                border: none;
-                border-radius: 50%;
-                cursor: pointer;
-                font-size: 20px;
-                color: #333;
-                z-index: 10;
-                transition: background 0.3s ease;
-            }
-
-            .slider-nav:hover {
-                background: rgba(255, 255, 255, 0.9);
-            }
-
-            .prev-btn {
-                left: 10px;
-            }
-
-            .next-btn {
-                right: 10px;
-            }
-
-            /* Dots Navigation */
-            .slider-dots {
-                position: absolute;
-                bottom: 10px;
-                left: 50%;
-                transform: translateX(-50%);
-                display: flex;
-                gap: 8px;
-                z-index: 10;
-            }
-
-            .dot {
-                width: 10px;
-                height: 10px;
-                border-radius: 50%;
-                background: rgba(255, 255, 255, 0.5);
-                cursor: pointer;
-                transition: background 0.3s ease;
-            }
-
-            .dot.active {
-                background: white;
-            }
-
-            /* Thumbnails */
-            .thumbnail-container {
-                display: flex;
-                gap: 10px;
-                overflow-x: auto;
-                padding: 10px 0;
-            }
-
-            .thumbnail {
-                width: 80px;
-                height: 60px;
-                object-fit: cover;
-                cursor: pointer;
-                border: 2px solid transparent;
-                border-radius: 4px;
-                transition: border-color 0.3s ease;
-            }
-
-            .thumbnail.active {
-                border-color: #0d6efd;
-            }
-        </style>
+        <script>
+            $(document).ready(function () {
+                // Check if the 'success' parameter is in the URL
+                var urlParams = new URLSearchParams(window.location.search);
+                if (urlParams.has('success') && urlParams.get('success') === 'true') {
+                    // Display the success message
+                    alert("Bạn đã đăng ký đấu giá thành công!");
+                }
+            });
+        </script>
     </head>
     <body>
-        <div style="margin-bottom: 10rem;">
+        <div>
             <jsp:include page="Header.jsp"></jsp:include>
             </div>
-
+            <br><br>
             <div class="container mt-4">
                 <div class="row">
-                    <div class="col-md-7">
-                        <!-- Image Gallery -->
-                        <div class="image-gallery">
-                            <img src="${b.landlotimage[0].imageURL}" class="main-image" alt="Main Image"/>
-                        <div class="thumbnail-container">
-                            <c:forEach var="image" items="${b.landlotimage}">
-                                <img src="${image.imageURL}" class="thumbnail" alt="Thumbnail"/>
-                            </c:forEach>
-                        </div>
+                    <div class="col-sm-12">
+                        <div class="container">
+                            <div class="card">
+                                <div class="row">
+                                    <aside class="col-sm-7 border-right">
+                                        <article class="gallery-wrap"> 
+                                            <div class="img-big-wrap">
+                                                <div><a href="#"><img src="${b.mainImageURL}" style="max-width: 100%; height: auto;"></a></div>
+                                        </div>
+                                        <div class="img-small-wrap">
+                                            <c:forEach var="image" items="${b.imageList}">
+                                                <div class="item-gallery">
+                                                    <img src="${b.imageURL}">
+                                                </div>
+                                            </c:forEach>
+                                        </div>
+                                    </article>
+                                </aside>
+                                <aside class="col-sm-5">
+                                    <article class="card-body p-5">
+                                        <h3 class="title mb-3">${landLot.landLotName}</h3> <!-- Tên Mảnh Đất -->
+                                        <p class="price-detail-wrap"> 
+                                            <span class="price h3 text-warning"> 
+                                                <span class="currency">Giá khởi điểm (Đơn Vị: Triệu Đồng): </span>
+                                                <span class="num">${b.startPrice}</span>
+                                            </span> 
+                                        </p>
+
+                                        <!-- New asset details -->
+                                        <dl class="item-property">
+                                            <p><strong>Mã tài sản:</strong> <span>${b.landLotsID}</span></p>
+                                            <p><strong>Thời gian mở đăng ký:</strong> <span>${b.openTime}</span></p>
+                                            <p><strong>Thời gian kết thúc đăng ký:</strong> <span>${landLot.closeTime}</span></p>
+                                            <p><strong>Phí đăng ký tham gia đấu giá:</strong> <span>0 VNĐ</span></p>
+                                            <p><strong>Bước giá:</strong> <span>${landLot.auctionStep}</span></p>
+                                            <p><strong>Số bước giá tối đa/ lần trả:</strong> <span>${landLot.maxSteps}</span></p>
+                                            <p><strong>Tiền đặt trước:</strong> <span>${landLot.deposit}</span></p>
+                                            <p><strong>Phương thức đấu giá:</strong> <span>${landLot.auctionMethod}</span></p>
+                                            <p><strong>Tên chủ tài sản:</strong> <span>${landLot.ownerName}</span></p>
+                                            <p><strong>Nơi xem tài sản:</strong> <span>${b.viewingLocation}</span></p>
+                                            <p><strong>Thời gian xem tài sản:</strong> <span>${landLot.viewingTime}</span></p>
+                                            <p><strong>Thời gian bắt đầu trả giá:</strong> <span>${landLot.bidStartTime}</span></p>
+                                            <p><strong>Thời gian kết thúc trả giá:</strong> <span>${landLot.bidEndTime}</span></p>
+                                            <p><strong>Mô tả:</strong> <span>${b.description}</span></p>
+                                        </dl>
+                                        <hr>
+
+                                        <!-- Registration form with checkboxes -->
+                                        <form id="auctionForm" action="registerAuction" method="POST">
+                                            <input type="hidden" name="landLotId" value="${landLot.landLotsID}">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="agreeRules" name="agreeRules" required>
+                                                <label class="form-check-label" for="agreeRules">
+                                                    Tôi đã đọc và đồng ý với quy chế đấu giá trên.
+                                                </label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="waiveInterest" name="waiveInterest" required>
+                                                <label class="form-check-label" for="waiveInterest">
+                                                    Tôi tự nguyện không nhận tiền lãi phát sinh từ khoản tiền đặt trước.
+                                                </label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="understandAsset" name="understandAsset" required>
+                                                <label class="form-check-label" for="understandAsset">
+                                                    Tôi đã hiểu rõ về tài sản đấu giá và không có ý kiến gì về việc xem tài sản đấu giá.
+                                                </label>
+                                            </div>
+                                            <button type="submit" class="btn btn-lg btn-primary">Xác nhận tham gia đấu giá</button>
+                                        </form>
+                                    </article>
+                                </aside>
+                            </div>
+                        </div>                   
                     </div>
-                </div>
-                <div class="col-md-5">
-                    <!-- Countdown Timer -->
-                    <div class="countdown-timer">
-                        <div class="countdown-title">Thời gian đếm ngược bắt đầu trả giá:</div>
-                        <div class="countdown-grid">
-                            <div class="countdown-item">
-                                <div class="countdown-number" id="days">12</div>
-                                <div class="countdown-label">NGÀY</div>
-                            </div>
-                            <div class="countdown-item">
-                                <div class="countdown-number" id="hours">01</div>
-                                <div class="countdown-label">GIỜ</div>
-                            </div>
-                            <div class="countdown-item">
-                                <div class="countdown-number" id="minutes">16</div>
-                                <div class="countdown-label">PHÚT</div>
-                            </div>
-                            <div class="countdown-item">
-                                <div class="countdown-number" id="seconds">43</div>
-                                <div class="countdown-label">GIÂY</div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Auction Details -->
-                    <div clas="auction-block">
-                        <div class="auction-details">
-                            <dl>
-                                <dt>Giá khởi điểm:</dt>
-                                <dd>${b.startprice} VNĐ</dd>
-                            </dl>
-                            <dl>
-                                <dt>Mã tài sản:</dt>
-                                <dd>${b.landLotsID}</dd>
-                            </dl>
-<!--                            <dl>
-                                <dt>Thời gian mở đăng ký:</dt>
-                                <dd>${openTime}</dd>
-                            </dl>
-                            <dl>
-                                <dt>Thời gian kết thúc đăng ký:</dt>
-                                <dd>${closeTime}</dd>
-                            </dl>-->
-                            <dl>
-                                <dt>Phí đăng ký tham gia đấu giá:</dt>
-                                <dd>500.000 VNĐ</dd>
-                            </dl>
-
-                            <!--                            <dl>
-                                                            <dt>Bước giá:</dt>
-                                                            <dd></dd>
-                                                        </dl>
-                                                        <dl>
-                                                            <dt>Số bước giá tối đa/ lần trả:</dt>
-                                                            <dd></dd>
-                                                        </dl>
-                                                        <dl>
-                                                            <dt>Tiền đặt trước:</dt>
-                                                            <dd></dd>
-                                                        </dl>-->
-                            <dl>
-                                <dt>Phương thức đấu giá:</dt>
-                                <dd>Trả giá lên và liên tục</dd>
-                            </dl>
-                            <dl>
-                                <dt>Nơi xem tài sản:</dt>
-                                <dd>Theo TBĐG</dd>
-                            </dl>
-                            <dl>
-                                <dt>Thời gian xem tài sản:</dt>
-                                <dd>${b.createdAt}</dd>
-                            </dl>
-                        </div>
-
-                        <form id="auctionForm" action="registauction" method="POST">
-                            <input type="hidden" name="landLotId" value="${landLot.landLotsID}">
-                            <div class="form-check mb-3">
-                                <input class="form-check-input" type="checkbox" id="agreeRules" name="agreeRules" required>
-                                <label class="form-check-label" for="agreeRules">
-                                    Tôi đã đọc và đồng ý với quy chế đấu giá trên.
-                                </label>
-                            </div>
-                            <div class="form-check mb-3">
-                                <input class="form-check-input" type="checkbox" id="waiveInterest" name="waiveInterest" required>
-                                <label class="form-check-label" for="waiveInterest">
-                                    Tôi tự nguyện không nhận tiền lãi phát sinh từ khoản tiền đặt trước.
-                                </label>
-                            </div>
-                            <div class="form-check mb-3">
-                                <input class="form-check-input" type="checkbox" id="understandAsset" name="understandAsset" required>
-                                <label class="form-check-label" for="understandAsset">
-                                    Tôi đã hiểu rõ về tài sản đấu giá và không có ý kiến gì về việc xem tài sản đấu giá.
-                                </label>
-                            </div>
-                            <button type="submit" class="btn btn-lg btn-primary">Xác nhận tham gia đấu giá</button>
-                        </form>
-                    </div>
-
-
                 </div>
             </div>
         </div>

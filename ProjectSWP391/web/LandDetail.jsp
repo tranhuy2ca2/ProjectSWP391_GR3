@@ -131,8 +131,12 @@
                                     <button type="submit" class="btn btn-secondary py-2 px-3">Lưu yêu thích</button>
                                 </form>
                             </c:if>
+
+
+
+
                             <!-- <button type="submit" class="btn btn-lg btn-primary">Đăng kí tham gia đấu giá</button>-->
-                            <a href="registauction?landlotid=${b.landLotsID}" class="btn btn-lg btn-primary">Đăng kí tham gia đấu giá</a>
+                            <a href="#" class="btn btn-lg btn-primary">Đăng kí tham gia đấu giá</a>
                         </div>
                     </div>
                 </div>
@@ -148,36 +152,36 @@
         <script src="js/counter.js"></script>
         <script src="js/custom.js"></script>
         <script>
-                                    function saveFavorite(event, landLotID) {
-                                        event.preventDefault(); // Prevent default form submission
+        function saveFavorite(event, landLotID) {
+            event.preventDefault(); // Prevent default form submission
 
-                                        const form = event.target.closest('form');
-                                        const formData = new FormData(form);
+            const form = event.target.closest('form');
+            const formData = new FormData(form);
 
-                                        $.ajax({
-                                            url: form.action,
-                                            type: 'POST',
-                                            data: {landLotID: landLotID},
-                                            success: function (response) {
-                                                if (typeof response === "string") {
-                                                    response = JSON.parse(response); // Ensure response is parsed if returned as string
-                                                }
+            $.ajax({
+                url: form.action,
+                type: 'POST',
+                data: {landLotID: landLotID},
+                success: function (response) {
+                    if (typeof response === "string") {
+                        response = JSON.parse(response); // Ensure response is parsed if returned as string
+                    }
 
-                                                if (response.status === "success") {
-                                                    alert(response.message); // Display success message
-                                                    const button = form.querySelector('button');
-                                                    button.classList.remove('btn-secondary');
-                                                    button.classList.add('btn-danger');
-                                                } else {
-                                                    alert(response.message); // Display failure message if save failed
-                                                }
-                                            },
-                                            error: function (xhr, status, error) {
-                                                console.error('Error:', error);
-                                                alert("An error occurred while processing your request.");
-                                            }
-                                        });
-                                    }
+                    if (response.status === "success") {
+                        alert(response.message); // Display success message
+                        const button = form.querySelector('button');
+                        button.classList.remove('btn-secondary');
+                        button.classList.add('btn-danger');
+                    } else {
+                        alert(response.message); // Display failure message if save failed
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.error('Error:', error);
+                    alert("An error occurred while processing your request.");
+                }
+            });
+        }
         </script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
