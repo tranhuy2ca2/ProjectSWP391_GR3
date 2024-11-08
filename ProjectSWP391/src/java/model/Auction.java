@@ -14,6 +14,16 @@ public class Auction {
     private Timestamp startTime; 
     private Timestamp endTime;   
     private String status;
+    private LandLots landLots;
+
+    public LandLots getLandLots() {
+        return landLots;
+    }
+
+    public void setLandLots(LandLots landLots) {
+        this.landLots = landLots;
+    }
+    
 
     // Constructor with both landLotID and landLotName
     public Auction(int auctionID, int landLotID, String landLotName, String auctioneerName, String winnerName, Timestamp startTime, Timestamp endTime, String status) {
