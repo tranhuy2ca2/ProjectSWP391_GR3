@@ -345,7 +345,7 @@
                                     Tôi đã hiểu rõ về tài sản đấu giá và không có ý kiến gì về việc xem tài sản đấu giá.
                                 </label>
                             </div>
-                            <button type="submit" class="btn btn-lg btn-primary">Xác nhận tham gia đấu giá</button>
+                            <button  onclick="registerHandler()" class="btn btn-lg btn-primary">Xác nhận tham gia đấu giá</button>
                         </form>
                     </div>
                 </div>
@@ -378,6 +378,16 @@
             }
 
             setInterval(updateCountdown, 1000);
+            
+             function registerHandler(){
+                        const  frm = document.getElementById("auctionForm");
+                        const  balance = ${requestScope.balance};
+                        console.log("balace", balance);
+                        if(balance < 1000000){
+                            window.alert("Số dư tài khoản không đủ ( ít nhất 1.000.000))");    
+                             event.preventDefault();
+                         }
+        }
         </script>
     </body>
 </html>

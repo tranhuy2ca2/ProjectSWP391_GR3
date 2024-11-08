@@ -8,6 +8,7 @@ package Controller;
 import DAO.AuctionDAO;
 import DAO.BidsDAO;
 import DAO.LandLotsDAO;
+import DAO.WalletDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -64,11 +65,17 @@ public class RegisterAuction extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
+        HttpSession session = request.getSession();
         String landlotid = request.getParameter("landlotid");
         LandLotsDAO lldao = new LandLotsDAO();
         AuctionDAO adao = new AuctionDAO();
+        WalletDAO walletDAO = new WalletDAO();
+        Customer cus =(Customer) session.getAttribute("user");
         LandLots landlots = lldao.getLandLotsDetailByID( Integer.parseInt(landlotid) );
         Auction auction = adao.getAuctionByLandLotId(Integer.parseInt(landlotid) );
+        int balance = walletDAO.getBalance(cus.getUserID());
+        
+         request.setAttribute("balance", balance);
           request.setAttribute("auction", auction);
         request.setAttribute("landlots", landlots);
         request.getRequestDispatcher("RegistAuction.jsp").forward(request, response);
@@ -87,6 +94,7 @@ public class RegisterAuction extends HttpServlet {
         String landlotid = request.getParameter("landLotId");
         LandLotsDAO lldao = new LandLotsDAO();
         AuctionDAO adao = new AuctionDAO();
+         WalletDAO walletDAO = new WalletDAO();
         HttpSession session = request.getSession();
         try{
             LandLots landlots = lldao.getLandLotsDetailByID( Integer.parseInt(landlotid) );
@@ -100,6 +108,8 @@ public class RegisterAuction extends HttpServlet {
             
             boolean check = bidsdao.checkExist(a.getAuctionID(), cus.getUserID());
             if (!check) {
+             int balance = walletDAO.getBalance(cus.getUserID());
+                walletDAO.updateBalance(cus.getUserID(), balance-1000000);
                 bidsdao.InsertBids(b);
             }
             

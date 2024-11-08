@@ -192,7 +192,7 @@
                             <label class="form-label" for="bidAmount">
                                 GIÁ CỦA BẠN
                             </label>
-                            <input class="form-control bid-input" name="bidAmount"  id="bidAmount" type="number" min="${mymaxbids}" />
+                            <input class="form-control bid-input" name="bidAmount"  id="bidAmount" type="number" min="${mymaxbids}" max="${balance}" />
                         </div>
                         <button class="btn bid-button" id="bidButton">
                             Đặt giá
