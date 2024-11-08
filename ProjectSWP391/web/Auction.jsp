@@ -198,7 +198,7 @@
                             Đặt giá
                         </button>
                     </form>
-                    <a href="URL_cua_trang_dich" class="btn btn-secondary w-100 mt-2">
+                    <a href="homepage" class="btn btn-secondary w-100 mt-2">
                         Rời phòng đấu giá
                     </a>
                 </div>
