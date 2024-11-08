@@ -4,47 +4,25 @@
  */
 package Controller;
 
-import DAO.CustomerDAO;
-import DAO.LandLotsDAO;
+import DAO.AuctionDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import java.util.List;
+import model.Bids;
 import model.Customer;
-import model.LandLots;
 
 /**
  *
- * @author FPTSHOP
+ * @author ADMIN
  */
-public class LandDetail extends HttpServlet {
-
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        response.setContentType("text/html;charset=UTF-8");
-
-        LandLotsDAO landdao = new LandLotsDAO();
-        CustomerDAO cdao = new CustomerDAO();
-        int landlotID = Integer.parseInt(request.getParameter("landlotid"));
-      
-        LandLots landLots = landdao.getLandLotsDetailByID(landlotID);
-          Customer cus = cdao.getUserById(landLots.getSellerID());
-          request.setAttribute("customer", cus);
-        request.setAttribute("b", landLots);
-        request.getRequestDispatcher("LandDetail.jsp").forward(request, response);
-    }
+@WebServlet(name = "HistoryBid", urlPatterns = {"/HistoryBid"})
+public class HistoryBid extends HttpServlet {
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -58,7 +36,17 @@ public class LandDetail extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+
+        HttpSession session = request.getSession();
+        Customer customer = (Customer) session.getAttribute("user");
+        if (customer != null) {
+            int userID = customer.getUserID();
+            AuctionDAO auctionDAO = new AuctionDAO();
+
+            List<Bids> auctions = auctionDAO.getListHistoryBitsByUser(userID);
+            request.setAttribute("bids", auctions);
+            request.getRequestDispatcher("HistoryBid.jsp").forward(request, response);
+        }
     }
 
     /**
@@ -72,7 +60,7 @@ public class LandDetail extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+
     }
 
     /**

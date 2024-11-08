@@ -91,44 +91,45 @@
             <jsp:include page="Header.jsp"></jsp:include>
             </header>
             <div class="container mt-3">
-<!--                <nav aria-label="breadcrumb">
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item">
-                            <a href="homepage">
-                                Trang chủ
-                            </a>
-                        </li>
-                        <li class="breadcrumb-item">
-                            <a href="#">
-                                Tài sản đặc sắc
-                            </a>
-                        </li>
-                        <li aria-current="page" class="breadcrumb-item active">
-                            Phòng Đấu Giá
-                        </li>
-                    </ol>
-                </nav>-->
+                <!--                <nav aria-label="breadcrumb">
+                                    <ol class="breadcrumb">
+                                        <li class="breadcrumb-item">
+                                            <a href="homepage">
+                                                Trang chủ
+                                            </a>
+                                        </li>
+                                        <li class="breadcrumb-item">
+                                            <a href="#">
+                                                Tài sản đặc sắc
+                                            </a>
+                                        </li>
+                                        <li aria-current="page" class="breadcrumb-item active">
+                                            Phòng Đấu Giá
+                                        </li>
+                                    </ol>
+                                </nav>-->
                 <div class="row">
                     <div class="col-md-7">
-                          <div class="image-gallery">
-                              <img src="${landlots.landlotimage[0].imageURL}" width="600" class="main-image" alt="Main Image"/>
+                        <div class="image-gallery">
+                            <img src="${landlots.landlotimage[0].imageURL}" width="600" class="main-image" alt="Main Image"/>
                         <div class="thumbnail-container">
                             <c:forEach var="image" items="${landlots.landlotimage}">
                                 <img src="${image.imageURL}" class="thumbnail" alt="Thumbnail" width="200"/>
                             </c:forEach>
                         </div>
                     </div>
-                    </div>
-                    <div class="col-md-5 auction-info">
-                        <h5>
-                            Đấu giá ${landlots.landLotName}
+                </div>
+                <div class="col-md-5 auction-info">
+                    <h5>
+                        Đấu giá ${landlots.landLotName}
                     </h5>
                     <p>
                         Mã tài sản: ${landlots.landLotsID}
                     </p>
                     <p>
                         <strong>
-                            Giá khởi điểm: ${landlots.startprice} VNĐ
+                            <fmt:formatNumber value="${landlots.startprice}" type="currency" 
+                                                                      currencySymbol="₫" groupingUsed="true" />
                         </strong>
                     </p>
                     <p>
@@ -156,7 +157,7 @@
                     </div>
                     <div class="bg-danger text-white p-3 mb-3">
                         <p class="bid-time"  id="countdown">
-                            
+
                         </p>
                         <div class="divider"></div>
                         <p class="mb-0">
@@ -164,7 +165,8 @@
                         </p>
                         <p class="bid-status">
                             <c:if test="${requestScope.mymaxbids != null}">
-                                ${mymaxbids}
+                                <fmt:formatNumber value=" ${mymaxbids}" type="currency" 
+                                                                      currencySymbol="₫" groupingUsed="true" />
                             </c:if> 
                             <c:if test="${requestScope.mymaxbids == null}">
                                 0
@@ -175,29 +177,30 @@
                         Giá hiện tại
                     </p>
                     <p class="current-bid">
-                         <c:if test="${requestScope.maxAuction != null}">
-                                ${maxAuction}
-                            </c:if> 
-                            <c:if test="${requestScope.maxAuction == null}">
-                                0
-                            </c:if>
+                        <c:if test="${requestScope.maxAuction != null}">
+                            <fmt:formatNumber value=" ${maxAuction}" type="currency" 
+                                                                      currencySymbol="₫" groupingUsed="true" />
+                        </c:if> 
+                        <c:if test="${requestScope.maxAuction == null}">
+                            0
+                        </c:if>
                     </p>
                     <form action="Auction" method="post" >
                         <input type="hidden" name="auctionId" value="${auction.auctionID}" />
                         <input type="hidden" name="landLotsID" value="${landlots.landLotsID}" />
-                          <div class="mb-3">
-                        <label class="form-label" for="bidAmount">
-                            GIÁ CỦA BẠN
-                        </label>
-                              <input class="form-control bid-input" name="bidAmount"  id="bidAmount" type="number" />
-                    </div>
-                    <button class="btn bid-button">
-                        Đặt giá
-                    </button>
+                        <div class="mb-3">
+                            <label class="form-label" for="bidAmount">
+                                GIÁ CỦA BẠN
+                            </label>
+                            <input class="form-control bid-input" name="bidAmount"  id="bidAmount" type="number" min="${mymaxbids}" max="${balance}" />
+                        </div>
+                        <button class="btn bid-button" id="bidButton">
+                            Đặt giá
+                        </button>
                     </form>
-                    <button class="btn btn-secondary w-100 mt-2">
+                    <a href="URL_cua_trang_dich" class="btn btn-secondary w-100 mt-2">
                         Rời phòng đấu giá
-                    </button>
+                    </a>
                 </div>
             </div>
             <ul class="nav nav-tabs mt-3">
@@ -230,7 +233,7 @@
         </script>
         <script>
             const auctionEndTime = new Date("${auction.endTime}").getTime();
-            
+
             function updateCountdown() {
                 const now = new Date().getTime();
                 const timeLeft = auctionEndTime - now;
@@ -243,11 +246,22 @@
                     const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
 
                     // Display the countdown in the HTML
-                    document.getElementById("countdown").innerHTML = 
-                        `Đấu giá sẽ kết thúc sau: ` + days +  ` ngày ` +  hours + ` giờ ` + minutes + ` phút `  +seconds+` giây`;
+                    document.getElementById("countdown").innerHTML =
+                            `Đấu giá sẽ kết thúc sau: ` + days + ` ngày ` + hours + ` giờ ` + minutes + ` phút ` + seconds + ` giây`;
                 } else {
                     // When the countdown ends
                     document.getElementById("countdown").innerHTML = "Đấu giá đã kết thúc.";
+                    //herre
+                    var inputvalue =  document.getElementById("bidAmount");
+                     var btn =  document.getElementById("bidButton");
+                     
+                     inputvalue.disabled = true;
+                     inputvalue.style.backgroundColor = "#f8f9fa";
+                     inputvalue.style.borderColor ="#c5c6c6";
+                     btn.disabled = false;
+                     btn.style.backgroundColor = "gray"
+             
+                     
                 }
             }
 

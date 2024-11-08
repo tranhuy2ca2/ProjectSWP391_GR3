@@ -126,6 +126,37 @@ public class WalletDAO {
         }
         return true;
     }
+    
+    public int getBalance(int id){
+        String sql = "SELECT  [WalletID]\n" +
+                            "      ,[UserID]\n" +
+                            "      ,[MoneyWallet]\n" +
+                            "  FROM [SWP391_G3_Project].[dbo].[Wallet]\n" +
+                            "  WHERE UserID = ?";
+        try {
+             ps = con.prepareStatement(sql);
+            ps.setInt(1, id);
+            rs = ps.executeQuery();
+            if(rs.next()){
+                return rs.getInt("MoneyWallet");
+            }
+        } catch (Exception e) {
+        }
+        return 0;
+    }
+    
+    public  void updateBalance(int id, int balance){
+           String sql = "UPDATE [dbo].[Wallet]\n" +
+                                "   SET [MoneyWallet] = ?\n" +
+                                " WHERE [UserID] = ?";
+        try {
+             ps = con.prepareStatement(sql);
+            ps.setInt(1, balance);
+            ps.setInt(2, id);
+             ps.executeUpdate();
+        } catch (Exception e) {
+        }
+    }
 
     public static void main(String[] args) {
         WalletDAO dao = new WalletDAO();

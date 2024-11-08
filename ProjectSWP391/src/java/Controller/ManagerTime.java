@@ -24,7 +24,7 @@ public class ManagerTime extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        request.setAttribute("auctionList", auctionDAO.getAllAuctions());  // Consistent naming with auctionList
+        request.setAttribute("auctionList", auctionDAO.getAllAuctions1());  // Consistent naming with auctionList
         request.getRequestDispatcher("manager_time_auction.jsp").forward(request, response);
     }
 
@@ -88,7 +88,7 @@ public class ManagerTime extends HttpServlet {
      */
     private void reloadAuctionList(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        List<Auction> auctions = auctionDAO.getAllAuctions();  // Reload auction list
+        List<Auction> auctions = auctionDAO.getAllAuctions1();  // Reload auction list
         request.setAttribute("auctionList", auctions);  // Consistent naming with auctionList
         request.getRequestDispatcher("manager_time_auction.jsp").forward(request, response);
     }

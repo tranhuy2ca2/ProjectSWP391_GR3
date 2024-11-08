@@ -45,7 +45,7 @@ public class MyAution extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         AuctionDAO aution = new AuctionDAO();
-       HttpSession session = request.getSession();
+      HttpSession session = request.getSession();
         Customer customer = (Customer) session.getAttribute("user");
        if(customer != null){
             int userID = customer.getUserID();

@@ -94,4 +94,24 @@ public class BidsDAO extends DBContext{
         }
            return maxBidAmount;
     }
+    
+        public  boolean checkExist(int aid, int biderid){
+        String sql = "SELECT [BidID]\n" +
+                            "      ,[AuctionID]\n" +
+                            "      ,[BidderID]\n" +
+                            "      ,[BidAmount]\n" +
+                            "      ,[BidTime]\n" +
+                            "  FROM [SWP391_G3_Project].[dbo].[Bids]\n" +
+                            "  WHERE [AuctionID] = ? AND [BidderID] = ?";
+          try {
+                ps = con.prepareStatement(sql);
+                ps.setInt(1, aid);
+                ps.setInt(2, biderid);
+                rs =  ps.executeQuery();
+         
+                if(rs.next()) return true;
+        } catch (Exception e) {
+        }
+           return false;
+    }
 }

@@ -47,27 +47,26 @@
             <div class="container">
                 <div class="menu-bg-wrap">
                     <div class="site-navigation">
-                        <a href="homepage" class="logo m-0 float-start">Property</a>
+                        <a href="homepage" class="logo m-0 float-start">Đấu giá đất</a>
 
                         <ul
                             class="js-clone-nav d-none d-lg-inline-block text-start site-menu float-end"
                             >
-                            <li class="active"><a href="homepage">Home</a></li>
-                            <c:if test="${sessionScope.user==null}">
+                            <li class="active"><a href="homepage">Trang chủ</a></li>
+                                <c:if test="${sessionScope.user==null}">
                                 <li><a href="sign_in.jsp">Đăng Nhập</a></li>
-                            </c:if>
-                            <c:if test="${sessionScope.user!=null}">
+                                </c:if>
+                                <c:if test="${sessionScope.user!=null}">
                                 <li><a href="logout">Đăng Xuất</a></li>
                                 <li class="active"><a href="profile?uID=${sessionScope.user.userID}">Hello ${user.fullName}</a></li>
-                            </c:if>  
-                            <c:if test="${sessionScope.user.role == 1}">    
+                                </c:if>  
+                                <c:if test="${sessionScope.user.role == 1}">    
                                 <li class="has-children">
                                     <a href="profile?uID=${sessionScope.user.userID}">Admin</a>
                                     <ul class="dropdown">
-                                        <li><a href="#">Buy Property</a></li>
-                                        <li><a href="#">Sell Property</a></li>
+
                                         <li class="has-children">
-                                            <a href="#">Dropdown</a>
+                                            <a href="#">Quản lí</a>
                                             <ul class="dropdown">
                                                 <li><a href="UserManagement">Quan li nguoi dung</a></li>
                                                 <li><a href="AuctionManagement">Quản lý auction</a></li>
@@ -80,18 +79,35 @@
                                 <li class="has-children">
                                     <a href="profile?uID=${sessionScope.user.userID}">User</a>
                                     <ul class="dropdown">
-                                        <li><a href="#">Buy Property</a></li>
-                                        <li><a href="#">Sell Property</a></li>
-                                        <li class="has-children">
-                                            <a href="#">Dropdown</a>
-                                            <ul class="dropdown">
-                                                <li><a href="myAution">Xem phien dau gia</a></li>
-                                            </ul>
+                                        <li class="nav-item">
+                                            <a class="nav-link collapsed" href="listsaveauction">
+                                                <i class="bi bi-bag"></i>
+                                                <span>Lưu trữ mảnh đất yêu thích</span>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link collapsed" href="uploadlandlot">
+                                                <i class="bi bi-upload"></i>
+                                                <span>Ðăng Đất</span>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link collapsed" href="managemylandlot">
+                                                <i class="bi bi-bag"></i>
+                                                <span>Quản lí đất đai</span>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link collapsed" href="listuserfeedback">
+                                                <i class="bi bi-list"></i>
+                                                <span>Danh Sách Liên Hệ Đã Gửi</span>
+                                            </a>
+
                                         </li>
                                     </ul>
                                 </li>
                             </c:if>
-                             <c:if test="${sessionScope.user.role == 3}">    
+                            <c:if test="${sessionScope.user.role == 3}">    
                                 <li class="has-children">
                                     <a href="profile?uID=${sessionScope.user.userID}"> Staff</a>
                                     <ul class="dropdown">
@@ -106,7 +122,7 @@
                                     </ul>
                                 </li>
                             </c:if>
-                                  <c:if test="${sessionScope.user.role == 4}">    
+                            <c:if test="${sessionScope.user.role == 4}">    
                                 <li class="has-children">
                                     <a href="profile?uID=${sessionScope.user.userID}"> Auctioneer</a>
                                     <ul class="dropdown">

@@ -5,7 +5,8 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -102,14 +103,10 @@
                                     />
                             </div>
                             <div class="text">
-                                <h3 class="mb-0">Alicia Huston</h3>
-                                <div class="meta mb-3">Real Estate</div>
-                                <p>
-                                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                                    Ratione laborum quo quos omnis sed magnam id ducimus saepe
+                                <h3 class="mb-0">${customer.getFullName()}</h3>
+                                <div class="meta mb-3">${customer.getEmail()}</div>
+                                <p> đấu giá đất là việc cơ quan có thẩm quyền tổ chức bán đấu giá công khai các thửa đất và người tham gia đấu giá có thể là các cá nhân, tổ chức đáp ứng đủ điều kiện theo quy định của pháp luật.
                                 </p>
-
-
                                 <ul class="list-unstyled social dark-hover d-flex">
                                     <li class="me-1">
                                         <a href="#"><span class="icon-instagram"></span></a>
@@ -131,8 +128,9 @@
                                     <button type="submit" class="btn btn-secondary py-2 px-3">Lưu yêu thích</button>
                                 </form>
                             </c:if>
-                            <!-- <button type="submit" class="btn btn-lg btn-primary">Đăng kí tham gia đấu giá</button>-->
-                            <a href="RegisterAuction?landlotid=${b.landLotsID}" class="btn btn-lg btn-primary">Đăng kí tham gia đấu giá</a>
+                            <c:if test="${sessionScope.user.role == 2}">
+                                <a href="RegisterAuction?landlotid=${b.landLotsID}" class="btn btn-lg btn-primary">Đăng kí tham gia đấu giá</a>
+                            </c:if>
                         </div>
                     </div>
                 </div>

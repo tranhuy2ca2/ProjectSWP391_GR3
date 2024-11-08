@@ -8,6 +8,7 @@ package Controller;
 import DAO.AuctionDAO;
 import DAO.BidsDAO;
 import DAO.LandLotsDAO;
+import DAO.WalletDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -66,16 +67,18 @@ public class AuctionCtl extends HttpServlet {
         LandLotsDAO lldao = new LandLotsDAO();
          AuctionDAO adao = new AuctionDAO();
          BidsDAO bdao = new BidsDAO();
+         WalletDAO walletDAO = new WalletDAO();
          HttpSession session = request.getSession();
        try{
           LandLots landlots = lldao.getLandLotsDetailByID( Integer.parseInt(landlotid) );
           Auction auction =  adao.getAuctionByLandLotId(landlots.getLandLotsID());
-          
+           
            Customer cus =(Customer) session.getAttribute("user");
           Bids MyMaxbids = bdao.getLastMyBids(cus.getUserID());
           BigDecimal maxAuction = bdao.getMaxBids(auction.getAuctionID());
-          
-         
+           int balance = walletDAO.getBalance(cus.getUserID());
+        
+         request.setAttribute("balance", balance);
           request.setAttribute("mymaxbids", MyMaxbids.getBidAmount());
           request.setAttribute("maxAuction", maxAuction);
           request.setAttribute("auction", auction);
@@ -97,6 +100,7 @@ public class AuctionCtl extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
        BidsDAO bdao = new BidsDAO();
+       WalletDAO walletDAO = new WalletDAO();
        HttpSession session = request.getSession();
        String auctionId = request.getParameter("auctionId");
        String bidAmount = request.getParameter("bidAmount");
@@ -104,7 +108,9 @@ public class AuctionCtl extends HttpServlet {
        
         try{
            Customer cus =(Customer) session.getAttribute("user");
-          
+        int balance = walletDAO.getBalance(cus.getUserID());
+        
+        walletDAO.updateBalance(cus.getUserID(), balance- Integer.parseInt(bidAmount));
          Bids b = new Bids();
          b.setAuctionID(Integer.parseInt(auctionId));
          b.setBidderID(cus.getUserID());
