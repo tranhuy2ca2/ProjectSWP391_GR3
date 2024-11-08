@@ -103,11 +103,9 @@
                                     />
                             </div>
                             <div class="text">
-                                <h3 class="mb-0">Alicia Huston</h3>
-                                <div class="meta mb-3">Real Estate</div>
-                                <p>
-                                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                                    Ratione laborum quo quos omnis sed magnam id ducimus saepe
+                                <h3 class="mb-0">${customer.getFullName()}</h3>
+                                <div class="meta mb-3">${customer.getEmail()}</div>
+                                <p> đấu giá đất là việc cơ quan có thẩm quyền tổ chức bán đấu giá công khai các thửa đất và người tham gia đấu giá có thể là các cá nhân, tổ chức đáp ứng đủ điều kiện theo quy định của pháp luật.
                                 </p>
 
 
