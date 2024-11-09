@@ -32,7 +32,6 @@
         <link rel="stylesheet" href="./assets/app.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> 
-        <title>Thông tin cá nhân</title>
         <style>
             .profile .profile-card img {
                 max-width: 200px;

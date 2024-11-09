@@ -174,11 +174,7 @@
                                                                                         <button type="submit" class="btn btn-secondary py-2 px-3">Lưu yêu thích</button>
                                                                                     </form>
                                                                                 </c:if>
-<<<<<<< HEAD
-                                                                                <a href="landdetail?landlotid=${land.landLotsID}" class="btn btn-primary py-2 px-3">See details</a>
-=======
                                                                                 <a href="landdetail?landlotid=${land.landLotsID}"  class="btn btn-primary py-2 px-3">See details</a>
->>>>>>> 92175cdbebc250a135a3ae27bcc030b6af079488
                                                                             </div>
                                                                         </div>
                                                                     </div>

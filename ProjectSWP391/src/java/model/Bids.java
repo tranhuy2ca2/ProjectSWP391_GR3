@@ -16,6 +16,24 @@ public class Bids {
     private int BidID, AuctionID, BidderID;
     private BigDecimal BidAmount;
     private Date BidTime;
+    private Customer user;
+    private Auction auction;
+
+    public Auction getAuction() {
+        return auction;
+    }
+
+    public void setAuction(Auction auction) {
+        this.auction = auction;
+    }
+
+    public Customer getUser() {
+        return user;
+    }
+
+    public void setUser(Customer user) {
+        this.user = user;
+    }
 
     public Bids() {
     }

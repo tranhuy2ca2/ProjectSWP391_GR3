@@ -4,12 +4,18 @@
  */
 package Controller;
 
+import DAO.AuctionDAO;
+import DAO.BidsDAO;
 import DAO.LandLotsDAO;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.math.BigDecimal;
+import model.Auction;
+import model.Bids;
+import model.LandLots;
 
 /**
  *
@@ -29,10 +35,7 @@ public class RegistAuction extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-//        LandLotsDAO landao = new LandLotsDAO();
-//        int lanlotID = Integer.parseInt(request.getParameter("lanlotid"));
-//        request.setAttribute("b", landao.getLandLotsDetailByID(lanlotID));
-//        request.getRequestDispatcher("RegistAuction.jsp").forward(request, response);
+      
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -47,7 +50,12 @@ public class RegistAuction extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        String landlotid = request.getParameter("landlotid");
+        LandLotsDAO lldao = new LandLotsDAO();
+        LandLots landlots = lldao.getLandLotsDetailByID( Integer.parseInt(landlotid) );
+        
+        request.setAttribute("landlots", landlots);
+        request.getRequestDispatcher("RegistAuction.jsp").forward(request, response);
     }
 
     /**
@@ -61,7 +69,24 @@ public class RegistAuction extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        String landlotid = request.getParameter("landLotId");
+        LandLotsDAO lldao = new LandLotsDAO();
+        AuctionDAO adao = new AuctionDAO();
+        
+        try{
+            LandLots landlots = lldao.getLandLotsDetailByID( Integer.parseInt(landlotid) );
+            BidsDAO bidsdao = new BidsDAO();
+            Auction a =adao.getAuctionByLandLotId(landlots.getLandLotsID());
+            Bids b = new Bids();
+            b.setAuctionID(a.getAuctionID());
+            b.setBidAmount(BigDecimal.valueOf(1000000));
+            //bidsdao.InsertBids(b);
+            
+            response.sendRedirect("Auction?landlots=" + landlots);
+        }catch( Exception e){
+            response.sendRedirect("homepage");
+            return;
+        }
     }
 
     /**

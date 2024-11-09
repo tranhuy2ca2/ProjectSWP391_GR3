@@ -4,6 +4,7 @@
  */
 package Controller;
 
+import DAO.CustomerDAO;
 import DAO.LandLotsDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -11,6 +12,8 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import model.Customer;
+import model.LandLots;
 
 /**
  *
@@ -33,8 +36,13 @@ public class LandDetail extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
 
         LandLotsDAO landdao = new LandLotsDAO();
+        CustomerDAO cdao = new CustomerDAO();
         int landlotID = Integer.parseInt(request.getParameter("landlotid"));
-        request.setAttribute("b", landdao.getLandLotsDetailByID(landlotID));
+      
+        LandLots landLots = landdao.getLandLotsDetailByID(landlotID);
+          Customer cus = cdao.getUserById(landLots.getSellerID());
+          request.setAttribute("customer", cus);
+        request.setAttribute("b", landLots);
         request.getRequestDispatcher("LandDetail.jsp").forward(request, response);
     }
 

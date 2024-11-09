@@ -204,25 +204,23 @@
         </div>
 
         <!-- Add User Modal -->
-        <div class="modal fade" id="editUserModal" tabindex="-1" aria-labelledby="editUserModalLabel" aria-hidden="true">
+        <div class="modal fade" id="addUserModal" tabindex="-1" aria-labelledby="addUserModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="editUserModalLabel">Chỉnh Sửa Người Dùng</h5>
+                        <h5 class="modal-title" id="addUserModalLabel">Thêm Người Dùng</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <form id="editUserForm" action="UserManagement" method="post">
-                            <input type="hidden" name="action" value="edit">
-                            <input type="hidden" name="userID" id="userID">
-
+                        <form id="addUserForm" action="UserManagement" method="post">
+                            <input type="hidden" name="action" value="add">
                             <div class="mb-3">
-                                <label for="userName" class="form-label">Tên Hiển Thị</label>
-                                <input type="text" class="form-control" name="userName" id="userName" required>
+                                <label for="newUserName" class="form-label">Tên Hiển Thị</label>
+                                <input type="text" class="form-control" name="userName" id="newUserName" required>
                             </div>
                             <div class="mb-3">
-                                <label for="fullName" class="form-label">Họ và Tên</label>
-                                <input type="text" class="form-control" name="fullName" id="fullName" required>
+                                <label for="newFullName" class="form-label">Họ và Tên</label>
+                                <input type="text" class="form-control" name="fullName" id="newFullName" required>
                             </div>
                             <div class="mb-3">
                                 <label for="newEmail" class="form-label">Email</label>

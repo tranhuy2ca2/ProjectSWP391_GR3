@@ -12,8 +12,11 @@
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/FER-block5/project/main/ProjectSWP391_GR3/ProjectSWP391/web/HomePage.jsp</file>
-            <file>file:/D:/FER-block5/project/main/ProjectSWP391_GR3/ProjectSWP391/src/java/model/Auction.java</file>
+            <file>file:/D:/FER-block5/ProjectSWP391_GR3-main/ProjectSWP391/src/java/DAO/AuctionDAO.java</file>
+            <file>file:/D:/FER-block5/ProjectSWP391_GR3-main/ProjectSWP391/src/java/DAO/CustomerDAO.java</file>
+            <file>file:/D:/FER-block5/ProjectSWP391_GR3-main/ProjectSWP391/src/java/Controller/UserManagement.java</file>
+            <file>file:/D:/FER-block5/ProjectSWP391_GR3-main/ProjectSWP391/src/java/Controller/Signup.java</file>
+            <file>file:/D:/FER-block5/ProjectSWP391_GR3-main/ProjectSWP391/src/java/Controller/AuctionManagement.java</file>
         </group>
     </open-files>
 </project-private>

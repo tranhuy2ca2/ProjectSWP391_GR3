@@ -432,12 +432,12 @@ public class LandLotsDAO {
 
         return landlotList;
     }
-    
+
     public List<LandLots> getAllLandLotsDetail1() {
         List<LandLots> landlotList = new ArrayList<>();
 
         // Truy vấn chính để lấy thông tin LandLots
-        String sql = "SELECT * FROM LandLots l join Auctions a on l.LandLotID = a.LandLotID";
+        String sql = "SELECT * FROM LandLots l join Auctions a on l.LandLotID = a.LandLotID  WHERE l.status = 'Available' ";
 
         // Truy vấn để lấy loại zoning của LandLots
         String zonetypeSql = """
@@ -516,7 +516,7 @@ public class LandLotsDAO {
         List<LandLots> landlotList = new ArrayList<>();
 
         // Truy vấn chính để lấy thông tin LandLots
-        String sql = "SELECT * FROM LandLots where 1=1 ";
+        String sql = "SELECT * FROM LandLots l join Auctions a on l.LandLotID = a.LandLotID  WHERE l.status = 'Available'  ";
 
         // Truy vấn để lấy loại zoning của LandLots
         String zonetypeSql = """
@@ -575,9 +575,7 @@ public class LandLotsDAO {
                         }
                     }
                 }
-
-                // Thêm vào danh sách LandLots
-                landlotList.add(new LandLots(
+                LandLots landLot = new LandLots(
                         rs.getInt("LandLotID"),
                         rs.getInt("SellerID"),
                         rs.getString("LandLotName"),
@@ -587,9 +585,17 @@ public class LandLotsDAO {
                         rs.getLong("StartingPrice"),
                         rs.getDate("CreatedAt"),
                         rs.getString("Status"),
-                        zoningtypeList, // Truyền danh sách zoning types
+                        zoningtypeList,
+                        // Truyền danh sách zoning types
                         landlotImages // Truyền danh sách hình ảnh
-                ));
+                );
+                landLot.setStartTime(rs.getTimestamp(13));
+                landLot.setEndTime(rs.getTimestamp(14));
+
+                landLot.setStatus1(rs.getString(15));
+
+                // Thêm vào danh sách LandLots
+                landlotList.add(landLot);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -597,113 +603,107 @@ public class LandLotsDAO {
 
         return landlotList;
     }
-public boolean saveAuction(int userId, int landLotId) {
-    String checkSql = "SELECT COUNT(*) FROM FavoriteLandLots WHERE UserID = ? AND LandLotID = ?";
-    String insertSql = "INSERT INTO FavoriteLandLots (UserID, LandLotID) VALUES (?, ?)";
 
-    try (Connection conn = new DBContext().getConnection(); 
-         PreparedStatement checkStmt = conn.prepareStatement(checkSql);
-         PreparedStatement insertStmt = conn.prepareStatement(insertSql)) {
-        
-        // Check if the land lot is already saved
-        checkStmt.setInt(1, userId);
-        checkStmt.setInt(2, landLotId);
-        ResultSet rs = checkStmt.executeQuery();
-        
-        if (rs.next() && rs.getInt(1) > 0) {
-            // Land lot is already saved, so don't insert again
-            return false;
-        }
+    public boolean saveAuction(int userId, int landLotId) {
+        String checkSql = "SELECT COUNT(*) FROM FavoriteLandLots WHERE UserID = ? AND LandLotID = ?";
+        String insertSql = "INSERT INTO FavoriteLandLots (UserID, LandLotID) VALUES (?, ?)";
 
-        // Insert the land lot into favorites if it does not exist
-        insertStmt.setInt(1, userId);
-        insertStmt.setInt(2, landLotId);
-        int rowAf = insertStmt.executeUpdate();
-        return rowAf > 0;
+        try (Connection conn = new DBContext().getConnection(); PreparedStatement checkStmt = conn.prepareStatement(checkSql); PreparedStatement insertStmt = conn.prepareStatement(insertSql)) {
 
-    } catch (Exception e) {
-        e.printStackTrace();
-    }
-    return false;
-}
-public boolean isLandLotFavorite(int userId, int landLotId) {
-    String sql = "SELECT COUNT(*) FROM FavoriteLandLots WHERE UserID = ? AND LandLotID = ?";
-    try (Connection conn = new DBContext().getConnection();
-         PreparedStatement ps = conn.prepareStatement(sql)) {
-        ps.setInt(1, userId);
-        ps.setInt(2, landLotId);
-        ResultSet rs = ps.executeQuery();
-        if (rs.next()) {
-            return rs.getInt(1) > 0;
-        }
-    } catch (Exception e) {
-        e.printStackTrace();
-    }
-    return false;
-}
+            // Check if the land lot is already saved
+            checkStmt.setInt(1, userId);
+            checkStmt.setInt(2, landLotId);
+            ResultSet rs = checkStmt.executeQuery();
 
-    public boolean deleteFavoriteLandLot(int userId, int landLotId) {
-    String sql = "DELETE FROM FavoriteLandLots WHERE userId = ? AND landLotId = ?";
- try (Connection conn = new DBContext().getConnection(); 
-            PreparedStatement ps = conn.prepareStatement(sql)) {
-        ps.setInt(1, userId);
-        ps.setInt(2, landLotId);
-        return ps.executeUpdate() > 0;
-   } catch (Exception e) {
+            if (rs.next() && rs.getInt(1) > 0) {
+                // Land lot is already saved, so don't insert again
+                return false;
+            }
+
+            // Insert the land lot into favorites if it does not exist
+            insertStmt.setInt(1, userId);
+            insertStmt.setInt(2, landLotId);
+            int rowAf = insertStmt.executeUpdate();
+            return rowAf > 0;
+
+        } catch (Exception e) {
             e.printStackTrace();
-        
+        }
         return false;
     }
-}
 
-  public List<LandLots> getSavedLandLotsByUser(int userId) {
-    List<LandLots> landLots = new ArrayList<>();
-    String sql = "SELECT LandLots.LandLotID, LandLots.LandLotName, LandLots.Location, LandLots.Area, "
-               + "LandLots.Description, LandLots.StartingPrice "
-               + "FROM LandLots INNER JOIN FavoriteLandLots ON LandLots.LandLotID = FavoriteLandLots.LandLotID "
-               + "WHERE FavoriteLandLots.UserID = ?";
-
-    try (Connection conn = new DBContext().getConnection();
-         PreparedStatement ps = conn.prepareStatement(sql)) {
-        
-        ps.setInt(1, userId);
-        
-        try (ResultSet rs = ps.executeQuery()) {
-            while (rs.next()) {
-                LandLots landLot = new LandLots();
-                landLot.setLandLotsID(rs.getInt("LandLotID"));
-                landLot.setLandLotName(rs.getString("LandLotName"));
-                landLot.setLocation(rs.getString("Location"));
-                landLot.setArea(rs.getFloat("Area"));
-                landLot.setDescription(rs.getString("Description"));
-                landLot.setStartprice(rs.getLong("StartingPrice"));
-
-                landLots.add(landLot);
+    public boolean isLandLotFavorite(int userId, int landLotId) {
+        String sql = "SELECT COUNT(*) FROM FavoriteLandLots WHERE UserID = ? AND LandLotID = ?";
+        try (Connection conn = new DBContext().getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, userId);
+            ps.setInt(2, landLotId);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1) > 0;
             }
-        }
-     } catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
-    return landLots;
-}
+        return false;
+    }
 
+    public boolean deleteFavoriteLandLot(int userId, int landLotId) {
+        String sql = "DELETE FROM FavoriteLandLots WHERE userId = ? AND landLotId = ?";
+        try (Connection conn = new DBContext().getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, userId);
+            ps.setInt(2, landLotId);
+            return ps.executeUpdate() > 0;
+        } catch (Exception e) {
+            e.printStackTrace();
 
-    public  void updateStatusLandLots(int id, String status){
-        String sql = "UPDATE [dbo].[LandLots]\n" +
-                            "   SET [Status] = ?\n" +
-                            " WHERE LandLotID = ?";
-        try (Connection conn = new DBContext().getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql)) {
-            
+            return false;
+        }
+    }
+
+    public List<LandLots> getSavedLandLotsByUser(int userId) {
+        List<LandLots> landLots = new ArrayList<>();
+        String sql = "SELECT LandLots.LandLotID, LandLots.LandLotName, LandLots.Location, LandLots.Area, "
+                + "LandLots.Description, LandLots.StartingPrice "
+                + "FROM LandLots INNER JOIN FavoriteLandLots ON LandLots.LandLotID = FavoriteLandLots.LandLotID "
+                + "WHERE FavoriteLandLots.UserID = ?";
+
+        try (Connection conn = new DBContext().getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setInt(1, userId);
+
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    LandLots landLot = new LandLots();
+                    landLot.setLandLotsID(rs.getInt("LandLotID"));
+                    landLot.setLandLotName(rs.getString("LandLotName"));
+                    landLot.setLocation(rs.getString("Location"));
+                    landLot.setArea(rs.getFloat("Area"));
+                    landLot.setDescription(rs.getString("Description"));
+                    landLot.setStartprice(rs.getLong("StartingPrice"));
+
+                    landLots.add(landLot);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return landLots;
+    }
+
+    public void updateStatusLandLots(int id, String status) {
+        String sql = "UPDATE [dbo].[LandLots]\n"
+                + "   SET [Status] = ?\n"
+                + " WHERE LandLotID = ?";
+        try (Connection conn = new DBContext().getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
+
             ps.setString(1, status);
             ps.setInt(2, id);
-            
-            ps.executeUpdate();
-         } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
 
+            ps.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     public static void main(String[] args) {
         LandLotsDAO ldao = new LandLotsDAO();
