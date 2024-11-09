@@ -93,17 +93,14 @@
             <div class="container">
                 <div class="row">
                     <c:forEach var="land" items="${listlandlot}">
-                        <div class="col-4">
-                            <div>
-                                <div>
                                     <div class="property-item">
                                         <a href="#" class="img">
                                             <c:if test="${not empty land.landlotimage}">
-                                                <img width="100%" style="margin-bottom: 100px" 
+                                                <img width="100%" style="margin-bottom: 100px; height: 260px" 
                                                      src="${land.landlotimage[0].imageURL}" alt="Image" class="img-fluid" />
                                             </c:if>
                                             <c:if test="${empty land.landlotimage}">
-                                                <img width="100%" style="margin-bottom: 100px" 
+                                                <img width="100%" style="margin-bottom: 100px; height: 260px" 
                                                      src="default-image-url.jpg" alt="No Image Available" class="img-fluid" />
                                             </c:if>
                                         </a>
@@ -115,35 +112,53 @@
                                                                       currencySymbol="₫" groupingUsed="true" />
                                                 </span>
                                             </div>
+                                            <div class="d-block d-flex align-items-center me-3">
+                                                <h3 class="icon-timelapse me-2"></h3>
+                                                <h3 class="caption">
+                                                    <c:choose>
+                                                        <c:when test="${land.status1 == 'Cancelled'}">đã huỷ</c:when>
+                                                        <c:when test="${land.status1 == 'Completed'}">đã hoàn thành</c:when>
+                                                        <c:when test="${land.status1 == 'Ongoing'}">đang diễn ra</c:when>
+                                                        <c:otherwise>${land.status1}</c:otherwise>
+                                                    </c:choose>
+                                                </h3>
+                                            </div><br>
                                             <div>
                                                 <span class="d-block mb-2 text-black-50">Vị Trí : ${land.location}</span>
                                                 <span class="city d-block mb-3">Tên Đất : ${land.landLotName}</span>
-
 
                                                 <div class="d-block d-flex align-items-center me-3">
                                                     <span class="icon-area-chart me-2"></span>
                                                     <span class="caption"> Diện Tích : ${land.area} m&sup2;</span>
                                                 </div><br>
+                                                <div class="d-block d-flex align-items-center me-3">
+                                                    <span class="icon-timer me-2"></span>
+                                                    <span class="alert-light"> Ngày bắt đầu : ${land.startTime} <br> Ngày kết thúc : ${land.endTime}</span>
+                                                </div><br>
+
                                                 <c:if test="${not empty land.zoningtype}">
-                                                    <span class="d-block d-flex align-items-center">
+                                                    <span class="d-block d-flex align-items-center" style="height: 40px">
                                                         <span class="icon-book me-2"></span>
                                                         <span class="caption">Loại Đất :
                                                             <c:forEach var="zoning" items="${land.zoningtype}">
                                                                 <span class="caption">${zoning.zoningDescription}, </span>
-                                                            </c:forEach>   
+                                                            </c:forEach>
                                                         </span>
-                                                    </span>                                                      
+                                                    </span>
                                                 </c:if>
-
-
-                                                <a href="#" class="btn btn-primary py-2 px-3">See details</a>
-                                            </div>
+                                                <c:if test="${sessionScope.user.role == 2}">
+                                                    <form action="SaveAuction" method="post" onsubmit="saveFavorite(event, ${land.landLotsID})">
+                                                        <input type="hidden" name="landLotID" value="${land.landLotsID}" />
+                                                        <button type="submit" class="btn btn-secondary py-2 px-3">Lưu yêu thích</button>
+                                                    </form>
+                                                </c:if> 
+                                                <br/>
+                                                <a href="landdetail?landlotid=${land.landLotsID}" 
+                                                   class="btn btn-primary py-2 px-3">Xem chi tiết</a>
+                                            </div>  
                                         </div>
                                     </div>
-                                </div>
-                            </div>
-                        </div>
-                    </c:forEach>
+                                </c:forEach>
                 </div>
             </div>
             <div style="text-align: center;font-size: large">

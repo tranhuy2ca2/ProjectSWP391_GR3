@@ -86,8 +86,34 @@ public class UserManagement extends HttpServlet {
         String action = request.getParameter("action");
 
         if ("edit".equals(action)) {
-            // Lấy tất cả các tham số
+            // Retrieve only the userID and role parameters
             int userID = Integer.parseInt(request.getParameter("userID"));
+            String role = request.getParameter("role");
+
+            // Retrieve the current user details to maintain existing values for other fields
+            Customer currentUser = userDAO.getUserById(userID);
+            if (currentUser != null) {
+                currentUser.setRole(role);  // Set the new role
+
+                // Call DAO to update only the role
+                boolean success = userDAO.updateUserRole(currentUser);
+
+                // Set the appropriate message based on success
+                if (success) {
+                    request.setAttribute("message", "Người dùng đã được cập nhật thành công!");
+                } else {
+                    request.setAttribute("message", "Có lỗi xảy ra khi cập nhật người dùng!");
+                }
+            } else {
+                request.setAttribute("message", "Người dùng không tồn tại!");
+            }
+
+            // Reload user list and forward to list_user.jsp
+            List<Customer> users = userDAO.getAllUsers();
+            request.setAttribute("usersr", users);
+            request.getRequestDispatcher("list_user.jsp").forward(request, response);
+        } else if ("add".equals(action)) {
+            // Retrieve input parameters
             String userName = request.getParameter("userName");
             String password = request.getParameter("password");
             String fullName = request.getParameter("fullName");
@@ -95,80 +121,50 @@ public class UserManagement extends HttpServlet {
             String phone = request.getParameter("phone");
             String role = request.getParameter("role");
             String address = request.getParameter("address");
-            String passwordmd5 = md5Hash(password);
 
-            // Nếu mật khẩu không được nhập, lấy mật khẩu hiện tại từ cơ sở dữ liệu
-            if (password == null || password.isEmpty()) {
-                Customer currentUser = userDAO.getUserById(userID);  // Phương thức getUserById cần được thêm vào DAO
-                if (currentUser != null) {
-                    password = currentUser.getPassword();  // Lấy mật khẩu hiện tại
-                }
-            }
-
-            // Tạo đối tượng Customer với các tham số đã lấy được
-            Customer user = new Customer(userID, userName, passwordmd5, fullName, email, phone, role, address, null);
-
-            boolean success = userDAO.updateUser(user); // Gọi DAO để cập nhật
-
-            if (success) {
-                request.setAttribute("message", "Người dùng đã được cập nhật thành công!");
+            // Validate username length
+            if (userName.length() < 5) {
+                request.setAttribute("message", "Tên người dùng phải có ít nhất 5 kí tự!");
+            } // Check if username or email already exists
+            else if (userDAO.checkUsernameExist(userName)) {
+                request.setAttribute("message", "Tên người dùng đã tồn tại!");
+            } else if (userDAO.checkCustomerExist(email)) {
+                request.setAttribute("message", "Email đã tồn tại!");
+            } // Validate password strength
+            else if (!isValidPassword(password)) {
+                request.setAttribute("message", "Mật khẩu phải có từ 8 đến 20 kí tự, bao gồm ít nhất một chữ cái thường, một chữ hoa và một số.");
             } else {
-                request.setAttribute("message", "Có lỗi xảy ra khi cập nhật người dùng!");
-            }
+                // Encrypt the password
+                String passwordmd5 = md5Hash(password);
 
-            // Tải lại danh sách người dùng
-            List<Customer> users = userDAO.getAllUsers();
-            request.setAttribute("usersr", users);
-            request.getRequestDispatcher("list_user.jsp").forward(request, response);
+                // Create a new Customer object
+                Customer newUser = new Customer(0, userName, passwordmd5, fullName, email, phone, role, address, null);
 
-        } else if ("delete".equals(action)) {
-            // Process delete action
-            int userID = Integer.parseInt(request.getParameter("userID"));
-            int loggedInUserID = (int) request.getSession().getAttribute("loggedInUserID"); // Assuming the logged-in user's ID is stored in the session
+                // Call DAO to add the new user
+                boolean success = userDAO.addUser(newUser);
 
-            if (userID == loggedInUserID) {
-                request.setAttribute("message", "Bạn không thể xóa tài khoản của chính mình!");
-            } else {
-                boolean success = userDAO.deleteUser(userID);
-
+                // Set the success or failure message
                 if (success) {
-                    request.setAttribute("message", "Người dùng đã được xóa thành công!");
+                    request.setAttribute("message", "Người dùng đã được thêm thành công!");
                 } else {
-                    request.setAttribute("message", "Có lỗi xảy ra khi xóa người dùng!");
+                    request.setAttribute("message", "Có lỗi xảy ra khi thêm người dùng!");
                 }
             }
 
-            // Reload user list
-            List<Customer> users = userDAO.getAllUsers();
-            request.setAttribute("users", users);
-            request.getRequestDispatcher("list_user.jsp").forward(request, response);
-        } else if ("add".equals(action)) {
-            // Logic to add a new user
-            String userName = request.getParameter("userName");
-            String password = request.getParameter("password"); // Lấy giá trị mật khẩu từ form
-            String fullName = request.getParameter("fullName");
-            String email = request.getParameter("email");
-            String phone = request.getParameter("phone");
-            String role = request.getParameter("role");
-            String address = request.getParameter("address");
-            String passwordmd5 = md5Hash(password);
-            // Tạo đối tượng Customer với các tham số
-            Customer newUser = new Customer(0, userName, passwordmd5, fullName, email, phone, role, address, null);
-
-            boolean success = userDAO.addUser(newUser); // Gọi DAO để thêm người dùng
-
-            if (success) {
-                request.setAttribute("message", "Người dùng đã được thêm thành công!");
-            } else {
-                request.setAttribute("message", "Có lỗi xảy ra khi thêm người dùng!");
-            }
-
-            // Tải lại danh sách người dùng
+            // Reload the list of users
             List<Customer> users = userDAO.getAllUsers();
             request.setAttribute("usersr", users);
             request.getRequestDispatcher("list_user.jsp").forward(request, response);
         }
+    }
 
+    private boolean isValidPassword(String password) {
+        return password.length() >= 8 && password.length() <= 20
+                && password.matches(".*[a-z].*")
+                && // at least one lowercase letter
+                password.matches(".*[A-Z].*")
+                && // at least one uppercase letter
+                password.matches(".*\\d.*");      // at least one digit
     }
 
     public String md5Hash(String input) {

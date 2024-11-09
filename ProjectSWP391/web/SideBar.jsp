@@ -47,21 +47,7 @@
                             <span>Quản lý auction</span>
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link collapsed" href="PostManagement">
-                            <i class="bi bi-book"></i>
-                            <span>Quản lý Bài Đăng</span>
-                        </a>
-                    </li>
-                      <li class="nav-item">
-                        <a class="nav-link collapsed" href="contactManager"  style="position: relative;">
-                            <i class="bi bi-book"></i>
-                            <span>Quản lí phản hồi</span>
-                            <c:if test="${sessionScope.notify == 'true'}">
-                                <i class="bi bi-bell-fill" style="color: red; position: absolute; top: 5; right: 0; transform: translate(50%, -50%);"></i>
-                            </c:if>
-                        </a>
-                    </li>
+                   
                     
                 </c:if>
                 <c:if test="${sessionScope.user.role == 2}">
@@ -83,12 +69,12 @@
                             <span>Quản lí đất đai</span>
                         </a>
                     </li>
-                    <li class="nav-item">
+<!--                    <li class="nav-item">
                         <a class="nav-link collapsed" href="ManageRegistForm.jsp">
                             <i class="fas fa-history"></i>
                             <span> Đơn xác nhận đấu giá</span>
                         </a>
-                    </li>
+                    </li>-->
                      <li class="nav-item">
                         <a class="nav-link collapsed" href="myAution">
                             <i class="bi bi-book"></i>

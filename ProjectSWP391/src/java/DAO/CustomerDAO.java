@@ -142,6 +142,23 @@ public class CustomerDAO {
         return customers;
     }
 
+    public boolean updateUserRole(Customer customer) {
+        String query = "UPDATE [SWP391_G3_Project].[dbo].[Users] SET role = ? WHERE UserID = ?";
+        try {
+            DBContext dbContext = new DBContext();
+            Connection con = dbContext.getConnection();
+            PreparedStatement ps = con.prepareStatement(query);
+            ps.setInt(1, Integer.parseInt(customer.getRole()));  // Set only the role
+            ps.setInt(2, customer.getUserID());
+
+            int result = ps.executeUpdate();
+            return result > 0;  // Return true if the update was successful
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
     public boolean updateUser(Customer customer) {
         String query = "UPDATE [SWP391_G3_Project].[dbo].[Users] SET userName = ?, fullName = ?, Email = ?, phone = ?, role = ?, address = ? "
                 + (customer.getPassword() != null && !customer.getPassword().isEmpty() ? ", password = ?" : "") + " WHERE UserID = ?";

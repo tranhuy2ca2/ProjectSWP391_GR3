@@ -52,6 +52,7 @@ public class SearchLandLot extends HttpServlet {
             }
             LandLotsDAO landdao = new LandLotsDAO();
             List<LandLots> list = landdao.getAllLandLotsDetail(keyword, order);
+            System.out.println("sadad"+list.size());
             int total = list.size() % 5 == 0 ? (list.size() / 5) : (list.size() / 5 + 1);
             List<LandLots> subList = list.subList(5 * (pageNum - 1), Math.min(5 * pageNum, list.size()));
             request.setAttribute("listlandlot", subList);

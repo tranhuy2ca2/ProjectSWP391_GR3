@@ -399,8 +399,8 @@ public List<Auction> getAllAuctions1() {
                 // Create Auction object and set its properties
                 Auction auction = new Auction();
                 auction.setLandLots(landLots);
-                auction.setStartTime(new Timestamp(rs.getDate("StartTime").getTime()));
-                auction.setEndTime(new Timestamp(rs.getDate("EndTime").getTime()));
+                auction.setStartTime(rs.getTimestamp("StartTime"));
+                auction.setEndTime(rs.getTimestamp("EndTime"));
                 auction.setStatus(rs.getString("Status"));
                 auction.setWinnerID(rs.getInt("WinnerID"));
                 auctions.add(auction);
