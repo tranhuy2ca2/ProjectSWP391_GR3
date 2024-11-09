@@ -118,16 +118,7 @@
                                                                             data-role="${user.role}">
                                                                         <i class="fas fa-edit"></i> Sửa
                                                                     </button>
-                                                                    <form action="UserManagement" method="post" style="display: inline-block;" 
-                                                                          onsubmit="return confirm('Bạn có chắc chắn muốn xóa người dùng này?');">
-                                                                        <input type="hidden" name="userID" value="${user.userID}">
-                                                                        <input type="hidden" name="action" value="delete">
-                                                                        <button type="submit" class="btn btn-danger btn-sm">
-                                                                            <i class="fas fa-trash-alt"></i> Xóa
-                                                                        </button>
-                                                                    </form>
-
-
+                                                                   
                                                                 </td>
                                                             </tr>
                                                         </c:forEach>
@@ -160,21 +151,22 @@
                         <form id="editUserForm" action="UserManagement" method="post">
                             <input type="hidden" name="action" value="edit"> <!-- Add action parameter -->
                             <input type="hidden" name="userID" id="userID"> <!-- User ID hidden field -->
+
                             <div class="mb-3">
                                 <label for="userName" class="form-label">Tên Hiển Thị</label>
-                                <input type="text" class="form-control" name="userName" id="userName" required>
+                                <input type="text" class="form-control" name="userName" id="userName" readonly>
                             </div>
                             <div class="mb-3">
                                 <label for="fullName" class="form-label">Họ và Tên</label>
-                                <input type="text" class="form-control" name="fullName" id="fullName" required>
+                                <input type="text" class="form-control" name="fullName" id="fullName" readonly>
                             </div>
                             <div class="mb-3">
                                 <label for="email" class="form-label">Email</label>
-                                <input type="email" class="form-control" name="email" id="email" required>
+                                <input type="email" class="form-control" name="email" id="email" readonly>
                             </div>
                             <div class="mb-3">
                                 <label for="phone" class="form-label">Số Điện Thoại</label>
-                                <input type="text" class="form-control" name="phone" id="phone" required>
+                                <input type="text" class="form-control" name="phone" id="phone" readonly>
                             </div>
                             <div class="mb-3">
                                 <label for="role" class="form-label">Chức vụ</label>
@@ -184,21 +176,17 @@
                                     <option value="3">Nhân viên</option>
                                     <option value="4">Nhà đấu giá</option>
                                     <option value="5">Khách</option>
-
                                 </select>
                             </div>
                             <div class="mb-3">
                                 <label for="address" class="form-label">Địa Chỉ</label>
-                                <input type="text" class="form-control" name="address" id="address" required>
+                                <input type="text" class="form-control" name="address" id="address" readonly>
                             </div>
-                            <div class="mb-3">
-                                <label for="password" class="form-label">Mật Khẩu</label>
-                                <input type="password" class="form-control" name="password" id="password">
-                                <small class="form-text text-muted">Để trống nếu không thay đổi mật khẩu.</small>
-                            </div>
+
                             <button type="submit" class="btn btn-primary">Cập Nhật</button>
                         </form>
                     </div>
+
                 </div>
             </div>
         </div>
@@ -264,27 +252,27 @@
         <script src="assets/vendor/apexcharts/apexcharts.min.js"></script>
         <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
         <script>
-                                                                              $(document).ready(function () {
-                                                                                  $('.btn-edit').on('click', function () {
-                                                                                      const userID = $(this).data('user-id');
-                                                                                      const userName = $(this).data('user-name');
-                                                                                      const fullName = $(this).data('full-name');
-                                                                                      const email = $(this).data('email');
-                                                                                      const address = $(this).data('address');
-                                                                                      const phone = $(this).data('phone');
-                                                                                      const role = $(this).data('role');
+          $(document).ready(function () {
+              $('.btn-edit').on('click', function () {
+                  const userID = $(this).data('user-id');
+                  const userName = $(this).data('user-name');
+                  const fullName = $(this).data('full-name');
+                  const email = $(this).data('email');
+                  const address = $(this).data('address');
+                  const phone = $(this).data('phone');
+                  const role = $(this).data('role');
 
-                                                                                      $('#userID').val(userID);
-                                                                                      $('#userName').val(userName);
-                                                                                      $('#fullName').val(fullName);
-                                                                                      $('#email').val(email);
-                                                                                      $('#phone').val(phone);
-                                                                                      $('#role').val(role);
-                                                                                      $('#address').val(address);
+                  $('#userID').val(userID);
+                  $('#userName').val(userName);
+                  $('#fullName').val(fullName);
+                  $('#email').val(email);
+                  $('#phone').val(phone);
+                  $('#role').val(role);
+                  $('#address').val(address);
 
-                                                                                      $('#editUserModal').modal('show');
-                                                                                  });
-                                                                              });
+                  $('#editUserModal').modal('show');
+              });
+          });
         </script>
 
     </body>

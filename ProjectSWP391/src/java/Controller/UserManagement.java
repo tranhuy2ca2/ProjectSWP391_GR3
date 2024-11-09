@@ -86,61 +86,31 @@ public class UserManagement extends HttpServlet {
         String action = request.getParameter("action");
 
         if ("edit".equals(action)) {
-            // Lấy tất cả các tham số
+            // Retrieve only the userID and role parameters
             int userID = Integer.parseInt(request.getParameter("userID"));
-            String userName = request.getParameter("userName");
-            String password = request.getParameter("password");
-            String fullName = request.getParameter("fullName");
-            String email = request.getParameter("email");
-            String phone = request.getParameter("phone");
             String role = request.getParameter("role");
-            String address = request.getParameter("address");
-            String passwordmd5 = md5Hash(password);
 
-            // Nếu mật khẩu không được nhập, lấy mật khẩu hiện tại từ cơ sở dữ liệu
-            if (password == null || password.isEmpty()) {
-                Customer currentUser = userDAO.getUserById(userID);  // Phương thức getUserById cần được thêm vào DAO
-                if (currentUser != null) {
-                    password = currentUser.getPassword();  // Lấy mật khẩu hiện tại
+            // Retrieve the current user details to maintain existing values for other fields
+            Customer currentUser = userDAO.getUserById(userID);
+            if (currentUser != null) {
+                currentUser.setRole(role);  // Set the new role
+
+                // Call DAO to update only the role
+                boolean success = userDAO.updateUserRole(currentUser);
+
+                // Set the appropriate message based on success
+                if (success) {
+                    request.setAttribute("message", "Người dùng đã được cập nhật thành công!");
+                } else {
+                    request.setAttribute("message", "Có lỗi xảy ra khi cập nhật người dùng!");
                 }
-            }
-
-            // Tạo đối tượng Customer với các tham số đã lấy được
-            Customer user = new Customer(userID, userName, passwordmd5, fullName, email, phone, role, address, null);
-
-            boolean success = userDAO.updateUser(user); // Gọi DAO để cập nhật
-
-            if (success) {
-                request.setAttribute("message", "Người dùng đã được cập nhật thành công!");
             } else {
-                request.setAttribute("message", "Có lỗi xảy ra khi cập nhật người dùng!");
+                request.setAttribute("message", "Người dùng không tồn tại!");
             }
 
-            // Tải lại danh sách người dùng
+            // Reload user list and forward to list_user.jsp
             List<Customer> users = userDAO.getAllUsers();
             request.setAttribute("usersr", users);
-            request.getRequestDispatcher("list_user.jsp").forward(request, response);
-
-        } else if ("delete".equals(action)) {
-            // Process delete action
-            int userID = Integer.parseInt(request.getParameter("userID"));
-            int loggedInUserID = (int) request.getSession().getAttribute("loggedInUserID"); // Assuming the logged-in user's ID is stored in the session
-
-            if (userID == loggedInUserID) {
-                request.setAttribute("message", "Bạn không thể xóa tài khoản của chính mình!");
-            } else {
-                boolean success = userDAO.deleteUser(userID);
-
-                if (success) {
-                    request.setAttribute("message", "Người dùng đã được xóa thành công!");
-                } else {
-                    request.setAttribute("message", "Có lỗi xảy ra khi xóa người dùng!");
-                }
-            }
-
-            // Reload user list
-            List<Customer> users = userDAO.getAllUsers();
-            request.setAttribute("users", users);
             request.getRequestDispatcher("list_user.jsp").forward(request, response);
         } else if ("add".equals(action)) {
             // Retrieve input parameters
