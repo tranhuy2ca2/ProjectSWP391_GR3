@@ -107,8 +107,6 @@
                                 <div class="meta mb-3">${customer.getEmail()}</div>
                                 <p> đấu giá đất là việc cơ quan có thẩm quyền tổ chức bán đấu giá công khai các thửa đất và người tham gia đấu giá có thể là các cá nhân, tổ chức đáp ứng đủ điều kiện theo quy định của pháp luật.
                                 </p>
-
-
                                 <ul class="list-unstyled social dark-hover d-flex">
                                     <li class="me-1">
                                         <a href="#"><span class="icon-instagram"></span></a>
